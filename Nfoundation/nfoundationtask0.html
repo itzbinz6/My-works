@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NayePankh Foundation — Giving Underprivileged Lives New Wings</title>
+<meta name="description" content="NayePankh Foundation is a UP Government, 80G & 12A registered NGO providing food, education, hygiene and clothing to underprivileged communities across India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+html,body{overflow-x:hidden;width:100%;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+button{font:inherit;cursor:pointer;border:none;background:none;}
+ul{list-style:none;}
+input,textarea{font:inherit;}
+
+/* ============ THEME TOKENS ============ */
+:root,[data-theme="light"]{
+  --bg:#FBF4E8;
+  --bg-secondary:#F4EAD5;
+  --surface:#FFFFFF;
+  --text-primary:#231F1A;
+  --text-secondary:#6B6256;
+  --text-tertiary:#9C927F;
+  --border:#ECE3D2;
+  --border-strong:#DDD0B5;
+  --accent:#F2A93B;
+  --accent-ink:#3A2300;
+  --accent-soft:#FBE6BC;
+  --nav-bg:rgba(251,244,232,.82);
+  --night:#161B33;
+  --night-deep:#0E1224;
+  --night-text:#FBF4E8;
+  --night-text-sec:#C9CADB;
+  --night-border:rgba(255,255,255,.14);
+  --clay:#C84B31;
+  --teal:#3F8F86;
+  --shadow:0 24px 60px rgba(35,31,26,.10);
+}
+[data-theme="dark"]{
+  --bg:#0A0D1A;
+  --bg-secondary:#11152A;
+  --surface:#161B33;
+  --text-primary:#F2EDE0;
+  --text-secondary:#B7B9CC;
+  --text-tertiary:#74779A;
+  --border:rgba(255,255,255,.10);
+  --border-strong:rgba(255,255,255,.20);
+  --accent:#FFC369;
+  --accent-ink:#3A2300;
+  --accent-soft:rgba(255,195,105,.16);
+  --nav-bg:rgba(10,13,26,.82);
+  --night:#05070F;
+  --night-deep:#020308;
+  --night-text:#F2EDE0;
+  --night-text-sec:#B7B9CC;
+  --night-border:rgba(255,255,255,.16);
+  --clay:#E37359;
+  --teal:#5CC0B5;
+  --shadow:0 24px 60px rgba(0,0,0,.45);
+}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text-primary);
+  transition:background .35s ease,color .35s ease;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ TYPE SCALE ============ */
+.display{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-0.01em;}
+.eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;}
+.eyebrow::before{content:"";width:14px;height:1.5px;background:var(--accent);}
+h1{font-size:clamp(2.4rem,5.6vw,3.8rem);line-height:1.07;}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.12;}
+h3{font-size:clamp(1.2rem,2.2vw,1.4rem);line-height:1.25;}
+.lede{font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.7;color:var(--text-secondary);}
+.section-pad{padding:80px 0;}
+.container{max-width:1180px;margin:0 auto;padding:0 48px;}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;padding:15px 28px;border-radius:9px;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease,background .25s ease,border-color .25s ease;white-space:nowrap;min-height:44px;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--accent);color:var(--accent-ink);}
+.btn-primary:hover{box-shadow:0 14px 30px -8px rgba(242,169,59,.55);transform:translateY(-2px);}
+.btn-ghost-light{border:1.4px solid rgba(255,255,255,.3);color:var(--night-text);}
+.btn-ghost-light:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.06);}
+.btn-ghost-dark{border:1.4px solid var(--border-strong);color:var(--text-primary);}
+.btn-ghost-dark:hover{border-color:var(--accent);background:var(--accent-soft);}
+.btn-block{width:100%;justify-content:center;}
+
+/* ============ NAVBAR ============ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:padding .3s ease,background .3s ease,box-shadow .3s ease,backdrop-filter .3s ease;}
+.navbar.scrolled{padding:13px 0;background:var(--nav-bg);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:0 48px;}
+.wordmark{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:var(--text-primary);z-index:1100;}
+.navbar:not(.scrolled) .wordmark{color:var(--night-text);}
+.wing-mark{width:26px;height:26px;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:34px;}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--night-text-sec);position:relative;padding:4px 0;}
+.navbar.scrolled .nav-links a{color:var(--text-secondary);}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--accent);transition:width .3s cubic-bezier(.2,.8,.2,1);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{color:var(--accent)!important;}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.theme-toggle{width:46px;height:25px;border-radius:13px;background:rgba(255,255,255,.14);position:relative;flex-shrink:0;border:1px solid rgba(255,255,255,.18);transition:background .3s;}
+.navbar.scrolled .theme-toggle{background:var(--bg-secondary);border-color:var(--border);}
+.theme-toggle .knob{position:absolute;width:19px;height:19px;border-radius:50%;background:var(--accent);top:2px;left:2px;transition:left .3s cubic-bezier(.4,1.4,.6,1);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent-ink);}
+[data-theme="dark"] .theme-toggle .knob{left:23px;}
+.hamburger{display:none;flex-direction:column;gap:5px;width:26px;z-index:1100;}
+.hamburger span{height:2px;width:100%;background:var(--night-text);border-radius:2px;transition:transform .3s,opacity .3s,background .3s;}
+.navbar.scrolled .hamburger span{background:var(--text-primary);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;background:var(--surface);z-index:1050;transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;justify-content:center;gap:30px;padding:0 44px;box-shadow:-20px 0 60px rgba(0,0,0,.18);}
+.mobile-menu.open{transform:translateX(0);}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--text-primary);}
+.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:opacity .3s ease;z-index:1040;}
+.menu-overlay.open{opacity:1;visibility:visible;}
+
+/* ============ HERO ============ */
+.hero{background:linear-gradient(168deg,var(--night) 0%,var(--night) 62%,var(--night-deep) 100%);color:var(--night-text);position:relative;overflow:hidden;padding-top:130px;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;padding-bottom:90px;position:relative;z-index:2;}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;color:var(--night-text-sec);border:1px solid rgba(255,255,255,.16);padding:8px 16px;border-radius:999px;margin-bottom:22px;}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(63,143,134,.18);}
+.hero h1{margin-bottom:20px;}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--accent);}
+.hero-sub{font-size:16px;line-height:1.7;color:var(--night-text-sec);max-width:430px;margin-bottom:34px;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:50px;}
+.hero-trust{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--night-text-sec);opacity:.7;}
+.hero-trust span:not(:last-child)::after{content:"·";margin-left:18px;opacity:.5;}
+.hero-visual{position:relative;height:420px;}
+.hero-glow{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(242,169,59,.30),rgba(242,169,59,0) 70%);top:0;right:-20px;animation:pulseGlow 7s ease-in-out infinite;}
+@keyframes pulseGlow{0%,100%{opacity:.7;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
+.wing-art{position:absolute;top:0;left:0;width:100%;height:100%;animation:floatWing 8s ease-in-out infinite;}
+@keyframes floatWing{0%,100%{transform:translateY(0px);}50%{transform:translateY(-14px);}}
+.stat-chip{position:absolute;left:-16px;bottom:24px;background:var(--surface);color:var(--text-primary);border-radius:14px;padding:18px 22px;box-shadow:var(--shadow);z-index:3;min-width:200px;}
+.stat-chip .num{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--clay);}
+.stat-chip .cap{font-size:11px;color:var(--text-tertiary);letter-spacing:.05em;text-transform:uppercase;margin-top:2px;}
+.scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;color:var(--night-text-sec);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.6;}
+.scroll-cue i{animation:bounceDown 1.8s ease-in-out infinite;}
+@keyframes bounceDown{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal-stagger.in > *{opacity:1;transform:translateY(0);}
+.reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in > *:nth-child(2){transition-delay:.15s;}
+.reveal-stagger.in > *:nth-child(3){transition-delay:.25s;}
+.reveal-stagger.in > *:nth-child(4){transition-delay:.35s;}
+.reveal-stagger.in > *:nth-child(5){transition-delay:.45s;}
+
+/* ============ ABOUT ============ */
+.about{background:var(--bg);}
+.about-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:60px;align-items:start;}
+.quote-rule{width:38px;height:2px;background:var(--accent);margin-bottom:22px;}
+.quote{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.45;color:var(--text-primary);}
+.quote .hl{color:var(--clay);font-style:normal;}
+.quote-by{margin-top:20px;font-size:13px;color:var(--text-tertiary);font-style:normal;}
+.quote-by strong{color:var(--text-secondary);font-weight:600;}
+.about-body p{margin-bottom:18px;}
+.media-strip{margin-top:40px;display:flex;gap:28px;flex-wrap:wrap;align-items:center;padding-top:28px;border-top:1px solid var(--border);}
+.media-strip span{font-family:'Fraunces',serif;font-size:14px;color:var(--text-tertiary);font-weight:500;}
+
+/* ============ PROGRAMS ============ */
+.programs{background:var(--bg);}
+.prog-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:50px;flex-wrap:wrap;}
+.prog-head .lede{max-width:380px;margin:0;}
+.prog-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;}
+.prog-grid .p-card{grid-column:span 2;}
+.prog-grid .p-card:nth-child(4){grid-column:3 / span 2;}
+.prog-grid .p-card:nth-child(5){grid-column:5 / span 2;}
+.p-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:30px 26px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease;}
+.p-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent;}
+.p-card.raised{transform:translateY(-22px);}
+.p-card.raised:hover{transform:translateY(-28px);}
+.p-card.inverted{background:var(--night);border:none;color:var(--night-text);}
+.p-card.inverted .p-title{color:var(--accent);}
+.p-card.inverted .p-text{color:var(--night-text-sec);}
+.p-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:18px;}
+.p-title{font-family:'Fraunces',serif;font-size:18px;font-weight:500;margin-bottom:10px;}
+.p-text{font-size:13.8px;line-height:1.65;color:var(--text-secondary);}
+
+/* ============ IMPACT ============ */
+.impact{background:var(--bg-secondary);position:relative;overflow:hidden;}
+.impact-head{text-align:center;max-width:560px;margin:0 auto 60px;}
+.impact-head .eyebrow{justify-content:center;}
+.impact-head .eyebrow::before{display:none;}
+.impact-arc-wrap{position:relative;}
+.impact-arc-svg{position:absolute;top:38px;left:0;width:100%;height:60px;z-index:0;}
+.impact-arc-svg path{stroke:var(--border-strong);stroke-width:2;stroke-dasharray:6 8;fill:none;}
+.impact-arc-svg path.draw{stroke:var(--accent);stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2.2s cubic-bezier(.2,.7,.2,1);}
+.impact-arc-svg path.draw.in{stroke-dashoffset:0;}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;z-index:1;}
+.impact-stat{text-align:center;}
+.impact-num{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4vw,3rem);font-weight:600;color:var(--text-primary);}
+.impact-num .plus{color:var(--clay);}
+.impact-cap{font-size:12.5px;color:var(--text-secondary);margin-top:8px;letter-spacing:.02em;}
+.impact-badge{background:var(--surface);border:1px solid var(--border-strong);border-radius:14px;padding:20px 14px;}
+.impact-badge i{font-size:20px;color:var(--teal);margin-bottom:8px;}
+
+/* ============ GET INVOLVED ============ */
+.involve{display:grid;grid-template-columns:1fr 1fr;min-height:480px;}
+.involve-panel{padding:80px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.involve-panel.dark{background:var(--night);color:var(--night-text);}
+.involve-panel.light{background:var(--accent-soft);color:var(--text-primary);}
+.involve-panel h3{font-family:'Fraunces',serif;font-size:clamp(1.5rem,2.6vw,2rem);font-weight:500;margin-bottom:16px;}
+.involve-panel.dark .eyebrow{color:var(--accent);}
+.involve-panel.light .eyebrow{color:var(--clay);}
+.involve-panel.light .eyebrow::before{background:var(--clay);}
+.involve-panel p{font-size:14.5px;line-height:1.7;margin-bottom:28px;max-width:380px;}
+.involve-panel.dark p{color:var(--night-text-sec);}
+.involve-panel.light p{color:var(--text-secondary);}
+.involve-wing{position:absolute;right:-40px;bottom:-40px;width:200px;height:200px;opacity:.08;}
+
+/* ============ REVIEWS ============ */
+.reviews{background:var(--night);color:var(--night-text);position:relative;overflow:hidden;}
+.reviews-top{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:end;margin-bottom:54px;}
+.reviews .eyebrow{color:var(--accent);}
+.rating-display{display:flex;align-items:baseline;gap:16px;}
+.rating-num{font-family:'Fraunces',serif;font-size:clamp(3.4rem,7vw,5.2rem);font-weight:600;color:var(--night-text);line-height:1;}
+.rating-meta{font-size:13px;color:var(--night-text-sec);}
+.rating-stars{color:var(--accent);font-size:17px;letter-spacing:3px;margin-bottom:6px;}
+.reviews-sub{font-size:14.5px;color:var(--night-text-sec);line-height:1.7;max-width:380px;justify-self:end;text-align:left;}
+.carousel-wrap{position:relative;}
+.carousel-track-wrap{overflow:hidden;}
+.carousel-track{display:flex;gap:20px;transition:transform .55s cubic-bezier(.25,.8,.3,1);}
+.r-card{flex:0 0 calc(31.5% - 14px);background:rgba(255,255,255,.04);border:1px solid var(--night-border);border-radius:16px;padding:28px 26px;backdrop-filter:blur(6px);}
+.r-card-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.r-avatar{width:42px;height:42px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
+.r-name{font-size:14.5px;font-weight:600;}
+.r-role{font-size:11.5px;color:var(--night-text-sec);}
+.r-stars{color:var(--accent);font-size:13px;margin-bottom:10px;letter-spacing:2px;}
+.r-text{font-size:13.8px;line-height:1.65;color:var(--night-text-sec);}
+.r-readmore{color:var(--accent);font-size:12.5px;font-weight:600;display:inline-block;margin-top:6px;}
+.r-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--teal);margin-top:14px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
+.r-badge.posted{color:var(--clay);}
+.carousel-controls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:34px;}
+.car-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--night-border);display:flex;align-items:center;justify-content:center;color:var(--night-text);transition:background .25s,border-color .25s;flex-shrink:0;}
+.car-arrow:hover{background:rgba(255,255,255,.08);border-color:var(--accent);}
+.car-dots{display:flex;gap:8px;}
+.car-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .3s,width .3s;}
+.car-dot.active{background:var(--accent);width:20px;border-radius:4px;}
+.review-form{margin-top:70px;background:rgba(255,255,255,.04);border:1px solid var(--night-border);border-radius:20px;padding:42px;}
+.rf-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:18px;}
+.field label{display:block;font-size:12.5px;color:var(--night-text-sec);margin-bottom:8px;}
+.field input,.field textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--night-border);border-radius:9px;padding:13px 14px;color:var(--night-text);font-size:14px;min-height:44px;transition:border-color .25s,background .25s;}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.08);}
+.field textarea{min-height:100px;resize:vertical;}
+.field-error{font-size:11.5px;color:var(--clay);margin-top:6px;display:none;}
+.star-rating{display:flex;gap:6px;direction:ltr;}
+.star-rating input{display:none;}
+.star-rating label{font-size:26px;color:rgba(255,255,255,.2);cursor:pointer;transition:color .15s;line-height:1;}
+.star-rating label:hover,.star-rating label:hover ~ label{color:var(--accent);}
+.star-rating input:checked ~ label{color:rgba(255,255,255,.2);}
+.star-rating{flex-direction:row-reverse;}
+.star-rating input:checked ~ label,.star-rating label:hover,.star-rating label:hover ~ label{color:var(--accent);}
+.form-msg{font-size:13px;margin-top:16px;display:none;padding:12px 16px;border-radius:9px;}
+.form-msg.show{display:block;}
+.form-msg.success{background:rgba(63,143,134,.15);color:var(--teal);}
+.google-link{color:var(--accent);font-size:13px;font-weight:600;margin-top:14px;display:none;}
+.google-link.show{display:inline-flex;align-items:center;gap:6px;}
+
+/* ============ FAQ ============ */
+.faq{background:var(--bg);}
+.faq-wrap{max-width:760px;margin:0 auto;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:26px 4px;cursor:pointer;gap:20px;}
+.faq-q h3{font-family:'Fraunces',serif;font-weight:500;font-size:17px;}
+.faq-q i{transition:transform .35s cubic-bezier(.2,.8,.2,1);color:var(--accent);flex-shrink:0;}
+.faq-item.open .faq-q i{transform:rotate(135deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1);}
+.faq-a p{font-size:14.5px;line-height:1.75;color:var(--text-secondary);padding:0 4px 26px;max-width:600px;}
+
+/* ============ CONTACT ============ */
+.contact{background:var(--night);color:var(--night-text);position:relative;overflow:hidden;}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;}
+.contact h2{margin-bottom:18px;}
+.contact .lede{color:var(--night-text-sec);max-width:420px;margin-bottom:34px;}
+.contact-cta{display:flex;gap:14px;flex-wrap:wrap;}
+.contact-card{background:rgba(255,255,255,.04);border:1px solid var(--night-border);border-radius:18px;padding:34px;}
+.contact-row{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--night-border);}
+.contact-row:last-child{border-bottom:none;}
+.contact-row i{color:var(--accent);font-size:16px;margin-top:2px;width:18px;}
+.contact-row .l{font-size:11.5px;color:var(--night-text-sec);text-transform:uppercase;letter-spacing:.05em;}
+.contact-row .v{font-size:14.5px;font-weight:500;margin-top:2px;}
+.tax-note{font-size:12px;color:var(--night-text-sec);margin-top:18px;padding-top:18px;border-top:1px solid var(--night-border);}
+
+/* ============ FOOTER ============ */
+.site-footer{background:var(--night-deep);color:var(--night-text);padding:70px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px;}
+.footer-brand .wordmark{color:var(--night-text);margin-bottom:16px;}
+.footer-brand p{font-size:13.5px;color:var(--night-text-sec);line-height:1.7;max-width:280px;}
+.footer-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--night-text-sec);margin-bottom:18px;font-weight:600;}
+.footer-col a{display:block;font-size:14px;color:var(--night-text-sec);margin-bottom:12px;transition:color .25s;}
+.footer-col a:hover{color:var(--accent);}
+.social-row{display:flex;gap:12px;margin-top:18px;}
+.social-row a{width:38px;height:38px;border-radius:50%;border:1px solid var(--night-border);display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .25s,border-color .25s,transform .25s;}
+.social-row a:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);transform:translateY(-3px);}
+.footer-bottom{border-top:1px solid var(--night-border);padding-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;color:var(--night-text-sec);opacity:.7;}
+.footer-credit{font-size:.68rem!important;opacity:.55;}
+.footer-credit a{color:var(--accent);opacity:1;}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .container{padding:0 32px;}
+  .nav-inner{padding:0 32px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{height:300px;margin-top:20px;}
+  .about-grid{grid-template-columns:1fr;gap:36px;}
+  .prog-grid{grid-template-columns:repeat(2,1fr);}
+  .prog-grid .p-card{grid-column:auto;}
+  .prog-grid .p-card:nth-child(4),.prog-grid .p-card:nth-child(5){grid-column:auto;}
+  .p-card.raised{transform:none;}
+  .impact-grid{grid-template-columns:repeat(2,1fr);gap:30px;}
+  .impact-arc-svg{display:none;}
+  .involve{grid-template-columns:1fr;}
+  .reviews-top{grid-template-columns:1fr;gap:24px;}
+  .reviews-sub{justify-self:start;text-align:left;}
+  .r-card{flex:0 0 87%;}
+  .rf-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media (max-width:600px){
+  .container{padding:0 22px;}
+  .nav-inner{padding:0 22px;}
+  #navDonate{display:none;}
+  .section-pad{padding:60px 0;}
+  .prog-grid{grid-template-columns:1fr;}
+  .impact-grid{grid-template-columns:repeat(2,1fr);gap:22px;}
+  .involve-panel{padding:56px 28px;}
+  .review-form{padding:28px;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .r-card{padding:22px 20px;}
+  .stat-chip{left:0;padding:14px 18px;}
+}
+@media (max-width:380px){
+  .footer-grid{grid-template-columns:1fr;}
+  .hero-cta{flex-direction:column;align-items:stretch;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="wordmark">
+      <svg class="wing-mark" viewBox="0 0 26 26" fill="none">
+        <path d="M13 2C10 7 4 9 2 9c2 5 7 9 11 13 4-4 9-8 11-13-2 0-8-2-11-7Z" fill="#F2A93B" opacity="0.9"/>
+        <path d="M13 6C11 9 7 11 5 11c1.5 3.5 5 6.5 8 9.5 3-3 6.5-6 8-9.5-2 0-6-2-8-5Z" fill="#3F8F86" opacity="0.85"/>
+      </svg>
+      NayePankh
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" data-link>About</a></li>
+      <li><a href="#programs" data-link>What We Do</a></li>
+      <li><a href="#impact" data-link>Impact</a></li>
+      <li><a href="#reviews" data-link>Reviews</a></li>
+      <li><a href="#faq" data-link>FAQ</a></li>
+      <li><a href="#contact" data-link>Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="knob"><i class="fa-solid fa-sun" id="toggleIcon"></i></span></button>
+      <a href="#contact" class="btn btn-primary" id="navDonate">Donate</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" data-link>About</a>
+  <a href="#programs" data-link>What We Do</a>
+  <a href="#impact" data-link>Impact</a>
+  <a href="#reviews" data-link>Reviews</a>
+  <a href="#faq" data-link>FAQ</a>
+  <a href="#contact" data-link>Contact</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="hero-badge"><span class="dot"></span> UP Govt. · 80G &amp; 12A Registered NGO</span>
+      <h1 class="display">Underprivileged lives,<br>given <em>new wings.</em></h1>
+      <p class="hero-sub">Food, education, hygiene and clothing for India's underprivileged — built and run by students who refused to wait for someone else to act.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-heart"></i> Donate now</a>
+        <a href="#impact" class="btn btn-ghost-light">See our impact</a>
+      </div>
+      <div class="hero-trust">
+        <span>Featured in The Pioneer</span>
+        <span>Dainik Jagran</span>
+        <span>Hindustan</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-glow"></div>
+      <svg class="wing-art" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
+        <path d="M150 280 C 90 250, 40 180, 60 90 C 110 120, 140 170, 150 280 Z" fill="#F2A93B" opacity="0.85"/>
+        <path d="M150 280 C 100 230, 70 150, 100 60 C 140 100, 155 170, 150 280 Z" fill="#C84B31" opacity="0.7"/>
+        <path d="M150 280 C 210 250, 260 180, 240 90 C 190 120, 160 170, 150 280 Z" fill="#3F8F86" opacity="0.8"/>
+        <path d="M150 280 C 200 230, 230 150, 200 60 C 160 100, 145 170, 150 280 Z" fill="#FBF4E8" opacity="0.15"/>
+      </svg>
+      <div class="stat-chip">
+        <div class="num">2,00,000+</div>
+        <div class="cap">Lives touched since 2020</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><i class="fa-solid fa-chevron-down"></i></div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="about section-pad" id="about">
+  <div class="container about-grid">
+    <div class="reveal">
+      <div class="quote-rule"></div>
+      <p class="quote">"If we all do something, then together there is <span class="hl">no problem</span> we cannot solve."</p>
+      <p class="quote-by"><strong>Prashant Shukla</strong> — Founder &amp; President, NayePankh Foundation</p>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Think global, act local</span>
+      <div class="about-body">
+        <p>NayePankh started during the toughest months of the pandemic, when a handful of college students began sharing whatever little they had with people who had even less. What began as a few packed meals grew into one of India's largest student-led NGOs — registered with the UP Government and certified under 80G &amp; 12A.</p>
+        <p>We're still run the same way we started: directly, locally, and by people young enough to believe it's still possible to fix things. No middlemen, no red tape — just students who show up.</p>
+      </div>
+      <div class="media-strip">
+        <span>The Pioneer</span>
+        <span>Dainik Jagran</span>
+        <span>Hindustan</span>
+        <span>Niti Aayog Affiliated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section class="programs section-pad" id="programs">
+  <div class="container">
+    <div class="prog-head reveal">
+      <div>
+        <span class="eyebrow">What we do</span>
+        <h2 class="display">Five ways we show up</h2>
+      </div>
+      <p class="lede">Every program is run on the ground by our own student teams — not outsourced, not abstract.</p>
+    </div>
+    <div class="prog-grid reveal-stagger">
+      <div class="p-card raised">
+        <div class="p-icon" style="background:rgba(63,143,134,.14);"><i class="fa-solid fa-bowl-food" style="color:#3F8F86;"></i></div>
+        <div class="p-title">Food security</div>
+        <div class="p-text">Daily meal drives for street communities and families who go without — and food left out for the strays nobody else feeds.</div>
+      </div>
+      <div class="p-card inverted">
+        <div class="p-icon" style="background:rgba(255,255,255,.08);"><i class="fa-solid fa-droplet" style="color:#F2A93B;"></i></div>
+        <div class="p-title">Hygiene &amp; sanitary care</div>
+        <div class="p-text">Free sanitary products and awareness drives that break the silence around menstrual health.</div>
+      </div>
+      <div class="p-card raised">
+        <div class="p-icon" style="background:rgba(200,75,49,.12);"><i class="fa-solid fa-book-open" style="color:#C84B31;"></i></div>
+        <div class="p-title">Education access</div>
+        <div class="p-text">Books, uniforms and tutoring, so a child's schooling never depends on a family's worst month.</div>
+      </div>
+      <div class="p-card">
+        <div class="p-icon" style="background:rgba(242,169,59,.14);"><i class="fa-solid fa-shirt" style="color:#F2A93B;"></i></div>
+        <div class="p-title">Clothing drives</div>
+        <div class="p-text">Warm clothes and daily essentials handed directly to families during winter and crisis.</div>
+      </div>
+      <div class="p-card">
+        <div class="p-icon" style="background:rgba(63,143,134,.14);"><i class="fa-solid fa-paw" style="color:#3F8F86;"></i></div>
+        <div class="p-title">Animal welfare</div>
+        <div class="p-text">Feeding and caring for stray animals alongside every community drive we run.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT ============ -->
+<section class="impact section-pad" id="impact">
+  <div class="container">
+    <div class="impact-head reveal">
+      <span class="eyebrow">Five years of showing up</span>
+      <h2 class="display">Numbers that took a long time to add up</h2>
+    </div>
+    <div class="impact-arc-wrap">
+      <svg class="impact-arc-svg" viewBox="0 0 1080 60" preserveAspectRatio="none">
+        <path d="M20,40 Q270,-10 540,40 T1060,40" class="static"></path>
+        <path d="M20,40 Q270,-10 540,40 T1060,40" class="draw" id="arcDraw"></path>
+      </svg>
+      <div class="impact-grid">
+        <div class="impact-stat">
+          <div class="impact-num"><span class="count" data-target="200000">0</span><span class="plus">+</span></div>
+          <div class="impact-cap">Lives touched</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-num"><span class="count" data-target="30000">0</span><span class="plus">+</span></div>
+          <div class="impact-cap">Interns trained</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-num"><span class="count" data-target="5">0</span><span class="plus">+</span></div>
+          <div class="impact-cap">Years on the ground</div>
+        </div>
+        <div class="impact-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div class="impact-num" style="font-size:1.1rem;">UP Govt.</div>
+          <div class="impact-cap">80G &amp; 12A certified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GET INVOLVED ============ -->
+<section class="involve" id="involve">
+  <div class="involve-panel dark reveal">
+    <svg class="involve-wing" viewBox="0 0 300 300"><path d="M150 280 C 90 250, 40 180, 60 90 C 110 120, 140 170, 150 280 Z" fill="#F2A93B"/></svg>
+    <span class="eyebrow">Join the team</span>
+    <h3 class="display">Intern or volunteer with us</h3>
+    <p>Whether you're drawn to education, health, or crisis support — there's a place for you on our team. No prior NGO experience needed, we train every new intern ourselves.</p>
+    <a href="mailto:contact@nayepankh.com?subject=Internship%20Inquiry" class="btn btn-ghost-light" style="align-self:flex-start;"><i class="fa-solid fa-arrow-right"></i> Apply to intern</a>
+  </div>
+  <div class="involve-panel light reveal">
+    <span class="eyebrow">Make it possible</span>
+    <h3 class="display">Every rupee plants a future</h3>
+    <p>Your donation funds meals, sanitary kits, school supplies and clothing distributed directly by our student teams. Donations are tax-exempt up to 50% under 80G.</p>
+    <a href="#contact" class="btn btn-primary" style="align-self:flex-start;"><i class="fa-solid fa-heart"></i> Donate now</a>
+  </div>
+</section>
+
+<!-- ============ REVIEWS SETUP ============ -->
+<!-- Replace GOOGLE_MAPS_LINK_HERE with the foundation's Google Maps URL to enable the "See us on Google" and "Post it on Google too" links -->
+<section class="reviews section-pad" id="reviews">
+  <div class="container">
+    <div class="reviews-top reveal">
+      <div>
+        <span class="eyebrow">What people are saying</span>
+        <div class="rating-display">
+          <div class="rating-num">4.9</div>
+          <div>
+            <div class="rating-stars">★★★★★</div>
+            <div class="rating-meta">Based on intern, volunteer &amp; community reviews</div>
+          </div>
+        </div>
+      </div>
+      <p class="reviews-sub">Real words from the students who've run our drives and the families who've stood on the other side of them.</p>
+    </div>
+
+    <div class="carousel-wrap">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- review cards injected by JS -->
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="car-arrow" id="carPrev" aria-label="Previous reviews"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="car-dots" id="carDots"></div>
+        <button class="car-arrow" id="carNext" aria-label="Next reviews"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <div class="review-form reveal">
+      <h3 class="display" style="margin-bottom:6px;">Share your experience</h3>
+      <p style="font-size:13.5px;color:var(--night-text-sec);margin-bottom:26px;">Volunteered, interned, or been helped by us? We'd love to hear it.</p>
+      <form id="reviewForm">
+        <div class="rf-grid">
+          <div class="field">
+            <label for="rName">Your name</label>
+            <input type="text" id="rName" placeholder="e.g. Ananya Verma" required>
+            <div class="field-error" id="rNameErr">Please enter your name.</div>
+          </div>
+          <div class="field">
+            <label>Your rating</label>
+            <div class="star-rating" id="starRating">
+              <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+              <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+              <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+              <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+              <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+            </div>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+          <label for="rText">Your review</label>
+          <textarea id="rText" placeholder="Tell us about your experience (min. 20 characters)" required></textarea>
+          <div class="field-error" id="rTextErr">Please write at least 20 characters.</div>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Post review</button>
+        <div class="form-msg success" id="formMsg">Thank you — your review has been posted below.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq section-pad" id="faq">
+  <div class="container">
+    <div class="impact-head reveal" style="margin-bottom:46px;">
+      <span class="eyebrow">Good to ask</span>
+      <h2 class="display">Frequently asked questions</h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item open">
+        <div class="faq-q"><h3>Is my donation tax-exempt?</h3><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a"><p>Yes. NayePankh Foundation is certified under 80G of the Indian Income Tax Act, so your donation qualifies for up to 50% tax relief. You'll receive a receipt for every contribution.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>How do I know my donation reaches the right people?</h3><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a"><p>Every rupee goes directly into food, hygiene kits, school supplies and clothing distributed by our own on-ground student teams — no middlemen. We regularly post drive updates on our social channels.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>Can I intern or volunteer without prior NGO experience?</h3><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a"><p>No experience necessary, just willingness to show up. Every new intern goes through a short orientation with our team before joining a drive.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>Is NayePankh Foundation officially registered?</h3><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a"><p>Yes. We're registered under the Indian Societies Act, 1860, recognized by the UP Government, affiliated with Niti Aayog, and certified under both 80G and 12A.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact section-pad" id="contact">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Get in touch</span>
+      <h2 class="display">Let's give someone their wings</h2>
+      <p class="lede">Whether it's a donation, an internship, or a partnership — write to us. A real person on our team replies, not a bot.</p>
+      <div class="contact-cta">
+        <a href="mailto:contact@nayepankh.com" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Email us</a>
+        <a href="tel:+918318500748" class="btn btn-ghost-light"><i class="fa-solid fa-phone"></i> Call us</a>
+      </div>
+    </div>
+    <div class="contact-card reveal">
+      <div class="contact-row">
+        <i class="fa-solid fa-envelope"></i>
+        <div><div class="l">Email</div><div class="v">contact@nayepankh.com</div></div>
+      </div>
+      <div class="contact-row">
+        <i class="fa-solid fa-phone"></i>
+        <div><div class="l">Phone</div><div class="v">+91 83185 00748</div></div>
+      </div>
+      <div class="contact-row">
+        <i class="fa-solid fa-location-dot"></i>
+        <div><div class="l">Based in</div><div class="v">Kanpur, Uttar Pradesh — also active in Ghaziabad</div></div>
+      </div>
+      <p class="tax-note">Registered under the Indian Societies Act, 1860 · UP Government · 80G &amp; 12A certified</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark">
+          <svg class="wing-mark" viewBox="0 0 26 26" fill="none">
+            <path d="M13 2C10 7 4 9 2 9c2 5 7 9 11 13 4-4 9-8 11-13-2 0-8-2-11-7Z" fill="#F2A93B" opacity="0.9"/>
+            <path d="M13 6C11 9 7 11 5 11c1.5 3.5 5 6.5 8 9.5 3-3 6.5-6 8-9.5-2 0-6-2-8-5Z" fill="#3F8F86" opacity="0.85"/>
+          </svg>
+          NayePankh
+        </div>
+        <p>A UP Government, 80G &amp; 12A registered NGO giving underprivileged communities across India access to food, education, hygiene and clothing.</p>
+        <div class="social-row">
+          <a href="https://instagram.com/nayepankhfoundation" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://facebook.com/nayepankhfoundation" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://x.com/nayepankh" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://linkedin.com/company/nayepankh" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://youtube.com/@nayepankhfoundation" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#about">About</a>
+        <a href="#programs">What we do</a>
+        <a href="#impact">Impact</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get involved</h4>
+        <a href="#involve">Intern with us</a>
+        <a href="#contact">Donate</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:contact@nayepankh.com">contact@nayepankh.com</a>
+        <a href="tel:+918318500748">+91 83185 00748</a>
+        <a href="#contact">Kanpur, Uttar Pradesh</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 NayePankh Foundation. All rights reserved.</p>
+      <p class="footer-credit">Made by <a href="https://abisolaajayi0.vercel.app" target="_blank" rel="noopener">Ajayi Abisola Enoch</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- THEME TOGGLE ---------- */
+  var html=document.documentElement;
+  var themeToggle=document.getElementById('themeToggle');
+  var toggleIcon=document.getElementById('toggleIcon');
+  function applyTheme(t){
+    html.setAttribute('data-theme',t);
+    toggleIcon.className=t==='dark'?'fa-solid fa-moon':'fa-solid fa-sun';
+    localStorage.setItem('np-theme',t);
+  }
+  var savedTheme=localStorage.getItem('np-theme');
+  if(savedTheme){applyTheme(savedTheme);}
+  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){applyTheme('dark');}
+  else{applyTheme('light');}
+  themeToggle.addEventListener('click',function(){
+    applyTheme(html.getAttribute('data-theme')==='dark'?'light':'dark');
+  });
+
+  /* ---------- NAVBAR SCROLL STATE ---------- */
+  var navbar=document.getElementById('navbar');
+  function onScroll(){
+    if(window.scrollY>60){navbar.classList.add('scrolled');}else{navbar.classList.remove('scrolled');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  /* ---------- HAMBURGER / MOBILE MENU ---------- */
+  var hamburger=document.getElementById('hamburger');
+  var mobileMenu=document.getElementById('mobileMenu');
+  var menuOverlay=document.getElementById('menuOverlay');
+  function closeMenu(){
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    menuOverlay.classList.remove('open');
+  }
+  hamburger.addEventListener('click',function(){
+    var isOpen=mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open',isOpen);
+    menuOverlay.classList.toggle('open',isOpen);
+  });
+  menuOverlay.addEventListener('click',closeMenu);
+  document.querySelectorAll('#mobileMenu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+
+  /* ---------- ACTIVE LINK ON SCROLL ---------- */
+  var sections=document.querySelectorAll('section[id], header[id]');
+  var navAnchors=document.querySelectorAll('a[data-link]');
+  function setActive(){
+    var current='';
+    sections.forEach(function(sec){
+      var rect=sec.getBoundingClientRect();
+      if(rect.top<=120 && rect.bottom>=120){current=sec.id;}
+    });
+    navAnchors.forEach(function(a){
+      a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+    });
+  }
+  window.addEventListener('scroll',setActive,{passive:true});
+  setActive();
+
+  /* ---------- SCROLL REVEALS ---------- */
+  var revealEls=document.querySelectorAll('.reveal, .reveal-stagger');
+  var revealObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){entry.target.classList.add('in');revealObserver.unobserve(entry.target);}
+    });
+  },{threshold:0.15});
+  revealEls.forEach(function(el){revealObserver.observe(el);});
+
+  /* ---------- ARC DRAW ---------- */
+  var arcEl=document.getElementById('arcDraw');
+  if(arcEl){
+    var arcObserver=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){arcEl.classList.add('in');arcObserver.unobserve(arcEl);}
+      });
+    },{threshold:0.3});
+    arcObserver.observe(arcEl);
+  }
+
+  /* ---------- ANIMATED COUNTERS ---------- */
+  var counters=document.querySelectorAll('.count');
+  function animateCount(el){
+    var target=parseInt(el.getAttribute('data-target'),10);
+    var duration=1600;
+    var start=null;
+    function step(ts){
+      if(!start)start=ts;
+      var progress=Math.min((ts-start)/duration,1);
+      var eased=1-Math.pow(1-progress,3);
+      var val=Math.floor(eased*target);
+      el.textContent=val.toLocaleString('en-IN');
+      if(progress<1){requestAnimationFrame(step);}else{el.textContent=target.toLocaleString('en-IN');}
+    }
+    requestAnimationFrame(step);
+  }
+  var countObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){animateCount(entry.target);countObserver.unobserve(entry.target);}
+    });
+  },{threshold:0.5});
+  counters.forEach(function(c){countObserver.observe(c);});
+
+  /* ---------- FAQ ACCORDION ---------- */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q=item.querySelector('.faq-q');
+    var a=item.querySelector('.faq-a');
+    function sync(){
+      if(item.classList.contains('open')){a.style.maxHeight=a.scrollHeight+'px';}
+      else{a.style.maxHeight=0;}
+    }
+    sync();
+    q.addEventListener('click',function(){
+      var willOpen=!item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight=0;
+      });
+      if(willOpen){item.classList.add('open');sync();}
+    });
+  });
+  window.addEventListener('resize',function(){
+    document.querySelectorAll('.faq-item.open').forEach(function(item){
+      item.querySelector('.faq-a').style.maxHeight=item.querySelector('.faq-a').scrollHeight+'px';
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- REVIEWS DATA ---------- */
+  var defaultReviews=[
+    {name:"Ananya Verma",role:"Intern, Kanpur",rating:5,text:"Three months with NayePankh taught me more about real impact than a full semester of college. We packed and distributed food every single weekend, and the difference was visible immediately — not in a report, in someone's hands."},
+    {name:"Rohan Mehta",role:"Volunteer",rating:5,text:"I joined for one hygiene awareness drive and stayed for a year. The team treats every volunteer like they actually matter, not like free labour for a photo opportunity."},
+    {name:"Priya Singh",role:"Donor",rating:5,text:"What keeps me donating isn't the tax receipt, it's how often they actually show where the money went. Most NGOs ask for trust. NayePankh earns it, drive after drive."},
+    {name:"Saurabh Tiwari",role:"Intern, Ghaziabad",rating:4,text:"Genuinely well organised for a student-run NGO. The clothing drive I helped run reached more families than I expected, though coordination between city chapters could be tighter."},
+    {name:"Divya Chauhan",role:"Community member",rating:5,text:"My daughter's school books were paid for two years running by this foundation. I don't have the right words for what that meant for us, so I'll just say thank you."}
+  ];
+  var STORAGE_KEY='np-user-reviews';
+  function getUserReviews(){
+    try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return [];}
+  }
+  function saveUserReviews(arr){localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}
+  var reviews=getUserReviews().concat(defaultReviews);
+
+  /* ---------- CAROUSEL ---------- */
+  var track=document.getElementById('carouselTrack');
+  var dotsWrap=document.getElementById('carDots');
+  var wrap=document.querySelector('.carousel-wrap');
+  var trackWrap=document.querySelector('.carousel-track-wrap');
+  var visibleCount=window.innerWidth>980?3:1;
+  var index=0;
+  var autoplayId=null;
+  var isPaused=false;
+
+  function starString(n){
+    var s='';
+    for(var i=1;i<=5;i++){s+= i<=n?'★':'☆';}
+    return s;
+  }
+  function initials(name){
+    return name.split(' ').map(function(p){return p[0];}).join('').slice(0,2).toUpperCase();
+  }
+  function cardHTML(r,isNew){
+    var truncated=r.text.length>200;
+    var shortText=truncated?r.text.slice(0,200)+'…':r.text;
+    return ''+
+      '<div class="r-card">'+
+        '<div class="r-card-head">'+
+          '<div class="r-avatar">'+initials(r.name)+'</div>'+
+          '<div><div class="r-name">'+r.name+'</div><div class="r-role">'+r.role+'</div></div>'+
+        '</div>'+
+        '<div class="r-stars">'+starString(r.rating)+'</div>'+
+        '<p class="r-text" data-full="'+r.text.replace(/"/g,'&quot;')+'" data-short="'+shortText.replace(/"/g,'&quot;')+'">'+shortText+(truncated?' <span class="r-readmore" data-expand="1">Read more</span>':'')+'</p>'+
+        '<div class="r-badge'+(isNew?' posted':'')+'"><i class="fa-solid '+(isNew?'fa-circle':'fa-circle-check')+'"></i> '+(isNew?'Just posted':'Verified')+'</div>'+
+      '</div>';
+  }
+  var cloneCount;
+  function buildTrack(){
+    visibleCount=window.innerWidth>980?3:1;
+    cloneCount=visibleCount;
+    var html='';
+    var total=reviews.length;
+    var leadClones=reviews.slice(total-cloneCount,total);
+    var tailClones=reviews.slice(0,cloneCount);
+    leadClones.forEach(function(r){html+=cardHTML(r,false);});
+    reviews.forEach(function(r,i){html+=cardHTML(r,i<getUserReviews().length);});
+    tailClones.forEach(function(r){html+=cardHTML(r,false);});
+    track.innerHTML=html;
+    index=cloneCount;
+    buildDots();
+    positionTrack(false);
+  }
+  function buildDots(){
+    dotsWrap.innerHTML='';
+    reviews.forEach(function(_,i){
+      var d=document.createElement('div');
+      d.className='car-dot'+(i===0?' active':'');
+      d.addEventListener('click',function(){goTo(i+cloneCount);});
+      dotsWrap.appendChild(d);
+    });
+  }
+  function updateDots(){
+    var realIndex=((index-cloneCount)%reviews.length+reviews.length)%reviews.length;
+    Array.prototype.forEach.call(dotsWrap.children,function(d,i){d.classList.toggle('active',i===realIndex);});
+  }
+  function cardStep(){
+    var card=track.querySelector('.r-card');
+    if(!card)return 0;
+    var gap=20;
+    return card.getBoundingClientRect().width+gap;
+  }
+  function positionTrack(animate){
+    track.style.transition=animate?'':'none';
+    var offset=-(index*cardStep());
+    track.style.transform='translateX('+offset+'px)';
+    if(!animate){requestAnimationFrame(function(){track.style.transition='';});}
+    updateDots();
+  }
+  function goTo(i){
+    index=i;
+    track.style.transition='transform .55s cubic-bezier(.25,.8,.3,1)';
+    positionTrack(true);
+  }
+  function next(){
+    index++;
+    track.style.transition='transform .55s cubic-bezier(.25,.8,.3,1)';
+    var offset=-(index*cardStep());
+    track.style.transform='translateX('+offset+'px)';
+    updateDots();
+    if(index>=reviews.length+cloneCount){
+      setTimeout(function(){index=cloneCount;positionTrack(false);},560);
+    }
+  }
+  function prev(){
+    index--;
+    track.style.transition='transform .55s cubic-bezier(.25,.8,.3,1)';
+    var offset=-(index*cardStep());
+    track.style.transform='translateX('+offset+'px)';
+    updateDots();
+    if(index<0){
+      setTimeout(function(){index=reviews.length+cloneCount-1;positionTrack(false);},560);
+    }
+  }
+  document.getElementById('carNext').addEventListener('click',function(){next();restartAutoplay();});
+  document.getElementById('carPrev').addEventListener('click',function(){prev();restartAutoplay();});
+
+  function startAutoplay(){
+    autoplayId=setInterval(function(){if(!isPaused)next();},4000);
+  }
+  function restartAutoplay(){
+    clearInterval(autoplayId);
+    startAutoplay();
+  }
+  wrap.addEventListener('mouseenter',function(){isPaused=true;});
+  wrap.addEventListener('mouseleave',function(){isPaused=false;});
+
+  /* swipe support */
+  var touchStartX=0,touchDeltaX=0;
+  trackWrap.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;isPaused=true;},{passive:true});
+  trackWrap.addEventListener('touchmove',function(e){touchDeltaX=e.touches[0].clientX-touchStartX;},{passive:true});
+  trackWrap.addEventListener('touchend',function(){
+    if(touchDeltaX>50){prev();}
+    else if(touchDeltaX<-50){next();}
+    touchDeltaX=0;isPaused=false;restartAutoplay();
+  });
+
+  /* read more toggle */
+  track.addEventListener('click',function(e){
+    if(e.target.matches('[data-expand]')){
+      var p=e.target.closest('.r-text');
+      p.innerHTML=p.getAttribute('data-full');
+    }
+  });
+
+  var resizeTimer;
+  window.addEventListener('resize',function(){
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(buildTrack,200);
+  });
+
+  buildTrack();
+  startAutoplay();
+
+  /* ---------- REVIEW FORM ---------- */
+  var form=document.getElementById('reviewForm');
+  var nameInput=document.getElementById('rName');
+  var textInput=document.getElementById('rText');
+  var formMsg=document.getElementById('formMsg');
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var valid=true;
+    var nameVal=nameInput.value.trim();
+    var textVal=textInput.value.trim();
+    var ratingInput=form.querySelector('input[name="rating"]:checked');
+    document.getElementById('rNameErr').style.display='none';
+    document.getElementById('rTextErr').style.display='none';
+
+    if(nameVal.length<2){document.getElementById('rNameErr').style.display='block';valid=false;}
+    if(textVal.length<20){document.getElementById('rTextErr').style.display='block';valid=false;}
+    if(!valid)return;
+
+    var rating=ratingInput?parseInt(ratingInput.value,10):5;
+    var newReview={name:nameVal,role:"Community member",rating:rating,text:textVal};
+
+    var stored=getUserReviews();
+    stored.unshift(newReview);
+    saveUserReviews(stored);
+    reviews=stored.concat(defaultReviews);
+
+    buildTrack();
+    formMsg.classList.add('show');
+    form.reset();
+    setTimeout(function(){formMsg.classList.remove('show');},5000);
+  });
+})();
+</script>
+</body>
+</html>

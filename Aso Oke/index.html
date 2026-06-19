@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aso Òkè — Fine Nigerian Dining</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8B6E2E;
+  --obsidian:#0A0805;--dark:#111008;--surface:#16130A;--surface2:#1E1A0F;--surface3:#252015;
+  --text-primary:#F0E8D0;--text-secondary:#B8A882;--text-dim:#6B5E3E;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Josefin Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--obsidian);color:var(--text-primary);font-family:var(--serif);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,8,5,0.96);backdrop-filter:blur(4px)}
+.nav-logo{font-family:var(--serif);font-size:1.3rem;font-weight:300;letter-spacing:0.12em;color:var(--gold);text-decoration:none}
+.nav-logo span{font-style:italic;color:var(--text-primary)}
+.nav-links{display:none}
+.nav-reserve{display:none}
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--text-secondary);transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;background:rgba(10,8,5,0.98);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--sans);font-size:0.75rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color 0.3s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .mob-reserve{color:var(--obsidian);background:var(--gold);padding:0.8rem 2rem;margin-top:1rem}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 1.5rem 4rem;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,0.07) 0%,transparent 65%),linear-gradient(160deg,#0A0805 0%,#16130A 40%,#0E0B06 100%)}
+.hero-texture{position:absolute;inset:0;opacity:0.03;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(201,168,76,0.5) 2px,rgba(201,168,76,0.5) 3px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(201,168,76,0.2) 40px,rgba(201,168,76,0.2) 41px)}
+.hero-plate{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#2A2010 0%,#16130A 40%,#0A0805 100%);border:1px solid rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 2.5rem;position:relative;z-index:1}
+.hero-plate::before{content:'';position:absolute;inset:10px;border-radius:50%;border:1px solid rgba(201,168,76,0.08)}
+.plate-food{font-size:5rem;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-content{position:relative;z-index:2;max-width:480px}
+.hero-eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:0.8rem}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+h1.hero-title{font-size:clamp(2.8rem,10vw,4.5rem);font-weight:300;line-height:1.05;margin-bottom:1rem}
+h1.hero-title em{font-style:italic;color:var(--gold);display:block}
+.hero-subtitle{font-size:0.95rem;font-weight:300;color:var(--text-secondary);line-height:1.8;margin-bottom:2rem;font-style:italic}
+.hero-actions{display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+.btn-primary{font-family:var(--sans);font-size:0.62rem;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--obsidian);background:var(--gold);padding:0.9rem 2.2rem;text-decoration:none;transition:background 0.3s;border:none;cursor:pointer;display:inline-block}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-ghost{font-family:var(--sans);font-size:0.62rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;display:flex;align-items:center;gap:0.5rem}
+.btn-ghost::after{content:'→';font-family:var(--serif);font-size:1rem}
+.hero-scroll{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin-top:3rem;font-family:var(--sans);font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim)}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,var(--gold-dim),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+/* SECTIONS */
+section{padding:4rem 1.5rem}
+.section-tag{font-family:var(--sans);font-size:0.58rem;font-weight:300;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.8rem}
+.section-tag::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.section-title{font-size:clamp(1.8rem,7vw,2.5rem);font-weight:300;line-height:1.15;margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--gold)}
+
+/* ABOUT */
+.about{background:var(--surface)}
+.about-inner{max-width:700px;margin:0 auto}
+.about-frame{width:100%;aspect-ratio:4/3;background:var(--surface2);border:1px solid rgba(201,168,76,0.12);display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden;margin-bottom:2.5rem}
+.about-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(201,168,76,0.08) 0%,transparent 60%)}
+.about-frame-accent{position:absolute;top:-0.8rem;right:-0.8rem;width:50%;height:50%;border-top:1px solid var(--gold-dim);border-right:1px solid var(--gold-dim);opacity:0.35}
+.about-frame-accent2{position:absolute;bottom:-0.8rem;left:-0.8rem;width:35%;height:35%;border-bottom:1px solid var(--gold-dim);border-left:1px solid var(--gold-dim);opacity:0.35}
+.about-year{position:absolute;bottom:1rem;right:1rem;font-family:var(--sans);font-size:0.6rem;letter-spacing:0.25em;color:var(--gold-dim)}
+.about-text p{font-size:0.95rem;font-weight:300;line-height:1.9;color:var(--text-secondary);margin-bottom:1rem}
+.about-text p strong{color:var(--text-primary);font-weight:400}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;padding-top:1.8rem;border-top:1px solid rgba(201,168,76,0.12)}
+.stat-num{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--gold);display:block;line-height:1;margin-bottom:0.3rem}
+.stat-label{font-family:var(--sans);font-size:0.55rem;font-weight:300;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+
+/* MENU */
+.menu{background:var(--dark)}
+.menu-inner{max-width:700px;margin:0 auto}
+.menu-tabs{display:flex;gap:0;border-bottom:1px solid rgba(201,168,76,0.15);margin-bottom:2rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.menu-tabs::-webkit-scrollbar{display:none}
+.menu-tab{font-family:var(--sans);font-size:0.6rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);padding:0.7rem 1rem;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.3s;white-space:nowrap;flex-shrink:0}
+.menu-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.menu-tab:hover:not(.active){color:var(--text-secondary)}
+.menu-grid{display:grid;grid-template-columns:1fr;gap:0}
+.menu-item{display:flex;gap:1rem;align-items:flex-start;padding:1.2rem 0;border-bottom:1px solid rgba(201,168,76,0.07)}
+.menu-item:hover .item-name{color:var(--gold)}
+.item-emoji{font-size:1.6rem;flex-shrink:0;margin-top:0.15rem}
+.item-info{flex:1;min-width:0}
+.item-name{font-size:1rem;font-weight:400;color:var(--text-primary);margin-bottom:0.25rem;transition:color 0.3s}
+.item-desc{font-size:0.8rem;font-weight:300;color:var(--text-dim);line-height:1.5;font-style:italic}
+.item-price{font-family:var(--sans);font-size:0.75rem;font-weight:300;letter-spacing:0.04em;color:var(--gold);flex-shrink:0;margin-top:0.2rem}
+
+/* GALLERY */
+.gallery{background:var(--surface)}
+.gallery-inner{max-width:700px;margin:0 auto}
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:160px 120px 120px;gap:6px;margin-top:2rem}
+.gallery-item{background:var(--surface2);border:1px solid rgba(201,168,76,0.08);display:flex;align-items:center;justify-content:center;font-size:2.2rem;position:relative;overflow:hidden;cursor:pointer;transition:border-color 0.3s}
+.gallery-item:hover{border-color:rgba(201,168,76,0.28)}
+.gallery-item:first-child{grid-column:1/3;font-size:3rem}
+.gallery-label{position:absolute;bottom:0.6rem;left:0.6rem;font-family:var(--sans);font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(201,168,76,0.45)}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--dark)}
+.testimonials-inner{max-width:700px;margin:0 auto}
+.testimonials-grid{display:grid;grid-template-columns:1fr;gap:1px;margin-top:2rem;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.08)}
+.testimonial{background:var(--dark);padding:2rem 1.5rem}
+.testimonial-quote{font-size:2.5rem;line-height:1;color:var(--gold);opacity:0.3;font-family:var(--serif);margin-bottom:0.8rem}
+.testimonial-text{font-size:0.9rem;font-weight:300;font-style:italic;line-height:1.8;color:var(--text-secondary);margin-bottom:1.2rem}
+.testimonial-author{display:flex;align-items:center;gap:0.8rem}
+.author-avatar{width:34px;height:34px;border-radius:50%;background:var(--surface3);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--gold);font-family:var(--sans);font-weight:300;flex-shrink:0}
+.author-name{font-family:var(--sans);font-size:0.62rem;font-weight:400;letter-spacing:0.08em;color:var(--text-primary);margin-bottom:0.15rem}
+.author-role{font-family:var(--sans);font-size:0.58rem;font-weight:300;letter-spacing:0.06em;color:var(--text-dim)}
+.stars{display:flex;gap:3px;margin-bottom:0.8rem}
+.star{color:var(--gold);font-size:0.65rem}
+
+/* RESERVATIONS */
+.reservations{background:var(--surface)}
+.reservations-inner{max-width:600px;margin:0 auto;text-align:center}
+.reservations-inner .section-tag{justify-content:center}
+.reservations-inner .section-tag::before{display:none}
+.reservations-inner>p{font-size:0.9rem;font-weight:300;color:var(--text-secondary);font-style:italic;margin-bottom:2rem;line-height:1.8}
+.reservation-form{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);margin-bottom:1.2rem}
+.form-field{background:var(--surface2);padding:1rem 1.2rem;display:flex;flex-direction:column;gap:0.25rem;text-align:left}
+.field-label{font-family:var(--sans);font-size:0.52rem;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-dim)}
+.field-input{background:none;border:none;outline:none;font-family:var(--serif);font-size:0.9rem;font-weight:300;color:var(--text-primary);cursor:pointer;width:100%}
+.form-submit{background:var(--gold);padding:1rem 1.5rem;border:none;cursor:pointer;font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--obsidian);transition:background 0.3s;width:100%}
+.form-submit:hover{background:var(--gold-light)}
+.reservation-note{font-family:var(--sans);font-size:0.56rem;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;line-height:1.6}
+
+/* FOOTER */
+footer{background:var(--obsidian);border-top:1px solid rgba(201,168,76,0.08);padding:3rem 1.5rem;display:grid;grid-template-columns:1fr;gap:2.5rem}
+.footer-brand .nav-logo{display:block;margin-bottom:0.8rem}
+.footer-tagline{font-size:0.82rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.7;margin-bottom:1.2rem}
+.footer-address{font-family:var(--sans);font-size:0.58rem;font-weight:300;letter-spacing:0.08em;color:var(--text-dim);line-height:1.9}
+.footer-col-title{font-family:var(--sans);font-size:0.58rem;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:0.55rem}
+.footer-links a{font-family:var(--sans);font-size:0.62rem;font-weight:300;letter-spacing:0.06em;color:var(--text-dim);text-decoration:none;transition:color 0.3s}
+.footer-links a:hover{color:var(--gold)}
+.footer-hours li{display:flex;justify-content:space-between;font-family:var(--sans);font-size:0.6rem;font-weight:300;letter-spacing:0.05em;color:var(--text-dim);margin-bottom:0.45rem}
+.footer-hours .open{color:var(--gold-dim)}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.footer-bottom{padding:1.2rem 1.5rem;background:var(--obsidian);display:flex;flex-direction:column;align-items:center;gap:0.8rem;border-top:1px solid rgba(201,168,76,0.05);text-align:center}
+.footer-bottom p{font-family:var(--sans);font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim)}
+.footer-social{display:flex;gap:1.5rem}
+.footer-social a{font-family:var(--sans);font-size:0.58rem;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;transition:color 0.3s}
+.footer-social a:hover{color:var(--gold)}
+
+/* TABLET 640px+ */
+@media(min-width:640px){
+  nav{padding:1.5rem 2.5rem}
+  section{padding:5rem 2.5rem}
+  .hero{padding:7rem 2.5rem 5rem}
+  .hero-plate{width:260px;height:260px}
+  .plate-food{font-size:6.5rem}
+  .hero-actions{flex-direction:row;justify-content:center}
+  .about-frame{aspect-ratio:16/9}
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .menu-item:nth-child(odd){padding-right:1.5rem}
+  .menu-item:nth-child(even){padding-left:1.5rem;border-left:1px solid rgba(201,168,76,0.06)}
+  .gallery-grid{grid-template-columns:2fr 1fr;grid-template-rows:200px 160px 160px}
+  .gallery-item:first-child{grid-column:1/2;grid-row:1/3;font-size:4rem}
+  .testimonials-grid{grid-template-columns:1fr 1fr}
+  .reservation-form{grid-template-columns:1fr 1fr}
+  .form-submit{grid-column:1/3}
+}
+
+/* DESKTOP 1024px+ */
+@media(min-width:1024px){
+  nav{padding:1.5rem 4rem}
+  .nav-links{display:flex;gap:2.2rem;list-style:none}
+  .nav-links a{font-family:var(--sans);font-size:0.68rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color 0.3s}
+  .nav-links a:hover{color:var(--gold)}
+  .nav-reserve{display:block;font-family:var(--sans);font-size:0.62rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--obsidian);background:var(--gold);padding:0.55rem 1.3rem;text-decoration:none;transition:background 0.3s}
+  .nav-reserve:hover{background:var(--gold-light)}
+  .hamburger{display:none}
+  section{padding:6rem 4rem}
+  .hero{flex-direction:row;text-align:left;padding:0 6rem 0 6rem;justify-content:flex-start}
+  .hero-plate{position:absolute;right:8%;top:50%;transform:translateY(-50%);width:380px;height:380px;margin:0}
+  .plate-food{font-size:8.5rem}
+  .hero-content{max-width:520px;padding-left:0}
+  .hero-eyebrow{justify-content:flex-start}
+  .hero-eyebrow::after{display:none}
+  .hero-actions{justify-content:flex-start}
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .about-frame{aspect-ratio:3/4;margin-bottom:0}
+  .gallery-grid{grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px}
+  .gallery-item:first-child{grid-column:1/2;grid-row:1/3;font-size:5rem}
+  .testimonials-grid{grid-template-columns:1fr 1fr 1fr}
+  .reservation-form{grid-template-columns:1fr 1fr 1fr auto}
+  .form-submit{grid-column:auto;width:auto;white-space:nowrap}
+  footer{grid-template-columns:2fr 1fr 1fr 1fr;padding:3rem 4rem}
+  .footer-cols{display:contents}
+  .footer-bottom{flex-direction:row;justify-content:space-between;padding:1.5rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Aso <span>Òkè</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reservations">Reserve</a></li>
+  </ul>
+  <a href="#reservations" class="nav-reserve">Book a Table</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">Our Story</a>
+  <a href="#menu" onclick="closeMenu()">Menu</a>
+  <a href="#gallery" onclick="closeMenu()">Gallery</a>
+  <a href="#testimonials" onclick="closeMenu()">Reviews</a>
+  <a href="#reservations" onclick="closeMenu()" class="mob-reserve">Book a Table</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-plate"><span class="plate-food">🍲</span></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Lagos Fine Dining</div>
+    <h1 class="hero-title">Where Tradition <em>Becomes Art</em></h1>
+    <p class="hero-subtitle">An elevated journey through the flavours of Nigeria — ancient recipes, reborn in candlelight.</p>
+    <div class="hero-actions">
+      <a href="#reservations" class="btn-primary">Reserve a Table</a>
+      <a href="#menu" class="btn-ghost">View the Menu</a>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-frame">
+        🫕
+        <div class="about-frame-accent"></div>
+        <div class="about-frame-accent2"></div>
+        <div class="about-year">Est. 2019</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-title">Born from <em>Grandmother's Kitchen</em></h2>
+      <p>Aso Òkè began as a single question: <strong>what if Nigeria's most beloved dishes were given the stage they always deserved?</strong></p>
+      <p>Our head chef, Adaeze Okonkwo, spent three years travelling from Lagos to Calabar, Kano to Enugu — learning, tasting, and preserving recipes that have fed generations. Every dish on our menu carries that history.</p>
+      <p>The name itself — Aso Òkè — means <em>fine cloth</em> in Yoruba. A fabric worn for celebrations, for moments that matter. We believe dinner should feel exactly that way.</p>
+      <div class="about-stats">
+        <div><span class="stat-num">47+</span><span class="stat-label">Heritage Recipes</span></div>
+        <div><span class="stat-num">6</span><span class="stat-label">Nigerian Regions</span></div>
+        <div><span class="stat-num">98%</span><span class="stat-label">Return Rate</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="menu-inner">
+    <div class="section-tag">Crafted with Intention</div>
+    <h2 class="section-title">The <em>Evening Menu</em></h2>
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="switchTab(this,'starters')">Starters</button>
+      <button class="menu-tab" onclick="switchTab(this,'mains')">Main Courses</button>
+      <button class="menu-tab" onclick="switchTab(this,'desserts')">Desserts</button>
+      <button class="menu-tab" onclick="switchTab(this,'drinks')">Drinks</button>
+    </div>
+    <div class="menu-grid" id="menu-starters">
+      <div class="menu-item"><span class="item-emoji">🥗</span><div class="item-info"><div class="item-name">Ugba & Utazi Salad</div><div class="item-desc">Oil bean seeds, bitter leaf, smoked ponmo, citrus vinaigrette</div></div><div class="item-price">₦4,800</div></div>
+      <div class="menu-item"><span class="item-emoji">🍢</span><div class="item-info"><div class="item-name">Suya Skewers</div><div class="item-desc">Spiced wagyu beef, kuli-kuli dust, fermented pepper dip</div></div><div class="item-price">₦6,200</div></div>
+      <div class="menu-item"><span class="item-emoji">🫙</span><div class="item-info"><div class="item-name">Egusi Velouté</div><div class="item-desc">Warm ground melon bisque, crayfish foam, crispy shrimp</div></div><div class="item-price">₦5,500</div></div>
+      <div class="menu-item"><span class="item-emoji">🦪</span><div class="item-info"><div class="item-name">Edikaikong Tartlet</div><div class="item-desc">Waterleaf & fluted pumpkin, smoked dried fish, filo shell</div></div><div class="item-price">₦5,100</div></div>
+    </div>
+    <div class="menu-grid" id="menu-mains" style="display:none">
+      <div class="menu-item"><span class="item-emoji">🍲</span><div class="item-info"><div class="item-name">Banga Braised Short Rib</div><div class="item-desc">12-hour palm nut braise, soft eba croquette, ofe akwu jus</div></div><div class="item-price">₦18,500</div></div>
+      <div class="menu-item"><span class="item-emoji">🦞</span><div class="item-info"><div class="item-name">Whole Lobster in Afang</div><div class="item-desc">Calabar-style leaves, coconut palm wine reduction, abak atama</div></div><div class="item-price">₦32,000</div></div>
+      <div class="menu-item"><span class="item-emoji">🐟</span><div class="item-info"><div class="item-name">Peppered Tilapia Royale</div><div class="item-desc">Whole oven-fired fish, Nkwobi-spiced butter, crispy plantain</div></div><div class="item-price">₦14,200</div></div>
+      <div class="menu-item"><span class="item-emoji">🫕</span><div class="item-info"><div class="item-name">Ofada & Ayamase Risotto</div><div class="item-desc">Heritage stone-ground rice, designer stew, assorted offals</div></div><div class="item-price">₦12,800</div></div>
+    </div>
+    <div class="menu-grid" id="menu-desserts" style="display:none">
+      <div class="menu-item"><span class="item-emoji">🍮</span><div class="item-info"><div class="item-name">Puff Puff Soufflé</div><div class="item-desc">Warm yeast dough soufflé, spiced honey caramel, palm sugar ice cream</div></div><div class="item-price">₦4,200</div></div>
+      <div class="menu-item"><span class="item-emoji">🍫</span><div class="item-info"><div class="item-name">Kunu Chocolate Tart</div><div class="item-desc">Nigerian cacao ganache, fermented ginger kunu gel, zobo sorbet</div></div><div class="item-price">₦5,000</div></div>
+      <div class="menu-item"><span class="item-emoji">🍌</span><div class="item-info"><div class="item-name">Agege Bread Pudding</div><div class="item-desc">Brioche-style Nigerian bread, palm wine custard, coconut tuile</div></div><div class="item-price">₦3,800</div></div>
+      <div class="menu-item"><span class="item-emoji">🧁</span><div class="item-info"><div class="item-name">Chin-Chin Mille-Feuille</div><div class="item-desc">Crispy fried pastry layers, coconut cream, mango coulis</div></div><div class="item-price">₦4,500</div></div>
+    </div>
+    <div class="menu-grid" id="menu-drinks" style="display:none">
+      <div class="menu-item"><span class="item-emoji">🍷</span><div class="item-info"><div class="item-name">Zobo Rosé Spritz</div><div class="item-desc">Hibiscus reduction, elderflower, sparkling water, rose garnish</div></div><div class="item-price">₦3,500</div></div>
+      <div class="menu-item"><span class="item-emoji">🥂</span><div class="item-info"><div class="item-name">Palm Wine Kir Royale</div><div class="item-desc">Aged raphia palm wine, crème de cassis, champagne float</div></div><div class="item-price">₦6,000</div></div>
+      <div class="menu-item"><span class="item-emoji">🫖</span><div class="item-info"><div class="item-name">Moringa & Ginger Tea</div><div class="item-desc">Cold-pressed fresh moringa, rock ginger, raw honey, lime zest</div></div><div class="item-price">₦2,200</div></div>
+      <div class="menu-item"><span class="item-emoji">🍹</span><div class="item-info"><div class="item-name">Kunu Highball</div><div class="item-desc">Spiced millet drink, ginger beer, garden egg bitters, orange peel</div></div><div class="item-price">₦3,800</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="gallery-inner">
+    <div class="section-tag">A Feast for the Eyes</div>
+    <h2 class="section-title">Inside <em>Aso Òkè</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">🍽️<span class="gallery-label">Signature Plating</span></div>
+      <div class="gallery-item">🕯️<span class="gallery-label">Dining Room</span></div>
+      <div class="gallery-item">🌿<span class="gallery-label">Garden Terrace</span></div>
+      <div class="gallery-item">👨‍🍳<span class="gallery-label">Open Kitchen</span></div>
+      <div class="gallery-item">🥘<span class="gallery-label">Chef's Table</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-tag">What Guests Say</div>
+    <h2 class="section-title">Voices from the <em>Table</em></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="testimonial-quote">"</div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testimonial-text">I've eaten in Michelin-starred restaurants across three continents. Aso Òkè gave me something none of them could — a meal that felt like coming home.</p>
+        <div class="testimonial-author"><div class="author-avatar">TO</div><div><div class="author-name">Tunde Okafor</div><div class="author-role">Lagos, Nigeria</div></div></div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-quote">"</div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testimonial-text">The Banga Short Rib nearly made me cry. I had no idea Nigerian cuisine could be expressed this way. Absolute must-visit for anyone in Lagos.</p>
+        <div class="testimonial-author"><div class="author-avatar">SK</div><div><div class="author-name">Sarah Kim</div><div class="author-role">Food Critic, Seoul</div></div></div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-quote">"</div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="testimonial-text">We held our anniversary dinner here. The ambiance, the service, the food — everything was flawless. They've completely redefined what Nigerian fine dining means.</p>
+        <div class="testimonial-author"><div class="author-avatar">AF</div><div><div class="author-name">Amara & Felix</div><div class="author-role">Abuja, Nigeria</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reservations" id="reservations">
+  <div class="reservations-inner">
+    <div class="section-tag">Secure Your Evening</div>
+    <h2 class="section-title">Make a <em>Reservation</em></h2>
+    <p>Tables fill quickly, especially on weekends. We recommend booking at least 72 hours in advance. Private dining rooms are available for groups of 8 or more.</p>
+    <div class="reservation-form">
+      <div class="form-field"><span class="field-label">Date</span><input type="date" class="field-input" value="2025-02-14"></div>
+      <div class="form-field"><span class="field-label">Time</span><select class="field-input" style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--text-primary);background:none;border:none;outline:none;-webkit-appearance:none;cursor:pointer"><option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option></select></div>
+      <div class="form-field"><span class="field-label">Guests</span><select class="field-input" style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--text-primary);background:none;border:none;outline:none;-webkit-appearance:none;cursor:pointer"><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option><option>6+ Guests</option></select></div>
+      <button class="form-submit">Reserve →</button>
+    </div>
+    <div class="reservation-note">Or call us: +234 801 234 5678 — Mon–Sun, 10AM–10PM</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">Aso <span>Òkè</span></a>
+    <p class="footer-tagline">Fine Nigerian Dining, served with the warmth and pride of a people who have always known how to celebrate.</p>
+    <div class="footer-address">4 Bourdillon Road, Ikoyi<br>Lagos, Nigeria<br>reservations@asooke.ng</div>
+    
+  </div>
+  <div class="footer-cols">
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#menu">The Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#reservations">Reservations</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Opening Hours</div>
+      <ul class="footer-links footer-hours">
+        <li><span>Monday</span><span>Closed</span></li>
+        <li><span>Tue – Thu</span><span class="open">6PM – 11PM</span></li>
+        <li><span>Fri – Sat</span><span class="open">6PM – 12AM</span></li>
+        <li><span>Sunday</span><span class="open">12PM – 10PM</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Private Dining</div>
+      <ul class="footer-links">
+        <li><a href="#">The Oja Room (8–12)</a></li>
+        <li><a href="#">The Aso Suite (12–20)</a></li>
+        <li><a href="#">Full Buyout</a></li>
+        <li><a href="#">Corporate Events</a></li>
+        <li><a href="#">Weddings & Aso-ebi</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p>© 2025 Aso Òkè Restaurant. All rights reserved.</p>
+  <p>Made by. <a href="abisolaajayi360.vercel.app" target="_blank" class="footer-address">Ajayi Abisola Enoch</a></p>
+  <div class="footer-social">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">TripAdvisor</a>
+  </div>
+</div>
+
+<script>
+function switchTab(btn,section){
+  document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  ['starters','mains','desserts','drinks'].forEach(s=>{
+    document.getElementById('menu-'+s).style.display=s===section?'grid':'none';
+  });
+}
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+});
+function closeMenu(){
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kai Solis — Film Photographer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --black:    #0D0C0B;
+  --black-2:  #141311;
+  --black-3:  #1C1A18;
+  --black-4:  #252220;
+  --silver:   #A89F96;
+  --silver-2: #C8BFB6;
+  --silver-3: #E2D9D0;
+  --gold:     #C9A96E;
+  --gold-pale:#3A2E1E;
+  --white:    #F5F0EA;
+  --red:      #8B3A3A;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--black);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* Grain overlay */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9990;opacity:0.55;
+  mix-blend-mode:overlay;
+}
+
+/* Custom cursor */
+.cursor{
+  width:8px;height:8px;
+  background:var(--gold);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .3s,height .3s;
+}
+.cursor-ring{
+  width:32px;height:32px;
+  border:1px solid rgba(201,169,110,0.5);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:left .12s ease,top .12s ease,width .3s,height .3s;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:32px 64px;
+  transition:padding .4s,background .4s;
+}
+nav.scrolled{
+  background:rgba(13,12,11,0.92);
+  backdrop-filter:blur(16px);
+  padding:20px 64px;
+  border-bottom:1px solid rgba(168,159,150,0.08);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;font-weight:400;letter-spacing:0.06em;
+  color:var(--white);text-decoration:none;
+}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:44px;list-style:none;}
+.nav-links a{
+  font-size:0.72rem;font-weight:400;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--silver);
+  text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-contact{
+  font-size:0.72rem;font-weight:500;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--black);
+  background:var(--gold);border:none;
+  padding:11px 26px;border-radius:2px;
+  cursor:none;transition:background .2s,transform .2s;
+}
+.nav-contact:hover{background:var(--silver-3);transform:scale(1.03);}
+
+/* Hamburger */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;z-index:101;
+}
+.hamburger span{
+  display:block;width:24px;height:1.5px;
+  background:var(--silver-2);border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+.mobile-menu{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(13,12,11,0.97);
+  backdrop-filter:blur(20px);
+  z-index:99;
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:44px;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s;
+}
+.mobile-menu.open{opacity:1;pointer-events:all;}
+.mobile-menu a{
+  font-family:'Playfair Display',serif;
+  font-size:2.6rem;font-weight:400;font-style:italic;
+  color:var(--silver-2);text-decoration:none;
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-menu .mob-cta{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.75rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--black);
+  background:var(--gold);border:none;
+  padding:14px 36px;border-radius:2px;
+  cursor:pointer;margin-top:8px;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:0 64px;
+  position:relative;overflow:hidden;
+}
+
+/* Film strip decoration */
+.film-strip{
+  position:absolute;right:0;top:0;bottom:0;
+  width:52%;
+  background:#0a0908;
+  clip-path:polygon(6% 0,100% 0,100% 100%,0 100%);
+}
+.film-holes{
+  position:absolute;right:16px;top:0;bottom:0;
+  display:flex;flex-direction:column;justify-content:space-around;
+  padding:40px 0;
+}
+.film-hole{
+  width:14px;height:22px;
+  border-radius:3px;
+  background:var(--black-3);
+  border:1px solid rgba(168,159,150,0.15);
+}
+
+.hero-text{
+  position:relative;z-index:2;
+  padding:140px 0 80px;
+}
+.hero-eyebrow{
+  font-size:0.68rem;font-weight:400;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:28px;display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fadeUp .8s .2s forwards;
+}
+.hero-eyebrow::after{content:'';width:40px;height:1px;background:var(--gold);}
+
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,5.5vw,5.8rem);
+  font-weight:400;line-height:1.1;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .8s .4s forwards;
+}
+.hero-h1 em{font-style:italic;color:var(--silver-2);}
+.hero-h1 .accent{color:var(--gold);}
+
+.hero-sub{
+  font-size:0.95rem;font-weight:300;line-height:1.9;
+  color:var(--silver);max-width:400px;margin-bottom:52px;
+  opacity:0;animation:fadeUp .8s .6s forwards;
+}
+
+.hero-actions{
+  display:flex;align-items:center;gap:32px;
+  opacity:0;animation:fadeUp .8s .8s forwards;
+}
+.btn-gold{
+  font-size:0.72rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--black);
+  background:var(--gold);border:none;
+  padding:15px 36px;border-radius:2px;
+  cursor:none;text-decoration:none;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  box-shadow:0 8px 32px rgba(201,169,110,0.25);
+}
+.btn-gold:hover{background:var(--silver-3);transform:translateY(-2px);}
+.btn-outline{
+  font-size:0.72rem;font-weight:400;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--silver);
+  text-decoration:none;
+  border-bottom:1px solid rgba(168,159,150,0.3);
+  padding-bottom:2px;
+  transition:color .2s,border-color .2s;
+}
+.btn-outline:hover{color:var(--white);border-color:var(--white);}
+
+.hero-scroll{
+  position:absolute;bottom:48px;left:64px;
+  display:flex;align-items:center;gap:12px;
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--silver);
+  opacity:0;animation:fadeIn 1s 1.2s forwards;
+}
+.scroll-line{
+  width:40px;height:1px;background:var(--silver);
+  animation:scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine{
+  0%,100%{width:40px;opacity:1}
+  50%{width:16px;opacity:0.4}
+}
+
+/* Hero image grid */
+.hero-images{
+  position:relative;z-index:2;
+  height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:100px 40px 80px;
+}
+.img-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:10px;
+  width:100%;max-width:480px;
+}
+.img-frame{
+  overflow:hidden;position:relative;
+  background:var(--black-3);
+}
+.img-frame::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 60%,rgba(13,12,11,0.6));
+  pointer-events:none;
+}
+.img-frame img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  filter:sepia(20%) contrast(1.05) brightness(0.9);
+  transition:transform .6s ease,filter .4s;
+}
+.img-frame:hover img{transform:scale(1.04);filter:sepia(10%) contrast(1.08) brightness(0.95);}
+.img-frame.tall{grid-row:span 2;}
+.img-frame.short{height:220px;}
+.img-frame.tall{height:460px;}
+
+.img-label{
+  position:absolute;bottom:14px;left:16px;z-index:2;
+  font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(245,240,234,0.6);
+}
+
+/* Film counter */
+.film-counter{
+  position:absolute;top:110px;right:50px;
+  font-family:'Playfair Display',serif;
+  font-size:4rem;font-weight:400;
+  color:rgba(201,169,110,0.08);
+  letter-spacing:-0.02em;
+  user-select:none;pointer-events:none;
+  opacity:0;animation:fadeIn 1s 1s forwards;
+}
+
+/* ── WORK SECTION ── */
+.work{
+  padding:120px 64px;
+  background:var(--black-2);
+}
+.section-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:64px;
+}
+.section-eyebrow{
+  font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);}
+.section-h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,3.5vw,3.4rem);
+  font-weight:400;line-height:1.2;color:var(--white);
+}
+.section-h2 em{font-style:italic;color:var(--silver-2);}
+
+.work-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:12px;
+}
+.work-item{
+  position:relative;overflow:hidden;
+  background:var(--black-3);cursor:none;
+}
+.work-item.large{grid-row:span 2;}
+.work-item img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;min-height:240px;
+  filter:sepia(15%) contrast(1.05) brightness(0.85);
+  transition:transform .7s ease,filter .5s;
+}
+.work-item:hover img{
+  transform:scale(1.06);
+  filter:sepia(5%) contrast(1.08) brightness(0.95);
+}
+.work-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,12,11,0.85) 0%,transparent 50%);
+  opacity:0;transition:opacity .4s;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:28px;
+}
+.work-item:hover .work-overlay{opacity:1;}
+.work-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:400;font-style:italic;
+  color:var(--white);margin-bottom:6px;
+}
+.work-cat{
+  font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* Film roll number */
+.work-item .roll-num{
+  position:absolute;top:16px;right:16px;
+  font-size:0.62rem;letter-spacing:0.12em;
+  color:rgba(245,240,234,0.35);font-family:'Playfair Display',serif;
+}
+
+/* ── ABOUT ── */
+.about{
+  padding:120px 64px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;align-items:center;
+  background:var(--black);
+}
+.about-img-stack{position:relative;height:580px;}
+.about-img-main{
+  width:320px;height:460px;
+  object-fit:cover;
+  position:absolute;top:0;left:0;
+  filter:sepia(20%) contrast(1.05) brightness(0.88);
+  box-shadow:0 40px 100px rgba(0,0,0,0.5);
+}
+.about-img-second{
+  width:220px;height:300px;
+  object-fit:cover;
+  position:absolute;bottom:0;right:0;
+  filter:sepia(25%) contrast(1.08) brightness(0.82);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.about-tape{
+  position:absolute;top:50px;left:220px;
+  width:60px;height:20px;
+  background:rgba(245,240,234,0.08);
+  transform:rotate(-8deg);
+  border:1px solid rgba(245,240,234,0.1);
+}
+.about-film-label{
+  position:absolute;bottom:60px;left:-20px;
+  background:var(--gold-pale);border:1px solid var(--gold);
+  padding:10px 16px;
+  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--gold);transform:rotate(-3deg);
+}
+
+.about-text .section-eyebrow{margin-bottom:12px;}
+.about-text .section-h2{margin-bottom:28px;}
+.about-body{
+  font-size:0.93rem;font-weight:300;line-height:1.95;
+  color:var(--silver);margin-bottom:18px;
+}
+.about-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;margin-top:48px;
+  border-top:1px solid rgba(168,159,150,0.12);
+  padding-top:40px;
+}
+.about-stat{padding-right:24px;}
+.about-stat:not(:last-child){
+  border-right:1px solid rgba(168,159,150,0.12);
+  margin-right:24px;
+}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:2.8rem;font-weight:400;
+  color:var(--gold);display:block;line-height:1;
+}
+.stat-l{
+  font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--silver);margin-top:8px;display:block;
+}
+
+/* ── SERVICES ── */
+.services{
+  padding:120px 64px;
+  background:var(--black-3);
+}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(168,159,150,0.1);
+  margin-top:64px;
+}
+.service-item{
+  background:var(--black-3);
+  padding:48px 40px;
+  transition:background .3s;
+  cursor:none;
+}
+.service-item:hover{background:var(--black-4);}
+.service-num{
+  font-family:'Playfair Display',serif;
+  font-size:3rem;font-weight:400;
+  color:rgba(201,169,110,0.15);
+  display:block;margin-bottom:28px;line-height:1;
+}
+.service-icon{font-size:1.6rem;margin-bottom:20px;display:block;}
+.service-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.35rem;font-weight:400;
+  color:var(--white);margin-bottom:14px;
+}
+.service-desc{
+  font-size:0.85rem;font-weight:300;line-height:1.85;
+  color:var(--silver);margin-bottom:28px;
+}
+.service-price{
+  font-size:0.8rem;font-weight:500;letter-spacing:0.06em;
+  color:var(--gold);
+}
+
+/* ── TESTIMONIAL ── */
+.testimonial{
+  padding:120px 64px;
+  background:var(--black-2);
+  text-align:center;
+}
+.testi-quote{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  font-weight:400;font-style:italic;
+  color:var(--silver-2);line-height:1.5;
+  max-width:820px;margin:0 auto 40px;
+}
+.testi-attr{
+  font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--silver);display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.testi-attr::before,.testi-attr::after{content:'';width:32px;height:1px;background:var(--gold);}
+
+/* All testimonials grid */
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(168,159,150,0.08);
+  margin-top:80px;
+}
+.testi-card{
+  background:var(--black-2);
+  padding:40px 36px;
+  transition:background .3s;
+}
+.testi-card:hover{background:var(--black-3);}
+.testi-stars{color:var(--gold);font-size:0.75rem;letter-spacing:3px;margin-bottom:20px;}
+.testi-text{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-style:italic;
+  line-height:1.75;color:var(--silver-2);margin-bottom:28px;
+}
+.testi-name{font-size:0.75rem;font-weight:500;color:var(--white);display:block;}
+.testi-role{font-size:0.68rem;color:var(--silver);font-weight:300;margin-top:4px;display:block;}
+
+/* ── CTA ── */
+.cta{
+  padding:140px 64px;
+  background:var(--black);
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:80px;
+  position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+}
+.cta-num{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(6rem,12vw,14rem);
+  font-weight:400;font-style:italic;
+  color:rgba(201,169,110,0.05);
+  line-height:1;position:absolute;
+  right:60px;bottom:-20px;
+  user-select:none;
+}
+.cta-eyebrow{
+  font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.cta-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);}
+.cta-h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,4vw,4rem);
+  font-weight:400;line-height:1.15;color:var(--white);
+}
+.cta-h2 em{font-style:italic;color:var(--silver-2);}
+.cta-right{position:relative;z-index:1;}
+.cta-body{
+  font-size:0.93rem;font-weight:300;line-height:1.9;
+  color:var(--silver);margin-bottom:44px;
+}
+.cta-email{
+  display:flex;align-items:center;gap:0;margin-bottom:32px;
+}
+.cta-input{
+  flex:1;background:var(--black-3);
+  border:1px solid rgba(168,159,150,0.2);border-right:none;
+  padding:14px 20px;color:var(--white);
+  font-family:'DM Sans',sans-serif;font-size:0.85rem;
+  outline:none;transition:border-color .2s;
+  border-radius:2px 0 0 2px;
+}
+.cta-input::placeholder{color:var(--silver);}
+.cta-input:focus{border-color:var(--gold);}
+.cta-submit{
+  background:var(--gold);color:var(--black);
+  border:none;padding:14px 28px;
+  font-size:0.72rem;font-weight:500;letter-spacing:0.12em;
+  text-transform:uppercase;cursor:none;
+  transition:background .2s;
+  border-radius:0 2px 2px 0;
+}
+.cta-submit:hover{background:var(--silver-3);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--black-2);
+  padding:48px 64px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:24px;
+  border-top:1px solid rgba(168,159,150,0.08);
+}
+.footer-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:400;
+  color:var(--white);
+}
+.footer-logo span{color:var(--gold);}
+.footer-links{display:flex;gap:32px;list-style:none;}
+.footer-links a{
+  font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--silver);text-decoration:none;transition:color .2s;
+}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:0.68rem;color:rgba(168,159,150,0.35);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+  from{opacity:0}to{opacity:1}
+}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+.reveal-d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:24px 28px;}
+  nav.scrolled{padding:16px 28px;}
+  .nav-links,.nav-contact{display:none;}
+  .hamburger{display:flex;}
+
+  .hero{grid-template-columns:1fr;padding:0 28px;min-height:auto;}
+  .hero-text{padding:120px 0 40px;}
+  .hero-images{height:auto;padding:0 0 60px;}
+  .film-strip{width:100%;clip-path:none;top:auto;height:50%;bottom:0;}
+  .film-counter{font-size:6rem;top:auto;bottom:20px;}
+
+  .work{padding:80px 28px;}
+  .work-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .work-item.large{grid-row:span 1;}
+
+  .about{grid-template-columns:1fr;padding:80px 28px;gap:50px;}
+  .about-img-stack{height:380px;}
+  .about-img-main{width:220px;height:320px;}
+  .about-img-second{width:160px;height:220px;}
+
+  .services{padding:80px 28px;}
+  .services-grid{grid-template-columns:1fr;}
+
+  .testimonial{padding:80px 28px;}
+  .testi-grid{grid-template-columns:1fr;}
+
+  .cta{grid-template-columns:1fr;padding:80px 28px;gap:40px;}
+  .cta-num{font-size:8rem;}
+
+  footer{padding:36px 28px;flex-direction:column;align-items:flex-start;}
+  .section-header{flex-direction:column;align-items:flex-start;gap:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">Kai<span>.</span>Solis</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-contact">Book a Session</button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#work"     class="menu-link">Work</a>
+  <a href="#about"    class="menu-link">About</a>
+  <a href="#services" class="menu-link">Services</a>
+  <a href="#contact"  class="menu-link">Contact</a>
+  <button class="mob-cta menu-link">Book a Session</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="film-strip">
+    <div class="film-holes">
+      <div class="film-hole"></div><div class="film-hole"></div>
+      <div class="film-hole"></div><div class="film-hole"></div>
+      <div class="film-hole"></div><div class="film-hole"></div>
+      <div class="film-hole"></div><div class="film-hole"></div>
+    </div>
+  </div>
+  <div class="film-counter">36</div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow">Film & Portrait Photographer</div>
+    <h1 class="hero-h1">
+      Stories told<br>in <em>grain</em> &<br><span class="accent">light.</span>
+    </h1>
+    <p class="hero-sub">
+      I shoot on film because permanence matters. Every frame is a deliberate choice — no do-overs, no digital safety net. Just the moment, exactly as it was.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-gold">View Portfolio</a>
+      <a href="#contact" class="btn-outline">Book a Shoot</a>
+    </div>
+  </div>
+
+  <div class="hero-images">
+    <div class="img-grid">
+      <div class="img-frame tall">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=75" alt="Portrait"/>
+        <span class="img-label">001 — Portrait</span>
+      </div>
+      <div class="img-frame short">
+        <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&q=75" alt="Urban"/>
+        <span class="img-label">002 — Urban</span>
+      </div>
+      <div class="img-frame short">
+        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=400&q=75" alt="Nature"/>
+        <span class="img-label">003 — Nature</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow reveal">Selected Work</div>
+      <h2 class="section-h2 reveal reveal-d1">Frames that <em>refuse</em><br>to be forgotten.</h2>
+    </div>
+    <a href="#" class="btn-outline reveal" style="white-space:nowrap;color:var(--silver)">Full archive →</a>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-item large reveal">
+      <img src="https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?w=800&q=75" alt="Portraits"/>
+      <span class="roll-num">001</span>
+      <div class="work-overlay">
+        <div class="work-title">The Quiet Hours</div>
+        <div class="work-cat">Portrait Series · 35mm</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-d1">
+      <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=500&q=75" alt="Landscape"/>
+      <span class="roll-num">002</span>
+      <div class="work-overlay">
+        <div class="work-title">After Midnight</div>
+        <div class="work-cat">Urban · Ilford HP5</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-d2">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=75" alt="Wedding"/>
+      <span class="roll-num">003</span>
+      <div class="work-overlay">
+        <div class="work-title">Unscripted</div>
+        <div class="work-cat">Wedding · Kodak Portra</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-d1">
+      <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=500&q=75" alt="Nature"/>
+      <span class="roll-num">004</span>
+      <div class="work-overlay">
+        <div class="work-title">Still Waters</div>
+        <div class="work-cat">Landscape · Medium Format</div>
+      </div>
+    </div>
+    <div class="work-item reveal reveal-d2">
+      <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&q=75" alt="Concert"/>
+      <span class="roll-num">005</span>
+      <div class="work-overlay">
+        <div class="work-title">Live Wire</div>
+        <div class="work-cat">Concert · Pushed 3200</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img-stack reveal">
+    <img class="about-img-main"
+      src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=500&q=75"
+      alt="Kai Solis"/>
+    <img class="about-img-second"
+      src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=75"
+      alt="Camera"/>
+    <div class="about-tape"></div>
+    <div class="about-film-label">Kodak Portra 400</div>
+  </div>
+
+  <div class="about-text">
+    <div class="section-eyebrow reveal">About Kai</div>
+    <h2 class="section-h2 reveal reveal-d1">Twelve years.<br><em>One frame at a time.</em></h2>
+    <p class="about-body reveal reveal-d2">
+      I picked up my first film camera at seventeen and never really put it down. What started as a way to slow down became a craft, then a career, then something closer to a calling.
+    </p>
+    <p class="about-body reveal reveal-d3">
+      I work primarily with 35mm and medium format, shooting portraits, weddings, editorial, and documentary work. Based in Lagos, available worldwide.
+    </p>
+    <div class="about-stats reveal reveal-d4">
+      <div class="about-stat">
+        <span class="stat-n">340+</span>
+        <span class="stat-l">Sessions Shot</span>
+      </div>
+      <div class="about-stat">
+        <span class="stat-n">12yr</span>
+        <span class="stat-l">Experience</span>
+      </div>
+      <div class="about-stat">
+        <span class="stat-n">18+</span>
+        <span class="stat-l">Countries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow reveal">What I Offer</div>
+      <h2 class="section-h2 reveal reveal-d1">Every shoot,<br><em>a different story.</em></h2>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <span class="service-num">01</span>
+      <span class="service-icon">🎞️</span>
+      <div class="service-title">Portrait Session</div>
+      <p class="service-desc">A 2-hour personal or editorial portrait shoot on film. Includes 20 scanned and colour-graded selects delivered within 7 days.</p>
+      <span class="service-price">From $280</span>
+    </div>
+    <div class="service-item reveal reveal-d1">
+      <span class="service-num">02</span>
+      <span class="service-icon">💍</span>
+      <div class="service-title">Wedding Coverage</div>
+      <p class="service-desc">Full-day wedding documentation on film. Unhurried, unobtrusive, honest. A record of the day as it actually felt.</p>
+      <span class="service-price">From $1,800</span>
+    </div>
+    <div class="service-item reveal reveal-d2">
+      <span class="service-num">03</span>
+      <span class="service-icon">📰</span>
+      <div class="service-title">Editorial & Brand</div>
+      <p class="service-desc">Film photography for brands, magazines, and campaigns that want texture, warmth, and a distinctly analog feel.</p>
+      <span class="service-price">From $600</span>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL FEATURE -->
+<section class="testimonial">
+  <div class="section-eyebrow reveal" style="justify-content:center">Kind Words</div>
+  <p class="testi-quote reveal reveal-d1">
+    "Kai doesn't just take photographs — he notices things. Our wedding album looks like a film we didn't know we were in."
+  </p>
+  <div class="testi-attr reveal reveal-d2">Adaeze & Emeka · Lagos, 2024</div>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The grain, the light, the way he positioned us — nothing felt forced. We cried looking at the proofs."</p>
+      <span class="testi-name">Simi Adeleke</span>
+      <span class="testi-role">Portrait Client · Abuja</span>
+    </div>
+    <div class="testi-card reveal reveal-d1">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"We hired Kai for an editorial campaign and the images became the most shared content we've ever published."</p>
+      <span class="testi-name">Tunde Fashola</span>
+      <span class="testi-role">Creative Director · VANT Studio</span>
+    </div>
+    <div class="testi-card reveal reveal-d2">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Three years later these photos still stop me mid-scroll. That's what film does. That's what Kai does."</p>
+      <span class="testi-name">Amaka Obi</span>
+      <span class="testi-role">Wedding Client · London</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div>
+    <div class="cta-eyebrow reveal">Let's Work Together</div>
+    <h2 class="cta-h2 reveal reveal-d1">
+      Every frame<br>starts with a<br><em>conversation.</em>
+    </h2>
+  </div>
+  <div class="cta-right reveal reveal-d2">
+    <p class="cta-body">Tell me about your project — a wedding, a portrait, a brand story. I'll get back to you within 24 hours.</p>
+    <div class="cta-email">
+      <input class="cta-input" type="email" placeholder="your@email.com"/>
+      <button class="cta-submit">Send</button>
+    </div>
+    <a href="mailto:kai@kaisolis.com" class="btn-outline" style="color:var(--silver)">kai@kaisolis.com</a>
+  </div>
+  <div class="cta-num">∞</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Kai<span>.</span>Solis</div>
+  <ul class="footer-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="footer-copy">© 2025 Kai Solis Photography. All rights reserved.</span>
+  <p class="footer-copy">Made by <a href="abisolaajayi0.vercel.app" target="_blank" style="color:rgba(250,245,236,0.2);">Ajayi Abisola Enoch</a></p>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  }, 60);
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '18px'; cursor.style.height = '18px';
+    ring.style.width = '48px'; ring.style.height = '48px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '8px'; cursor.style.height = '8px';
+    ring.style.width = '32px'; ring.style.height = '32px';
+  });
+});
+
+// Nav scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  mobileMenu.style.display = isOpen ? 'flex' : 'none';
+  if (isOpen) requestAnimationFrame(() => mobileMenu.style.opacity = '1');
+});
+document.querySelectorAll('.menu-link').forEach(el => {
+  el.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    mobileMenu.style.opacity = '0';
+    setTimeout(() => { mobileMenu.style.display = 'none'; }, 350);
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

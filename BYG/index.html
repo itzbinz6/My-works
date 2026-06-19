@@ -1,0 +1,2364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Backyard Grill Ikeja — BYG Foods</title>
+  <meta name="description" content="The best smoky jollof rice and grilled chicken in Ikeja, Lagos. Dine-in & takeaway at 15/17 Opebi Rd, Allen, Ikeja." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ===========================
+       CSS CUSTOM PROPERTIES
+    =========================== */
+    :root {
+      --char: #0e0c0a;
+      --char-mid: #1c1814;
+      --char-soft: #2a2420;
+      --ember: #e05c1a;
+      --ember-hot: #f07030;
+      --ember-glow: #ff8c42;
+      --ash: #b8a898;
+      --cream: #f5ede4;
+      --cream-dark: #ede0d4;
+      --white: #fff8f3;
+      --text-body: #d4c4b8;
+      --text-muted: #8a7a6e;
+      --gold: #c9973a;
+
+      --radius: 12px;
+      --radius-lg: 20px;
+      --gap: 1.5rem;
+      --section-pad: 100px;
+      --section-pad-mobile: 60px;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-ember: 0 0 40px rgba(224,92,26,0.25);
+    }
+
+    /* ===========================
+       RESET & BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--char);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: var(--section-pad) 0; }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ember);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--ember-glow);
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    /* Fade-in animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+
+    /* ===========================
+       BUTTONS
+    =========================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--ember);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(224,92,26,0.4);
+    }
+    .btn-primary:hover {
+      background: var(--ember-hot);
+      box-shadow: 0 6px 30px rgba(224,92,26,0.6);
+      transform: translateY(-2px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,248,243,0.25);
+    }
+    .btn-outline:hover {
+      background: rgba(255,248,243,0.08);
+      border-color: var(--ember);
+      color: var(--ember-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ember-glow);
+      padding: 0;
+      font-size: 0.9rem;
+    }
+    .btn-ghost:hover { color: var(--ember-hot); }
+    .btn-ghost i { font-size: 0.75rem; transition: transform var(--transition); }
+    .btn-ghost:hover i { transform: translateX(4px); }
+
+    /* ===========================
+       NAVIGATION
+    =========================== */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
+    }
+
+    #nav.scrolled {
+      background: rgba(14,12,10,0.95);
+      backdrop-filter: blur(16px);
+      padding: 14px 0;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--ember); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+    .nav-links a.active { position: relative; }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: var(--ember);
+      border-radius: 2px;
+    }
+
+    .nav-cta { margin-left: 1rem; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--char);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--ember); }
+
+    /* ===========================
+       HERO
+    =========================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(224,92,26,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201,151,58,0.1) 0%, transparent 50%),
+        var(--char);
+    }
+
+    .hero-grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,248,243,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,248,243,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+    }
+
+    .hero-smoke {
+      position: absolute;
+      width: 500px; height: 500px;
+      right: -100px; top: 50%;
+      transform: translateY(-50%);
+      background: radial-gradient(ellipse, rgba(224,92,26,0.08) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-55%) scale(1.08); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 120px 0 80px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 6px 14px;
+      background: rgba(224,92,26,0.15);
+      border: 1px solid rgba(224,92,26,0.3);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ember-glow);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      animation: fadeDown 0.8s ease forwards;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.0;
+      margin-bottom: 1.4rem;
+      animation: heroSlide 0.9s ease 0.1s both;
+    }
+
+    @keyframes heroSlide {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title .accent { color: var(--ember-glow); display: block; }
+    .hero-title .italic { font-style: italic; }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 2.4rem;
+      line-height: 1.8;
+      animation: heroSlide 0.9s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      animation: heroSlide 0.9s ease 0.3s both;
+    }
+
+    .hero-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,248,243,0.08);
+      animation: heroSlide 0.9s ease 0.4s both;
+    }
+
+    .hero-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .hero-info-item i { color: var(--ember); font-size: 0.85rem; }
+
+    /* ===========================
+       ABOUT
+    =========================== */
+    #about { background: var(--char-mid); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-art {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background:
+        radial-gradient(ellipse at 30% 30%, rgba(224,92,26,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(201,151,58,0.15) 0%, transparent 50%),
+        var(--char-soft);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,248,243,0.06);
+    }
+
+    .grill-icon-large {
+      position: absolute;
+      bottom: -30px; right: -30px;
+      font-size: 14rem;
+      color: rgba(224,92,26,0.06);
+      line-height: 1;
+    }
+
+    .about-art-inner {
+      position: relative;
+      z-index: 2;
+      padding: 2.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .about-art-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 8px 16px;
+      background: var(--ember);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 100px;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+
+    .about-art-quote {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .about-float-card {
+      position: absolute;
+      top: 2rem; right: -2rem;
+      background: var(--char);
+      border: 1px solid rgba(255,248,243,0.08);
+      border-radius: var(--radius);
+      padding: 1rem 1.4rem;
+      box-shadow: var(--shadow);
+      min-width: 160px;
+    }
+
+    .about-float-card .number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--ember-glow);
+    }
+    .about-float-card .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .about-text p {
+      color: var(--text-body);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1.8rem;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .highlight-item i {
+      color: var(--ember);
+      margin-top: 3px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .highlight-item span {
+      font-size: 0.9rem;
+      color: var(--text-body);
+    }
+
+    /* ===========================
+       MENU / SERVICES
+    =========================== */
+    #menu { background: var(--char); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .menu-card {
+      background: var(--char-mid);
+      border: 1px solid rgba(255,248,243,0.06);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--ember);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+      transform-origin: left;
+    }
+
+    .menu-card:hover {
+      border-color: rgba(224,92,26,0.3);
+      background: var(--char-soft);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-ember);
+    }
+    .menu-card:hover::before { transform: scaleX(1); }
+
+    .menu-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .menu-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .menu-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .menu-price {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ember-glow);
+      background: rgba(224,92,26,0.12);
+      padding: 4px 10px;
+      border-radius: 100px;
+      display: inline-block;
+    }
+
+    .menu-badge {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: var(--ember);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    /* ===========================
+       HOW IT WORKS
+    =========================== */
+    #how {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(224,92,26,0.08) 0%, transparent 60%),
+        var(--char-mid);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: calc(16.66% + 1rem); right: calc(16.66% + 1rem);
+      height: 1px;
+      background: linear-gradient(to right, var(--ember), transparent, var(--ember));
+      opacity: 0.3;
+    }
+
+    .step-item { text-align: center; padding: 0 1rem; }
+
+    .step-num {
+      width: 56px; height: 56px;
+      background: var(--char-soft);
+      border: 2px solid var(--ember);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--ember-glow);
+      margin: 0 auto 1.4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .step-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ===========================
+       WHY CHOOSE US
+    =========================== */
+    #why { background: var(--char); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .why-card {
+      background: var(--char-mid);
+      border: 1px solid rgba(255,248,243,0.06);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: var(--transition);
+    }
+
+    .why-card:hover {
+      border-color: rgba(224,92,26,0.2);
+      background: var(--char-soft);
+    }
+
+    .why-icon {
+      width: 48px; height: 48px;
+      background: rgba(224,92,26,0.12);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-icon i { color: var(--ember); font-size: 1.1rem; }
+
+    .why-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .why-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ===========================
+       STATS
+    =========================== */
+    #stats {
+      background: var(--ember);
+      padding: 70px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-item {}
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.2);
+      align-self: stretch;
+    }
+
+    /* ===========================
+       REVIEWS
+    =========================== */
+    #reviews { background: var(--char-mid); }
+
+    .reviews-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .rating-display {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--char-soft);
+      border: 1px solid rgba(255,248,243,0.06);
+      border-radius: var(--radius-lg);
+    }
+
+    .rating-big {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .rating-info {}
+
+    .rating-stars-display { color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 0.3rem; }
+
+    .rating-count { font-size: 0.8rem; color: var(--text-muted); }
+
+    .google-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ember-glow);
+      padding: 10px 18px;
+      border: 1px solid rgba(224,92,26,0.35);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .google-link:hover {
+      background: rgba(224,92,26,0.1);
+      border-color: var(--ember-glow);
+    }
+
+    /* Carousel */
+    .carousel-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .review-card {
+      flex: 0 0 calc(33.333% - 1rem);
+      margin-right: 1.5rem;
+      background: var(--char);
+      border: 1px solid rgba(255,248,243,0.07);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .review-card-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .reviewer-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .reviewer-info h4 {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .reviewer-info .review-stars { color: var(--gold); font-size: 0.75rem; }
+
+    .verified-badge {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #4ade80;
+      background: rgba(74,222,128,0.1);
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    .new-badge {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--ember-glow);
+      background: rgba(224,92,26,0.15);
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    .review-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .read-more-btn {
+      background: none;
+      border: none;
+      color: var(--ember-glow);
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 0;
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .carousel-btn {
+      width: 48px; height: 48px;
+      background: var(--char-soft);
+      border: 1px solid rgba(255,248,243,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--white);
+      transition: var(--transition);
+      font-size: 0.85rem;
+    }
+    .carousel-btn:hover {
+      background: var(--ember);
+      border-color: var(--ember);
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,248,243,0.2);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    .dot.active {
+      background: var(--ember);
+      width: 20px;
+      border-radius: 4px;
+    }
+
+    /* Review Form */
+    .review-form-wrap {
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255,248,243,0.06);
+    }
+
+    .review-form-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .review-form-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+    .review-form {
+      background: var(--char);
+      border: 1px solid rgba(255,248,243,0.07);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 640px;
+    }
+
+    .form-group { margin-bottom: 1.4rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ash);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--char-soft);
+      border: 1px solid rgba(255,248,243,0.1);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: border-color var(--transition);
+      outline: none;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--ember);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-input.error, .form-textarea.error { border-color: #ef4444; }
+
+    .form-error {
+      font-size: 0.78rem;
+      color: #ef4444;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .form-error.show { display: block; }
+
+    /* Star Rating Input */
+    .star-rating {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 0.3rem;
+    }
+    .star-rating input { display: none; }
+    .star-rating label {
+      font-size: 2rem;
+      color: rgba(255,248,243,0.15);
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+      color: var(--gold);
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--ember);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover {
+      background: var(--ember-hot);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(224,92,26,0.5);
+    }
+
+    .thank-you-msg {
+      display: none;
+      padding: 1.2rem 1.5rem;
+      background: rgba(74,222,128,0.08);
+      border: 1px solid rgba(74,222,128,0.2);
+      border-radius: var(--radius);
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #4ade80;
+    }
+    .thank-you-msg a {
+      color: var(--ember-glow);
+      text-decoration: underline;
+    }
+    .thank-you-msg.show { display: block; }
+
+    /* ===========================
+       FAQ
+    =========================== */
+    #faq { background: var(--char); }
+
+    .faq-grid {
+      max-width: 760px;
+      margin: 3rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .faq-item {
+      background: var(--char-mid);
+      border: 1px solid rgba(255,248,243,0.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.3rem 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      transition: color var(--transition);
+    }
+    .faq-q:hover { color: var(--ember-glow); }
+
+    .faq-q i {
+      color: var(--ember);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-q i { transform: rotate(45deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px;
+    }
+
+    .faq-a-inner {
+      padding: 0 1.6rem 1.4rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ===========================
+       CONTACT
+    =========================== */
+    #contact {
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(224,92,26,0.12) 0%, transparent 60%),
+        var(--char-mid);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info {}
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(224,92,26,0.12);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon i { color: var(--ember); }
+
+    .contact-item h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+    .contact-item p, .contact-item a {
+      font-size: 0.92rem;
+      color: var(--white);
+    }
+    .contact-item a:hover { color: var(--ember-glow); }
+
+    .contact-hours {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      background: var(--char);
+      border: 1px solid rgba(255,248,243,0.06);
+      border-radius: var(--radius-lg);
+    }
+    .contact-hours h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,248,243,0.04);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .time { color: var(--white); }
+
+    /* Contact Form */
+    .contact-form-wrap {}
+
+    .contact-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-form .form-submit-group {
+      margin-top: 0.5rem;
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    #footer {
+      background: var(--char);
+      border-top: 1px solid rgba(255,248,243,0.06);
+      padding: 50px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .nav-logo { font-size: 1.6rem; margin-bottom: 1rem; }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 280px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .social-link {
+      width: 38px; height: 38px;
+      background: var(--char-soft);
+      border: 1px solid rgba(255,248,243,0.08);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .social-link:hover {
+      background: var(--ember);
+      border-color: var(--ember);
+      color: #fff;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--ember-glow); }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,248,243,0.06);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-bottom span { color: var(--ember); }
+
+    /* ===========================
+       WHATSAPP FLOAT
+    =========================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 900;
+      background: #25D366;
+      color: #fff;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      transition: var(--transition);
+      animation: pulse 2.5s ease infinite;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37,211,102,0.7);
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5), 0 0 0 0 rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 20px rgba(37,211,102,0.5), 0 0 0 12px rgba(37,211,102,0); }
+    }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-float-card { top: 1rem; right: 1rem; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-divider { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .contact-form .form-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --section-pad: var(--section-pad-mobile);
+      }
+
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-content { padding: 100px 0 60px; }
+      .hero-title { font-size: 2.8rem; }
+
+      .menu-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+      .review-card { flex: 0 0 calc(85vw); margin-right: 1rem; }
+
+      .review-form { padding: 1.5rem; }
+
+      .reviews-header { flex-direction: column; align-items: flex-start; }
+      .rating-display { width: 100%; }
+    }
+
+    @media (max-width: 380px) {
+      .container { padding: 0 16px; }
+      .hero-title { font-size: 2.2rem; }
+    }
+
+    /* ===========================
+       REVIEWS SETUP
+       Replace GOOGLE_MAPS_LINK_HERE with the business's Google Maps URL
+       This enables the "See us on Google" link and the "Post it on Google too" CTA
+       Find the Maps link by searching the business on Google Maps and copying the URL
+    =========================== */
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo">BYG<span>.</span></a>
+        <ul class="nav-links">
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#why">Why BYG</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="https://wa.me/2349030502955" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
+          <i class="fab fa-whatsapp"></i> Order Now
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-nav-link">Our Story</a>
+    <a href="#menu" class="mobile-nav-link">Menu</a>
+    <a href="#why" class="mobile-nav-link">Why BYG</a>
+    <a href="#reviews" class="mobile-nav-link">Reviews</a>
+    <a href="#faq" class="mobile-nav-link">FAQs</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="https://wa.me/2349030502955" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:1rem;">
+      <i class="fab fa-whatsapp"></i> Order on WhatsApp
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-pattern"></div>
+    <div class="hero-smoke"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-fire"></i> Ikeja's Favourite Grill Spot
+        </div>
+        <h1 class="hero-title">
+          Smoky. Grilled.<br>
+          <span class="accent italic">Unforgettable.</span>
+        </h1>
+        <p class="hero-sub">
+          Real fire. Real flavour. The Backyard Grill brings you jollof that slaps, chicken that hits, and a vibe that keeps you coming back. Right here on Opebi Road, Allen.
+        </p>
+        <div class="hero-actions">
+          <a href="https://wa.me/2349030502955" target="_blank" rel="noopener" class="btn btn-primary">
+            <i class="fab fa-whatsapp"></i> Chat &amp; Order Now
+          </a>
+          <a href="#menu" class="btn btn-outline">
+            <i class="fas fa-utensils"></i> See the Menu
+          </a>
+        </div>
+        <div class="hero-info">
+          <div class="hero-info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            15/17 Opebi Rd, Allen, Ikeja
+          </div>
+          <div class="hero-info-item">
+            <i class="fas fa-clock"></i>
+            Opens 10am Daily
+          </div>
+          <div class="hero-info-item">
+            <i class="fas fa-star"></i>
+            5.0 Rating on Google
+          </div>
+          <div class="hero-info-item">
+            <i class="fas fa-motorcycle"></i>
+            Dine-in &amp; Takeaway
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual fade-up">
+          <div class="about-art">
+            <div class="grill-icon-large">🔥</div>
+            <div class="about-art-inner">
+              <div class="about-art-tag">
+                <i class="fas fa-fire-alt"></i> Backyard Vibes
+              </div>
+              <p class="about-art-quote">"Food so good you'll forget you're on Opebi Road."</p>
+            </div>
+          </div>
+          <div class="about-float-card">
+            <div class="number">5.0</div>
+            <div class="label">Google Rating ⭐</div>
+          </div>
+        </div>
+
+        <div class="about-text fade-up delay-2">
+          <div class="section-label">Our Story</div>
+          <h2 class="section-title">Born in the backyard. <em>Built for Lagos.</em></h2>
+          <p>The Backyard Grill Ikeja started as a simple love for fire and food — and turned into one of Allen's most-loved spots. We do things the old way: real charcoal, real smoke, real seasoning. No shortcuts.</p>
+          <p>Every plate that leaves our kitchen carries the same energy — bold, smoky, and packed with flavour. Whether it's a solo lunch or a big spread with the crew, BYG is where Lagos eats well.</p>
+
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Real charcoal grilling — every single day</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Smoky jollof rice that hits different</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Fresh platters, grilled chicken, full combos</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Order via WhatsApp — fast and easy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-label">What We Serve</div>
+        <h2 class="section-title">The BYG <em>Menu</em></h2>
+        <p class="section-sub">Every dish is made fresh to order. This is not fast food — this is real food, fast.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-card fade-up delay-1">
+          <div class="menu-badge">Fan Favourite</div>
+          <span class="menu-icon">🍚</span>
+          <h3>Smoky Jollof Rice</h3>
+          <p>The signature dish. Cooked low and slow over charcoal until it gets that deep, smoky bottom pot flavour. Served with your choice of protein.</p>
+          <span class="menu-price">From ₦2,500</span>
+        </div>
+
+        <div class="menu-card fade-up delay-2">
+          <div class="menu-badge">Must Try</div>
+          <span class="menu-icon">🍗</span>
+          <h3>Grilled Chicken</h3>
+          <p>Marinated overnight, grilled to perfection over real fire. Crisp on the outside, juicy on the inside. The chicken here will ruin every other chicken for you.</p>
+          <span class="menu-price">From ₦3,000</span>
+        </div>
+
+        <div class="menu-card fade-up delay-3">
+          <span class="menu-icon">🥩</span>
+          <h3>BYG Platters</h3>
+          <p>The full spread. A combination of grilled meats, jollof rice, and sides. Perfect for when you're serious about eating or sharing with the table.</p>
+          <span class="menu-price">From ₦5,000</span>
+        </div>
+
+        <div class="menu-card fade-up delay-1">
+          <span class="menu-icon">🌯</span>
+          <h3>Shawarma</h3>
+          <p>Voted best Shawarma in Ikeja by our own customers. Packed with grilled filling, house sauce, and wrapped tight. Mess-free, flavour-full.</p>
+          <span class="menu-price">From ₦1,800</span>
+        </div>
+
+        <div class="menu-card fade-up delay-2">
+          <span class="menu-icon">🥣</span>
+          <h3>Pepper Soup</h3>
+          <p>Hot, bold, and deeply seasoned. A warming bowl of catfish or goat meat pepper soup that goes hard on a rainy Ikeja evening.</p>
+          <span class="menu-price">From ₦2,000</span>
+        </div>
+
+        <div class="menu-card fade-up delay-3">
+          <span class="menu-icon">🥤</span>
+          <h3>Drinks &amp; Sides</h3>
+          <p>Cold drinks, chilled zobo, fresh juices, coleslaw, plantain — everything you need to round out a proper BYG meal.</p>
+          <span class="menu-price">From ₦500</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="fade-up" style="text-align:center; max-width:520px; margin:0 auto;">
+        <div class="section-label" style="justify-content:center;">How It Works</div>
+        <h2 class="section-title">Getting your BYG fix is <em>easy</em></h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-item fade-up delay-1">
+          <div class="step-num">1</div>
+          <h3>Chat on WhatsApp</h3>
+          <p>Send us a message on WhatsApp or call 0903 050 2955. Tell us what you want and when you want it.</p>
+        </div>
+        <div class="step-item fade-up delay-2">
+          <div class="step-num">2</div>
+          <h3>We Cook it Fresh</h3>
+          <p>Your order goes straight to the grill. Real fire, real smoke, real seasoning. No pre-made shortcuts.</p>
+        </div>
+        <div class="step-item fade-up delay-3">
+          <div class="step-num">3</div>
+          <h3>Pick Up or Dine In</h3>
+          <p>Swing by 15/17 Opebi Road and eat in with the vibe — or take it away. Either way, you leave happy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section id="why">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-label">Why BYG</div>
+        <h2 class="section-title">What makes us <em>different</em></h2>
+        <p class="section-sub">Lots of places grill. Not many do it like us. Here's what sets BYG apart on Opebi Road.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-icon"><i class="fas fa-fire-alt"></i></div>
+          <div>
+            <h3>Real Charcoal Every Day</h3>
+            <p>No gas. No shortcuts. We fire up real charcoal every morning so every dish gets that authentic smoky depth that you just can't fake.</p>
+          </div>
+        </div>
+
+        <div class="why-card fade-up delay-2">
+          <div class="why-icon"><i class="fas fa-star"></i></div>
+          <div>
+            <h3>5.0 on Google — Genuinely</h3>
+            <p>We didn't buy that rating. Every single review came from a real customer who ate here and felt the need to write about it. That means something.</p>
+          </div>
+        </div>
+
+        <div class="why-card fade-up delay-3">
+          <div class="why-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <h3>Always Fresh, Never Pre-Made</h3>
+            <p>Your plate is cooked to order. When you eat at BYG, you're getting the freshest food possible — not something that's been sitting in a warmer.</p>
+          </div>
+        </div>
+
+        <div class="why-card fade-up delay-4">
+          <div class="why-icon"><i class="fas fa-map-pin"></i></div>
+          <div>
+            <h3>Right in the Heart of Allen</h3>
+            <p>We're easy to find on Opebi Road — no hidden corners, no complicated directions. Just come in, sit down, and let us take care of the rest.</p>
+          </div>
+        </div>
+
+        <div class="why-card fade-up delay-1">
+          <div class="why-icon"><i class="fab fa-whatsapp"></i></div>
+          <div>
+            <h3>Order on WhatsApp, Fast</h3>
+            <p>No app to download, no website to navigate. Just message us directly on WhatsApp and your order is in motion in seconds.</p>
+          </div>
+        </div>
+
+        <div class="why-card fade-up delay-2">
+          <div class="why-icon"><i class="fas fa-users"></i></div>
+          <div>
+            <h3>Good Vibes, Always</h3>
+            <p>The backyard energy is real — a relaxed, welcoming space where you can eat well, chill out, and feel at home. That's BYG every time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-up">
+          <div class="stat-num"><span class="counter" data-target="5">0</span>.0⭐</div>
+          <div class="stat-label">Perfect Google Rating</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item fade-up delay-1">
+          <div class="stat-num"><span class="counter" data-target="1000">0</span>+</div>
+          <div class="stat-label">Happy Customers Served</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item fade-up delay-2">
+          <div class="stat-num"><span class="counter" data-target="6">0</span>+</div>
+          <div class="stat-label">Menu Items</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item fade-up delay-3">
+          <div class="stat-num">₦<span class="counter" data-target="1">0</span>K</div>
+          <div class="stat-label">Starting Price Per Person</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+
+      <div class="reviews-header">
+        <div>
+          <div class="section-label">Real Feedback</div>
+          <h2 class="section-title">What People Are <em>Saying</em></h2>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
+          <div class="rating-display fade-up">
+            <div class="rating-big">5.0</div>
+            <div class="rating-info">
+              <div class="rating-stars-display">★★★★★</div>
+              <div class="rating-count">Based on verified customer reviews</div>
+            </div>
+          </div>
+          <a href="https://maps.app.goo.gl/gMBSeVh4FL5DLdS28" target="_blank" rel="noopener" class="google-link fade-up delay-1">
+            <i class="fab fa-google"></i> See us on Google →
+          </a>
+        </div>
+      </div>
+
+      <!-- Carousel -->
+      <div class="carousel-wrap" id="carousel">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <button class="carousel-btn" id="nextBtn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+
+      <!-- Leave a Review -->
+      <div class="review-form-wrap fade-up">
+        <h3 class="review-form-title">Leave a Review</h3>
+        <p class="review-form-sub">Had a good time at BYG? Let the people know.</p>
+
+        <div class="review-form">
+          <div class="form-group">
+            <label class="form-label" for="rev-name">Your Name</label>
+            <input type="text" id="rev-name" class="form-input" placeholder="e.g. Adaeze Okonkwo" />
+            <div class="form-error" id="err-name">Please enter your name.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your Rating</label>
+            <div class="star-rating" id="starRating">
+              <input type="radio" name="rating" id="star5" value="5">
+              <label for="star5">★</label>
+              <input type="radio" name="rating" id="star4" value="4">
+              <label for="star4">★</label>
+              <input type="radio" name="rating" id="star3" value="3">
+              <label for="star3">★</label>
+              <input type="radio" name="rating" id="star2" value="2">
+              <label for="star2">★</label>
+              <input type="radio" name="rating" id="star1" value="1">
+              <label for="star1">★</label>
+            </div>
+            <div class="form-error" id="err-rating">Please select a star rating.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="rev-text">Your Review</label>
+            <textarea id="rev-text" class="form-textarea" placeholder="Tell us about your experience..."></textarea>
+            <div class="form-error" id="err-text">Review must be at least 20 characters.</div>
+          </div>
+
+          <button class="form-submit" id="submitReview">
+            <i class="fas fa-paper-plane"></i>&nbsp; Post My Review
+          </button>
+
+          <div class="thank-you-msg" id="thankYouMsg">
+            🎉 Thanks for your review! Want more people to see it?
+            <a href="https://maps.app.goo.gl/gMBSeVh4FL5DLdS28" target="_blank" rel="noopener">Post it on Google too →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="fade-up" style="text-align:center; max-width:520px; margin: 0 auto;">
+        <div class="section-label" style="justify-content:center;">Common Questions</div>
+        <h2 class="section-title">Things people <em>ask us</em></h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item fade-up delay-1">
+          <button class="faq-q">
+            Do you offer delivery or is it dine-in and takeaway only?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Right now we operate dine-in and takeaway from our spot at 15/17 Opebi Road, Allen, Ikeja. You can also order via <a href="https://glovoapp.com" style="color:var(--ember-glow)" target="_blank" rel="noopener">Glovo</a> for delivery. For large orders or catering enquiries, just chat us on WhatsApp and we'll sort something out.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up delay-2">
+          <button class="faq-q">
+            Can I place an order in advance through WhatsApp?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Yes, and we actually encourage it — especially for large orders or during busy hours. Just send us a message on 0903 050 2955, tell us what you want and when you're coming, and we'll have it ready for you.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up delay-3">
+          <button class="faq-q">
+            What time do you open and close every day?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">We open from 10am daily. Closing time varies but we typically run until 10pm most days. For the most accurate timing or to confirm before you make the trip, give us a call or send a WhatsApp message beforehand.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up delay-1">
+          <button class="faq-q">
+            Is the food freshly made or pre-cooked in bulk?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Everything is made fresh. We grill over real charcoal every day, and your order is cooked to order wherever possible. There's no sitting food here — that's one of the things our customers always notice and come back for.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up delay-2">
+          <button class="faq-q">
+            Do you cater for events and large group orders?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">We do! Whether it's an office lunch, a birthday, or a small gathering, BYG can put together a spread for your crew. Reach out via WhatsApp well ahead of time so we can plan and make sure everything is ready and hot when you need it.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-up delay-3">
+          <button class="faq-q">
+            What payment methods do you accept?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">We accept cash (Naira) and bank transfers. For online orders through Glovo, payment is handled through the app. If you have any questions about payment for a large or advance order, just ask when you chat with us.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info fade-up">
+          <div class="section-label">Get in Touch</div>
+          <h2 class="section-title">Come eat with <em>us</em></h2>
+          <p class="section-sub">We're right here on Opebi Road. Walk in, call, or send a WhatsApp — whatever works for you.</p>
+
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <h4>Address</h4>
+                <p>15/17 Opebi Rd, Allen, Ikeja 101233, Lagos</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-phone"></i></div>
+              <div>
+                <h4>Call / WhatsApp</h4>
+                <a href="tel:09030502955">0903 050 2955</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+              <div>
+                <h4>Instagram</h4>
+                <a href="https://www.instagram.com/thebyg_foods/" target="_blank" rel="noopener">@thebyg_foods</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-map"></i></div>
+              <div>
+                <h4>Find us on Maps</h4>
+                <a href="https://maps.app.goo.gl/gMBSeVh4FL5DLdS28" target="_blank" rel="noopener">Open in Google Maps →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-hours">
+            <h4><i class="fas fa-clock" style="color:var(--ember);margin-right:0.5rem;"></i> Opening Hours</h4>
+            <div class="hours-row"><span>Monday – Thursday</span><span class="time">10:00 AM – 10:00 PM</span></div>
+            <div class="hours-row"><span>Friday – Saturday</span><span class="time">10:00 AM – 11:00 PM</span></div>
+            <div class="hours-row"><span>Sunday</span><span class="time">11:00 AM – 9:00 PM</span></div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap fade-up delay-2">
+          <div class="review-form" style="background:var(--char-mid);">
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Send us a Message</h3>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.8rem;">We'll get back to you on WhatsApp.</p>
+
+            <div class="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="c-name">Name</label>
+                  <input type="text" id="c-name" class="form-input" placeholder="Your name" />
+                  <div class="form-error" id="cerr-name">Name is required.</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="c-phone">Phone / WhatsApp</label>
+                  <input type="tel" id="c-phone" class="form-input" placeholder="08XXXXXXXXX" />
+                  <div class="form-error" id="cerr-phone">Phone number is required.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="c-msg">Message</label>
+                <textarea id="c-msg" class="form-textarea" placeholder="What would you like? Any questions or orders..."></textarea>
+                <div class="form-error" id="cerr-msg">Message is required.</div>
+              </div>
+              <div class="form-submit-group">
+                <button class="form-submit" id="contactSubmit">
+                  <i class="fab fa-whatsapp"></i>&nbsp; Send via WhatsApp
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo">BYG<span>.</span></a>
+          <p>The Backyard Grill Ikeja. Real fire, real smoke, real food. On Opebi Road, Allen, Lagos — where good eating lives.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/thebyg_foods/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/2349030502955" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#menu">The Menu</a></li>
+            <li><a href="#why">Why BYG</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:09030502955">0903 050 2955</a></li>
+            <li><a href="https://wa.me/2349030502955" target="_blank" rel="noopener">WhatsApp Us</a></li>
+            <li><a href="https://maps.app.goo.gl/gMBSeVh4FL5DLdS28" target="_blank" rel="noopener">Find on Google Maps</a></li>
+            <li><a href="https://www.instagram.com/thebyg_foods/" target="_blank" rel="noopener">@thebyg_foods</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 The Backyard Grill Ikeja (BYG). All rights reserved.</span>
+        
+        <span>Made by. <span><a href="abisolaajayi0.vercel.app" target="_blank">Ajayi Abisola Enoch</a></span> </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/2349030502955" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- ============================
+       JAVASCRIPT
+  ============================= -->
+  <script>
+    // ===========================
+    // NAV: sticky + active links
+    // ===========================
+    const nav = document.getElementById('nav');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+
+      // Active nav
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile menu if open
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ===========================
+    // HAMBURGER
+    // ===========================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ===========================
+    // INTERSECTION OBSERVER
+    // ===========================
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ===========================
+    // ANIMATED COUNTERS
+    // ===========================
+    const counterObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { el.textContent = target.toLocaleString(); clearInterval(timer); }
+          else el.textContent = Math.floor(current).toLocaleString();
+        }, 16);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // ===========================
+    // REVIEWS CAROUSEL
+    // ===========================
+    const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/gMBSeVh4FL5DLdS28';
+
+    const seedReviews = [
+      { name: 'Vera Mogekwu', text: "BYG food is one not to forget in a hurry. Their food tastes sooo good. Smoky jollof that slaps hard with grilled chicken that hits hard, love it!", rating: 5 },
+      { name: 'Michael Sarah', text: "Great service, delicious meal. I'd rate them 10/10. The food was hot, the staff were super welcoming and everything came out quickly. Definitely coming back.", rating: 5 },
+      { name: 'Anuoluwapo Shitta', text: "Jollof rice is too good — has a delightful smoky flavour. You should also try their platters, I highly recommend. Best food spot in Allen right now.", rating: 5 },
+      { name: 'Tunde Adeyemi', text: "Stumbled in on a Friday and ended up staying two hours just vibing. The grilled chicken is incredibly tender and the portion sizes are actually generous. Rare in Lagos.", rating: 5 },
+      { name: 'Chisom Okafor', text: "I've been coming here for three months now and BYG has never disappointed me once. The smoky jollof is addictive. My office lunch spot forever.", rating: 5 },
+      { name: 'Fatimah Bello', text: "The shawarma alone is worth the trip to Opebi. It's the best I've had in Ikeja — and I've tried a lot of them. This place is on another level honestly.", rating: 5 },
+    ];
+
+    const avatarColors = ['#e05c1a','#c9973a','#16a34a','#2563eb','#9333ea','#dc2626','#0891b2'];
+
+    function getInitials(name) {
+      return name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+    }
+
+    function renderStars(rating) {
+      return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    }
+
+    function buildCard(review, isNew = false) {
+      const color = avatarColors[Math.floor(Math.random() * avatarColors.length)];
+      const initials = getInitials(review.name);
+      const shortText = review.text.length > 200 ? review.text.slice(0, 200) + '…' : review.text;
+      const hasMore = review.text.length > 200;
+
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML = `
+        ${isNew ? '<div class="new-badge">✦ Just posted</div>' : '<div class="verified-badge"><i class="fas fa-check-circle"></i> Verified</div>'}
+        <div class="review-card-top">
+          <div class="reviewer-avatar" style="background:${color}">${initials}</div>
+          <div class="reviewer-info">
+            <h4>${review.name}</h4>
+            <div class="review-stars" style="color:#c9973a;">${renderStars(review.rating)}</div>
+          </div>
+        </div>
+        <p class="review-text">${shortText}${hasMore ? ` <button class="read-more-btn" data-full="${encodeURIComponent(review.text)}">Read more</button>` : ''}</p>
+      `;
+
+      if (hasMore) {
+        const btn = card.querySelector('.read-more-btn');
+        btn.addEventListener('click', () => {
+          card.querySelector('.review-text').innerHTML = decodeURIComponent(btn.dataset.full);
+        });
+      }
+
+      return card;
+    }
+
+    function loadLocalReviews() {
+      try { return JSON.parse(localStorage.getItem('byg_reviews') || '[]'); } catch { return []; }
+    }
+
+    function saveLocalReview(review) {
+      const existing = loadLocalReviews();
+      existing.unshift(review);
+      localStorage.setItem('byg_reviews', JSON.stringify(existing));
+    }
+
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+
+    let allReviews = [];
+    let currentIndex = 0;
+    let autoTimer = null;
+    let isPaused = false;
+    let visibleCount = window.innerWidth <= 640 ? 1 : 3;
+
+    function getVisibleCount() {
+      return window.innerWidth <= 640 ? 1 : 3;
+    }
+
+    function getCardWidth() {
+      const vc = getVisibleCount();
+      // card width = (track width / visibleCount) with peek
+      const trackWidth = document.getElementById('carousel').offsetWidth;
+      const peek = vc === 1 ? 30 : 40;
+      return (trackWidth - peek) / vc - 16 + 16 / vc;
+    }
+
+    function buildCarousel() {
+      track.innerHTML = '';
+      dotsContainer.innerHTML = '';
+
+      const localRevs = loadLocalReviews();
+      allReviews = [
+        ...localRevs.map(r => ({ ...r, isNew: true })),
+        ...seedReviews.map(r => ({ ...r, isNew: false }))
+      ];
+
+      allReviews.forEach(r => {
+        track.appendChild(buildCard(r, r.isNew));
+      });
+
+      const totalDots = allReviews.length;
+      for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      // Style cards
+      styleCards();
+      goTo(0, false);
+      startAuto();
+    }
+
+    function styleCards() {
+      const vc = getVisibleCount();
+      const trackEl = document.getElementById('carousel');
+      const trackWidth = trackEl.offsetWidth;
+      const peek = vc === 1 ? 30 : 40;
+      const cardW = (trackWidth - peek) / vc - 24 * (vc - 1) / vc;
+
+      Array.from(track.children).forEach(card => {
+        card.style.flex = `0 0 ${cardW}px`;
+        card.style.minWidth = `${cardW}px`;
+        card.style.marginRight = '24px';
+      });
+    }
+
+    function goTo(idx, animate = true) {
+      currentIndex = Math.max(0, Math.min(idx, allReviews.length - 1));
+      if (!animate) track.style.transition = 'none';
+      else track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+
+      const vc = getVisibleCount();
+      const trackEl = document.getElementById('carousel');
+      const trackWidth = trackEl.offsetWidth;
+      const peek = vc === 1 ? 30 : 40;
+      const cardW = (trackWidth - peek) / vc - 24 * (vc - 1) / vc;
+      const offset = currentIndex * (cardW + 24);
+
+      track.style.transform = `translateX(-${offset}px)`;
+
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+    }
+
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => {
+        if (!isPaused) {
+          const next = (currentIndex + 1) % allReviews.length;
+          goTo(next);
+        }
+      }, 4000);
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      goTo(currentIndex === 0 ? allReviews.length - 1 : currentIndex - 1);
+      startAuto();
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      goTo((currentIndex + 1) % allReviews.length);
+      startAuto();
+    });
+
+    const carouselEl = document.getElementById('carousel');
+    carouselEl.addEventListener('mouseenter', () => isPaused = true);
+    carouselEl.addEventListener('mouseleave', () => isPaused = false);
+
+    // Touch / swipe
+    let touchStartX = 0;
+    carouselEl.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      isPaused = true;
+    }, { passive: true });
+
+    carouselEl.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) goTo((currentIndex + 1) % allReviews.length);
+        else goTo(currentIndex === 0 ? allReviews.length - 1 : currentIndex - 1);
+      }
+      isPaused = false;
+      startAuto();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      styleCards();
+      goTo(currentIndex, false);
+    });
+
+    buildCarousel();
+
+    // ===========================
+    // REVIEW FORM SUBMISSION
+    // ===========================
+    document.getElementById('submitReview').addEventListener('click', () => {
+      const name = document.getElementById('rev-name').value.trim();
+      const text = document.getElementById('rev-text').value.trim();
+      const ratingInput = document.querySelector('input[name="rating"]:checked');
+
+      let valid = true;
+
+      const errName = document.getElementById('err-name');
+      const errRating = document.getElementById('err-rating');
+      const errText = document.getElementById('err-text');
+      const nameField = document.getElementById('rev-name');
+      const textField = document.getElementById('rev-text');
+
+      errName.classList.remove('show'); nameField.classList.remove('error');
+      errRating.classList.remove('show');
+      errText.classList.remove('show'); textField.classList.remove('error');
+
+      if (!name) { errName.classList.add('show'); nameField.classList.add('error'); valid = false; }
+      if (!ratingInput) { errRating.classList.add('show'); valid = false; }
+      if (text.length < 20) { errText.classList.add('show'); textField.classList.add('error'); valid = false; }
+
+      if (!valid) return;
+
+      const review = { name, text, rating: +ratingInput.value, isNew: true };
+      saveLocalReview(review);
+
+      // Rebuild carousel with new review at front
+      buildCarousel();
+
+      // Reset form
+      document.getElementById('rev-name').value = '';
+      document.getElementById('rev-text').value = '';
+      document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+
+      document.getElementById('thankYouMsg').classList.add('show');
+      setTimeout(() => document.getElementById('thankYouMsg').classList.remove('show'), 8000);
+    });
+
+    // ===========================
+    // CONTACT FORM
+    // ===========================
+    document.getElementById('contactSubmit').addEventListener('click', () => {
+      const name = document.getElementById('c-name').value.trim();
+      const phone = document.getElementById('c-phone').value.trim();
+      const msg = document.getElementById('c-msg').value.trim();
+
+      let valid = true;
+      [['c-name','cerr-name'], ['c-phone','cerr-phone'], ['c-msg','cerr-msg']].forEach(([fid, eid]) => {
+        const field = document.getElementById(fid);
+        const err = document.getElementById(eid);
+        err.classList.remove('show'); field.classList.remove('error');
+      });
+
+      if (!name) { document.getElementById('cerr-name').classList.add('show'); document.getElementById('c-name').classList.add('error'); valid = false; }
+      if (!phone) { document.getElementById('cerr-phone').classList.add('show'); document.getElementById('c-phone').classList.add('error'); valid = false; }
+      if (!msg) { document.getElementById('cerr-msg').classList.add('show'); document.getElementById('c-msg').classList.add('error'); valid = false; }
+
+      if (!valid) return;
+
+      const waText = encodeURIComponent(`Hi BYG, I'm ${name} (${phone}).\n\n${msg}`);
+      window.open(`https://wa.me/2349030502955?text=${waText}`, '_blank');
+    });
+
+    // ===========================
+    // FAQ ACCORDION
+    // ===========================
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+  </script>
+</body>
+</html>

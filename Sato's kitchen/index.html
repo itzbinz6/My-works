@@ -1,0 +1,2668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sato's Kitchen Brixton — West African Restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --clay:       #C4622D;
+  --clay-dark:  #9E4A1E;
+  --midnight:   #1A1108;
+  --earth:      #2E1A0E;
+  --cream:      #FAF4EC;
+  --warm-white: #FDF8F2;
+  --gold:       #D4A853;
+  --gold-light: #E8C97A;
+  --sage:       #5C6B4A;
+  --text-main:  #1A1108;
+  --text-muted: #6B5B4E;
+  --text-light: #9E8E84;
+
+  --space-xs:   8px;
+  --space-sm:   16px;
+  --space-md:   24px;
+  --space-lg:   48px;
+  --space-xl:   80px;
+  --space-2xl:  120px;
+
+  --radius-sm:  4px;
+  --radius-md:  12px;
+  --radius-lg:  24px;
+  --radius-full: 999px;
+
+  --nav-height: 72px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm-white);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.15;
+}
+
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--clay);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+/* ── KENTE PATTERN SVG ── */
+.kente-divider {
+  width: 100%;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--clay) 0px, var(--clay) 12px,
+    var(--gold) 12px, var(--gold) 24px,
+    var(--midnight) 24px, var(--midnight) 36px,
+    var(--sage) 36px, var(--sage) 48px,
+    var(--gold) 48px, var(--gold) 60px,
+    var(--clay) 60px, var(--clay) 72px
+  );
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-lg);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+nav.scrolled {
+  background: var(--earth);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  opacity: 1;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-cta {
+  background: var(--clay) !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: var(--radius-full) !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+  transition: background 0.2s !important;
+}
+
+.nav-cta:hover {
+  background: var(--clay-dark) !important;
+}
+
+.nav-cta::after { display: none !important; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE NAV ── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--earth);
+  z-index: 999;
+  padding: var(--space-md) var(--space-lg);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-nav.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.mobile-nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  background: var(--midnight);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(196, 98, 45, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(212, 168, 83, 0.12) 0%, transparent 60%);
+}
+
+/* Adinkra-inspired decorative circles */
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 168, 83, 0.12);
+}
+.hero-circle-1 {
+  width: 500px; height: 500px;
+  top: -100px; right: -150px;
+}
+.hero-circle-2 {
+  width: 300px; height: 300px;
+  bottom: 80px; right: 80px;
+  border-color: rgba(196, 98, 45, 0.15);
+}
+.hero-circle-3 {
+  width: 180px; height: 180px;
+  bottom: 160px; right: 200px;
+  border-color: rgba(212, 168, 83, 0.2);
+}
+
+.hero-kente-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--clay) 0, var(--clay) 12px,
+    var(--gold) 12px, var(--gold) 24px,
+    var(--midnight) 24px, var(--midnight) 36px,
+    var(--sage) 36px, var(--sage) 48px,
+    var(--gold) 48px, var(--gold) 60px,
+    var(--clay) 60px, var(--clay) 72px
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + var(--space-xl)) var(--space-lg) var(--space-xl);
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 168, 83, 0.15);
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-md);
+}
+
+.hero-badge-stars {
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.hero-badge-text {
+  color: var(--gold-light);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hero-badge-sep {
+  color: rgba(212, 168, 83, 0.4);
+}
+
+h1.hero-title {
+  font-size: clamp(48px, 8vw, 96px);
+  color: var(--cream);
+  font-weight: 900;
+  max-width: 700px;
+  margin-bottom: var(--space-md);
+  line-height: 1.05;
+}
+
+h1.hero-title em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: rgba(250, 244, 236, 0.7);
+  max-width: 480px;
+  margin-bottom: var(--space-lg);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--clay);
+  color: white;
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.2s, transform 0.15s;
+  border: 2px solid var(--clay);
+}
+
+.btn-primary:hover {
+  background: var(--clay-dark);
+  border-color: var(--clay-dark);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--cream);
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: background 0.2s, transform 0.15s;
+  border: 2px solid rgba(255,255,255,0.25);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.45);
+  transform: translateY(-2px);
+}
+
+.hero-info-strip {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.hero-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(250,244,236,0.6);
+  font-size: 13px;
+}
+
+.hero-info-item i {
+  color: var(--gold);
+  font-size: 14px;
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: var(--space-lg);
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.section-title.light { color: var(--cream); }
+
+/* ── ABOUT ── */
+#about {
+  background: var(--cream);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+  height: 480px;
+}
+
+.about-img-main {
+  position: absolute;
+  width: 75%;
+  height: 380px;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at 30% 60%, var(--clay) 0%, var(--clay-dark) 40%, var(--midnight) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.about-img-main::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(255,255,255,0.03) 8px,
+    rgba(255,255,255,0.03) 9px
+  );
+}
+
+.about-img-icon {
+  font-size: 80px;
+  opacity: 0.25;
+  color: var(--cream);
+  position: relative;
+  z-index: 1;
+}
+
+.about-img-accent {
+  position: absolute;
+  width: 55%;
+  height: 220px;
+  top: 0;
+  right: 0;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--clay) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-img-accent-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--midnight);
+  text-align: center;
+  line-height: 1.4;
+  padding: var(--space-md);
+}
+
+.about-img-accent-num {
+  font-size: 42px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.about-tag-strip {
+  position: absolute;
+  bottom: -16px;
+  left: 16px;
+  right: 16px;
+  height: 6px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--clay) 0, var(--clay) 10px,
+    var(--gold) 10px, var(--gold) 20px,
+    var(--sage) 20px, var(--sage) 30px,
+    var(--midnight) 30px, var(--midnight) 40px
+  );
+}
+
+.about-text p {
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.about-flags {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.flag-pill {
+  background: var(--midnight);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── MENU HIGHLIGHTS ── */
+#menu {
+  background: var(--midnight);
+  position: relative;
+  overflow: hidden;
+}
+
+#menu::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,98,45,0.12) 0%, transparent 70%);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.menu-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  cursor: default;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,168,83,0.3);
+}
+
+.menu-card-visual {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-card:nth-child(1) .menu-card-visual { background: linear-gradient(135deg, #5C1E0A 0%, #8B3A1A 100%); }
+.menu-card:nth-child(2) .menu-card-visual { background: linear-gradient(135deg, #1A3A1A 0%, #2E5C1A 100%); }
+.menu-card:nth-child(3) .menu-card-visual { background: linear-gradient(135deg, #3A2A0A 0%, #6B4A1A 100%); }
+.menu-card:nth-child(4) .menu-card-visual { background: linear-gradient(135deg, #1A1A3A 0%, #2A2A6B 100%); }
+.menu-card:nth-child(5) .menu-card-visual { background: linear-gradient(135deg, #3A0A1A 0%, #6B1A2E 100%); }
+.menu-card:nth-child(6) .menu-card-visual { background: linear-gradient(135deg, #1A2A1A 0%, #3A5C2A 100%); }
+
+.menu-card-body {
+  padding: var(--space-md);
+}
+
+.menu-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.menu-card-desc {
+  font-size: 13px;
+  color: rgba(250,244,236,0.5);
+  line-height: 1.6;
+}
+
+.menu-card-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(212,168,83,0.3);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* ── HOW IT WORKS ── */
+#how-it-works {
+  background: var(--cream);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  position: relative;
+}
+
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: calc(16.66% + 32px);
+  right: calc(16.66% + 32px);
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--clay) 0, var(--clay) 8px,
+    transparent 8px, transparent 16px
+  );
+}
+
+.step-card {
+  text-align: center;
+  position: relative;
+}
+
+.step-num {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--midnight);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-main);
+}
+
+.step-desc {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ── STATS ── */
+#stats {
+  background: var(--clay);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-lg) var(--space-lg);
+}
+
+#stats::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(0,0,0,0.03) 20px,
+    rgba(0,0,0,0.03) 21px
+  );
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1;
+  display: block;
+}
+
+.stat-suffix {
+  color: var(--gold-light);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: rgba(250,244,236,0.7);
+  font-weight: 500;
+  margin-top: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── WHY US ── */
+#why-us {
+  background: var(--warm-white);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.why-card {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  transition: box-shadow 0.25s ease;
+}
+
+.why-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+
+.why-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: var(--radius-md);
+  background: var(--midnight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 20px;
+}
+
+.why-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.why-card-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ── TESTIMONIALS / REVIEWS ── */
+#testimonials {
+  background: var(--earth);
+  position: relative;
+  overflow: hidden;
+}
+
+#testimonials::after {
+  content: '"';
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 400px;
+  color: rgba(255,255,255,0.02);
+  top: -60px;
+  left: -20px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Overall rating bar */
+.reviews-rating-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.reviews-score-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.reviews-big-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.reviews-score-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reviews-css-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.reviews-css-stars span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background: var(--gold);
+}
+
+.reviews-css-stars span.empty {
+  background: rgba(255,255,255,0.15);
+}
+
+.reviews-based-on {
+  font-size: 13px;
+  color: rgba(250,244,236,0.45);
+}
+
+.reviews-based-on a {
+  color: rgba(250,244,236,0.6);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.reviews-based-on a:hover { color: var(--gold); }
+
+/* Carousel wrapper */
+.carousel-outer {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-lg);
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Card sizing handled by JS-set widths; base styles here */
+.testimonial-card {
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  box-sizing: border-box;
+  position: relative;
+  transition: border-color 0.25s ease;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(212,168,83,0.3);
+}
+
+/* CSS stars inside cards */
+.card-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.card-stars span {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background: var(--gold);
+}
+
+.card-stars span.empty {
+  background: rgba(255,255,255,0.15);
+}
+
+.card-badges {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badge-verified {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--sage);
+  background: rgba(92,107,74,0.18);
+  border: 1px solid rgba(92,107,74,0.35);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.badge-new {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(212,168,83,0.15);
+  border: 1px solid rgba(212,168,83,0.35);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.testimonial-text {
+  font-size: 14px;
+  color: rgba(250,244,236,0.78);
+  line-height: 1.75;
+  font-style: italic;
+  flex: 1;
+}
+
+.read-more-toggle {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--midnight);
+}
+
+.testimonial-name {
+  font-weight: 600;
+  color: var(--cream);
+  font-size: 14px;
+}
+
+.testimonial-meta {
+  font-size: 12px;
+  color: rgba(250,244,236,0.4);
+}
+
+/* Carousel controls */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--cream);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:hover {
+  background: rgba(255,255,255,0.13);
+  border-color: rgba(212,168,83,0.4);
+  transform: scale(1.06);
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.carousel-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+/* ── REVIEW SUBMISSION FORM ── */
+.review-form-wrap {
+  margin-top: var(--space-lg);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.review-form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.review-form-sub {
+  font-size: 14px;
+  color: rgba(250,244,236,0.45);
+  margin-bottom: var(--space-md);
+}
+
+/* CSS-only star rating selector */
+.star-rating-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.star-rating-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(250,244,236,0.5);
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+  width: fit-content;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  font-size: 28px;
+  color: rgba(255,255,255,0.15);
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: var(--gold);
+}
+
+.star-rating-error {
+  font-size: 12px;
+  color: #E74C3C;
+  display: none;
+}
+
+.star-rating-error.visible { display: block; }
+
+.review-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.review-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--space-sm);
+}
+
+.review-form-group .form-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(250,244,236,0.5);
+}
+
+.review-form-group .form-input,
+.review-form-group .form-textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.review-form-group .form-input::placeholder,
+.review-form-group .form-textarea::placeholder {
+  color: rgba(250,244,236,0.25);
+}
+
+.review-form-group .form-input:focus,
+.review-form-group .form-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.review-form-group .form-input.error,
+.review-form-group .form-textarea.error {
+  border-color: #E74C3C;
+}
+
+.review-form-group .form-error {
+  font-size: 12px;
+  color: #E74C3C;
+  display: none;
+}
+
+.review-form-group .form-error.visible { display: block; }
+
+.review-form-group .form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.review-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: var(--midnight);
+  border: none;
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: var(--space-xs);
+}
+
+.review-submit-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.review-submit-btn:active { transform: translateY(0); }
+
+.review-thankyou {
+  display: none;
+  padding: var(--space-md);
+  background: rgba(92,107,74,0.15);
+  border: 1px solid rgba(92,107,74,0.3);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-md);
+  color: var(--cream);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.review-thankyou a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .review-form-row { grid-template-columns: 1fr; }
+  .reviews-rating-bar { flex-direction: column; align-items: flex-start; }
+  .reviews-big-score { font-size: 40px; }
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid { display: none; }
+}
+
+/* ── FAQ ── */
+#faq {
+  background: var(--cream);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: background 0.2s;
+}
+
+.faq-q:hover { background: rgba(0,0,0,0.02); }
+
+.faq-q i {
+  color: var(--clay);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.open .faq-q i { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.faq-a-inner {
+  padding: 0 var(--space-md) var(--space-md);
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+/* ── CONTACT ── */
+#contact {
+  background: var(--midnight);
+  position: relative;
+  overflow: hidden;
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  left: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-info-title {
+  font-size: clamp(32px, 5vw, 52px);
+  color: var(--cream);
+  font-weight: 900;
+  margin-bottom: var(--space-md);
+}
+
+.contact-info-title em { color: var(--gold); font-style: italic; }
+
+.contact-info-desc {
+  color: rgba(250,244,236,0.6);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.contact-detail-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 16px;
+}
+
+.contact-detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(250,244,236,0.4);
+  margin-bottom: 4px;
+}
+
+.contact-detail-value {
+  color: var(--cream);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.contact-detail-value:hover { color: var(--gold); }
+
+/* FORM */
+.contact-form {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(250,244,236,0.5);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(250,244,236,0.25);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: #E74C3C;
+}
+
+.form-error {
+  font-size: 12px;
+  color: #E74C3C;
+  display: none;
+}
+
+.form-error.visible { display: block; }
+
+.form-select option { background: var(--earth); }
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-submit {
+  width: 100%;
+  background: var(--clay);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: var(--radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.form-submit:hover {
+  background: var(--clay-dark);
+  transform: translateY(-2px);
+}
+
+.form-submit:active { transform: translateY(0); }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: var(--space-lg);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #0F0A04;
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.footer-brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+
+.footer-brand-name span { color: var(--gold); }
+
+.footer-brand-desc {
+  font-size: 14px;
+  color: rgba(250,244,236,0.45);
+  line-height: 1.7;
+  max-width: 280px;
+  margin-bottom: var(--space-md);
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(250,244,236,0.5);
+  text-decoration: none;
+  font-size: 14px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.footer-social a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(250,244,236,0.4);
+  margin-bottom: var(--space-md);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: rgba(250,244,236,0.55);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: rgba(250,244,236,0.3);
+}
+
+.footer-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(250,244,236,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* ── WHATSAPP FLOAT ── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  padding: 14px 20px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: wa-pulse 3s ease-in-out infinite;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+  animation: none;
+}
+
+.whatsapp-float i { font-size: 20px; }
+
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+  50% { box-shadow: 0 4px 32px rgba(37,211,102,0.7); }
+}
+
+/* ── FADE IN ANIMATION ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+.fade-in-delay-4 { transition-delay: 0.4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .about-grid,
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .about-visual { height: 320px; }
+  .about-img-main { height: 260px; }
+
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .testimonials-grid { display: none; }
+
+  .faq-grid { grid-template-columns: 1fr; }
+
+  .footer-top { grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+
+  .steps-grid::before { display: none; }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --space-xl: 56px;
+    --space-2xl: 80px;
+  }
+
+  section { padding: var(--space-xl) var(--space-md); }
+  nav { padding: 0 var(--space-md); }
+
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: block; }
+
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+
+  .why-grid { grid-template-columns: 1fr; }
+
+  .steps-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .hero-info-strip { gap: var(--space-md); }
+  .hero-info-item { font-size: 12px; }
+
+  .footer-top { grid-template-columns: 1fr; gap: var(--space-lg); }
+
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+  .whatsapp-float .wa-label { display: none; }
+  .whatsapp-float { padding: 14px; border-radius: 50%; }
+}
+
+@media (max-width: 480px) {
+  .menu-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-visual { height: 240px; }
+  .about-img-main { height: 200px; width: 70%; }
+  .about-img-icon { font-size: 52px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Sato's <span>Kitchen</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">Reserve a Table</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobile-nav">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Reserve a Table</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-circle hero-circle-1"></div>
+  <div class="hero-circle hero-circle-2"></div>
+  <div class="hero-circle hero-circle-3"></div>
+  <div class="hero-kente-strip"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-stars">★★★★★</span>
+      <span class="hero-badge-text">4.9 on Google</span>
+      <span class="hero-badge-sep">·</span>
+      <span class="hero-badge-text">77 Reviews</span>
+    </div>
+
+    <h1 class="hero-title">Real Food.<br><em>Real Roots.</em><br>Brixton's Own.</h1>
+    <p class="hero-sub">West African cooking done the way it's meant to be — generous, bold, and made with the kind of care that turns first visits into lifelong habits.</p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary"><i class="fas fa-calendar-check"></i> Reserve a Table</a>
+      <a href="https://wa.me/447756296450" class="btn-secondary" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+    </div>
+
+    <div class="hero-info-strip">
+      <div class="hero-info-item"><i class="fas fa-map-marker-alt"></i> 199 Stockwell Rd, London SW9</div>
+      <div class="hero-info-item"><i class="fas fa-clock"></i> Mon – Sun, 12pm – 10pm</div>
+      <div class="hero-info-item"><i class="fas fa-utensils"></i> Dine-in · Takeaway · Delivery</div>
+      <div class="hero-info-item"><i class="fas fa-sterling-sign"></i> £20 – £30 per person</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-in">
+        <div class="about-img-main">
+          <i class="fas fa-bowl-rice about-img-icon"></i>
+          <div class="about-tag-strip"></div>
+        </div>
+        <div class="about-img-accent">
+          <div class="about-img-accent-text">
+            <span class="about-img-accent-num">4.9</span>
+            Google Rating
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-title" style="margin-bottom: 24px;">Women-owned. Community-rooted. Brixton-built.</h2>
+        <p>Sato's Kitchen opened on Stockwell Road with one goal: cook the food West Africa has always eaten and serve it to the neighbourhood that deserves it. No shortcuts. Just the recipes that have travelled across generations.</p>
+        <p>Every bowl of egusi, every plate of pounded yam, every grilled fish comes out of a kitchen where authenticity is non-negotiable. Our guests leave full — and they always come back.</p>
+        <p>LGBTQ+ friendly, family-welcoming, and proud of it. Everyone eats here.</p>
+        <div class="about-flags">
+          <div class="flag-pill"><i class="fas fa-venus" style="color:var(--gold)"></i> Women-Owned</div>
+          <div class="flag-pill"><i class="fas fa-rainbow" style="color:var(--gold)"></i> LGBTQ+ Friendly</div>
+          <div class="flag-pill"><i class="fas fa-child" style="color:var(--gold)"></i> Family-Friendly</div>
+          <div class="flag-pill"><i class="fas fa-wheelchair" style="color:var(--gold)"></i> Accessible</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" style="color:var(--gold)">What We Cook</span>
+      <h2 class="section-title light">The food people come back for</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card fade-in">
+        <div class="menu-card-visual">🐟</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Grilled Fish</div>
+          <div class="menu-card-desc">Whole fish, chargrilled with a dry rub of West African spices. Comes with your choice of sides.</div>
+          <span class="menu-card-tag">Fan Favourite</span>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-1">
+        <div class="menu-card-visual">🥣</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Egusi Soup</div>
+          <div class="menu-card-desc">Ground melon seeds slow-cooked with assorted meats, leafy greens, and palm oil. Pair with pounded yam.</div>
+          <span class="menu-card-tag">Classic</span>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-2">
+        <div class="menu-card-visual">🫙</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Ogbono Soup</div>
+          <div class="menu-card-desc">Wild mango seed soup with that signature draw, loaded with assorted fish and meat.</div>
+          <span class="menu-card-tag">Rich & Hearty</span>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-1">
+        <div class="menu-card-visual">🍗</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Chicken Wings</div>
+          <div class="menu-card-desc">Marinated and fried crisp with suya-spiced seasoning. The kind of starter that becomes the main event.</div>
+          <span class="menu-card-tag">Starter</span>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-2">
+        <div class="menu-card-visual">🐌</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Peppered Snails</div>
+          <div class="menu-card-desc">Giant African snails stewed in a tomato and scotch bonnet pepper sauce. A true delicacy.</div>
+          <span class="menu-card-tag">Special</span>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-3">
+        <div class="menu-card-visual">🫓</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Pounded Yam</div>
+          <div class="menu-card-desc">Smooth, stretchy, perfectly made. The gold standard companion for any soup on the menu.</div>
+          <span class="menu-card-tag">Swallow</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-header" style="text-align:center; max-width:560px; margin:0 auto var(--space-lg);">
+      <span class="section-label">Getting Your Food</span>
+      <h2 class="section-title">Three ways to eat with us</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Book or Walk In</h3>
+        <p class="step-desc">Reserve your table online, call us, or just come through. We take walk-ins and love a good reservation.</p>
+      </div>
+      <div class="step-card fade-in fade-in-delay-1">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Order Your Plate</h3>
+        <p class="step-desc">Pick from the full menu — soups, grills, starters, and sides. Our staff will guide you if it's your first time.</p>
+      </div>
+      <div class="step-card fade-in fade-in-delay-2">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Eat Well, Leave Happy</h3>
+        <p class="step-desc">Generous portions, warm service, and the kind of food that makes you plan your next visit before you've left.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <span class="stat-num" data-target="77">0</span>
+        <div class="stat-label">Google Reviews</div>
+      </div>
+      <div class="stat-item fade-in fade-in-delay-1">
+        <span class="stat-num" data-target="4" data-decimal="9"><span>4.9</span></span>
+        <div class="stat-label">Star Rating</div>
+      </div>
+      <div class="stat-item fade-in fade-in-delay-2">
+        <span class="stat-num" data-target="3">0<span class="stat-suffix"> options</span></span>
+        <div class="stat-label">Dine-in · Takeaway · Delivery</div>
+      </div>
+      <div class="stat-item fade-in fade-in-delay-3">
+        <span class="stat-num">7<span class="stat-suffix"> days</span></span>
+        <div class="stat-label">Open Every Week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="container">
+    <div class="section-header" style="max-width:560px; margin-bottom:var(--space-lg);">
+      <span class="section-label">Why Sato's</span>
+      <h2 class="section-title">Food this good doesn't need a hard sell</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-in">
+        <div class="why-icon"><i class="fas fa-pepper-hot"></i></div>
+        <div>
+          <h3 class="why-card-title">Authentic Flavours, Full Stop</h3>
+          <p class="why-card-desc">No corners cut. No watered-down versions. Every dish is cooked the way it's cooked at home — because that's the only way worth cooking.</p>
+        </div>
+      </div>
+      <div class="why-card fade-in fade-in-delay-1">
+        <div class="why-icon"><i class="fas fa-heart"></i></div>
+        <div>
+          <h3 class="why-card-title">Women-Owned, Community-First</h3>
+          <p class="why-card-desc">Sato's is an independent, women-owned restaurant. When you eat here, you support a local business that gives a damn about Brixton.</p>
+        </div>
+      </div>
+      <div class="why-card fade-in fade-in-delay-2">
+        <div class="why-icon"><i class="fas fa-users"></i></div>
+        <div>
+          <h3 class="why-card-title">A Place for Everyone</h3>
+          <p class="why-card-desc">LGBTQ+ safe, family-friendly, and accessible. Whether you're celebrating your 50th birthday or just want a midweek dinner, this is your table.</p>
+        </div>
+      </div>
+      <div class="why-card fade-in fade-in-delay-3">
+        <div class="why-icon"><i class="fas fa-drumstick-bite"></i></div>
+        <div>
+          <h3 class="why-card-title">Portions That Mean It</h3>
+          <p class="why-card-desc">Nobody leaves hungry. Our guests regularly take food home — not because they couldn't finish, but because it's too good to leave behind.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS SETUP -->
+<!-- Replace GOOGLE_MAPS_LINK_HERE with the business's Google Maps URL -->
+<!-- This enables the "See us on Google" link and the "Post it on Google too" CTA -->
+<!-- Find the Maps link by searching the business on Google Maps and copying the URL -->
+
+<!-- TESTIMONIALS / REVIEWS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:var(--space-lg);">
+      <span class="section-label" style="color:var(--gold)">What People Say</span>
+      <h2 class="section-title light">What People Are Saying</h2>
+    </div>
+
+    <!-- Overall rating bar — sits directly above the carousel -->
+    <div class="reviews-rating-bar fade-in">
+      <div class="reviews-score-block">
+        <span class="reviews-big-score">4.9</span>
+        <div class="reviews-score-detail">
+          <div class="reviews-css-stars">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="reviews-based-on">Based on <a href="https://maps.app.goo.gl/5u471pD8UPqQVsEx6" target="_blank" rel="noopener">client reviews</a></div>
+        </div>
+      </div>
+      <a href="https://maps.app.goo.gl/5u471pD8UPqQVsEx6" target="_blank" rel="noopener" class="btn-review btn-review-all" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;text-decoration:none;background:rgba(255,255,255,0.08);color:var(--cream);border:1px solid rgba(255,255,255,0.15);transition:transform 0.15s,background 0.2s;">
+        <i class="fab fa-google"></i> See us on Google →
+      </a>
+    </div>
+
+    <!-- Carousel -->
+    <div class="carousel-outer fade-in">
+      <div class="carousel-viewport" id="carousel-viewport">
+        <div class="carousel-track" id="carousel-track">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-arrow" id="carousel-prev" aria-label="Previous review">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <button class="carousel-arrow" id="carousel-next" aria-label="Next review">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Review submission form -->
+    <div class="review-form-wrap fade-in">
+      <h3 class="review-form-title">Leave a Review</h3>
+      <p class="review-form-sub">Your experience matters — and other visitors will thank you for it.</p>
+
+      <div class="review-form-row" style="margin-bottom:var(--space-sm);">
+        <div class="review-form-group">
+          <label class="form-label" for="rv-name">Your Name</label>
+          <input type="text" id="rv-name" class="form-input" placeholder="e.g. Amara Okafor">
+          <span class="form-error" id="rv-name-error">Please enter your name.</span>
+        </div>
+        <div class="review-form-group star-rating-wrap">
+          <span class="star-rating-label">Your Rating</span>
+          <div class="star-rating" id="star-rating-input">
+            <input type="radio" name="rv-rating" id="star5" value="5"><label for="star5">★</label>
+            <input type="radio" name="rv-rating" id="star4" value="4"><label for="star4">★</label>
+            <input type="radio" name="rv-rating" id="star3" value="3"><label for="star3">★</label>
+            <input type="radio" name="rv-rating" id="star2" value="2"><label for="star2">★</label>
+            <input type="radio" name="rv-rating" id="star1" value="1"><label for="star1">★</label>
+          </div>
+          <span class="star-rating-error" id="rv-rating-error">Please select a star rating.</span>
+        </div>
+      </div>
+
+      <div class="review-form-group">
+        <label class="form-label" for="rv-text">Your Review</label>
+        <textarea id="rv-text" class="form-textarea" placeholder="Tell us what you thought — the food, the atmosphere, anything that stood out..."></textarea>
+        <span class="form-error" id="rv-text-error">Please write at least 20 characters.</span>
+      </div>
+
+      <button class="review-submit-btn" onclick="submitReview()">
+        <i class="fas fa-star"></i> Post My Review
+      </button>
+
+      <div class="review-thankyou" id="review-thankyou">
+        Thanks for your review! Want more people to see it? <a href="https://maps.app.goo.gl/5u471pD8UPqQVsEx6" target="_blank" rel="noopener">Post it on Google too →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header" style="text-align:center; max-width:560px; margin:0 auto var(--space-lg);">
+      <span class="section-label">Good Questions</span>
+      <h2 class="section-title">Things people usually ask</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-q">Do I need to book a table? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Walk-ins are welcome but we recommend booking for groups of 4 or more, especially on weekends. You can reserve via the form below, by phone, or on WhatsApp.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you cater for events and parties? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — we offer full catering services for birthdays, family events, and corporate gatherings. Message us on WhatsApp to discuss your event details and we'll put together a package.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I order for delivery or takeaway? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. We offer takeaway directly from the restaurant and delivery through major platforms. Call or WhatsApp us to confirm delivery availability to your area.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is the food suitable for people who haven't eaten West African food before? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Completely. Our staff are happy to walk you through the menu, explain every dish, and suggest good starting points. Many of our regulars discovered West African food here for the first time.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are there vegetarian or allergen-friendly options? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">We have vegetable-based dishes available. For specific dietary requirements or allergen information, please contact us before your visit so the kitchen can accommodate you properly.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is it accessible for wheelchair users? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. We have a wheelchair-accessible toilet on site. If you need specific accessibility information before your visit, give us a call and we'll make sure everything is ready for you.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div>
+        <span class="section-label" style="color:var(--gold)">Get In Touch</span>
+        <h2 class="contact-info-title">Come and eat with<br><em>us in Brixton.</em></h2>
+        <p class="contact-info-desc">Reserve a table, place a catering order, or just ask us something. We're on WhatsApp and pick up the phone.</p>
+
+        <div class="contact-details">
+          <div class="contact-detail fade-in">
+            <div class="contact-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="contact-detail-label">Address</div>
+              <a href="https://maps.google.com/?q=199+Stockwell+Rd+London+SW9+9SJ" target="_blank" class="contact-detail-value">199 & 199A Stockwell Rd, London SW9 9SJ</a>
+            </div>
+          </div>
+          <div class="contact-detail fade-in fade-in-delay-1">
+            <div class="contact-detail-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <div class="contact-detail-label">Phone</div>
+              <a href="tel:+447756296450" class="contact-detail-value">+44 7756 296450</a>
+            </div>
+          </div>
+          <div class="contact-detail fade-in fade-in-delay-2">
+            <div class="contact-detail-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <div class="contact-detail-label">WhatsApp</div>
+              <a href="https://wa.me/447756296450" target="_blank" class="contact-detail-value">Chat with us on WhatsApp</a>
+            </div>
+          </div>
+          <div class="contact-detail fade-in fade-in-delay-3">
+            <div class="contact-detail-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <div class="contact-detail-label">Opening Hours</div>
+              <span class="contact-detail-value">Monday – Sunday: 12pm – 10pm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form fade-in" id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name</label>
+            <input type="text" id="name" class="form-input" placeholder="e.g. Amara Okafor">
+            <span class="form-error" id="name-error">Please enter your name.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone / WhatsApp</label>
+            <input type="tel" id="phone" class="form-input" placeholder="+44 7xxx xxxxxx">
+            <span class="form-error" id="phone-error">Please enter a phone number.</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="date">Preferred Date</label>
+            <input type="date" id="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="guests">Number of Guests</label>
+            <select id="guests" class="form-select form-input">
+              <option value="">Select...</option>
+              <option>1 – 2</option>
+              <option>3 – 4</option>
+              <option>5 – 8</option>
+              <option>9 – 15</option>
+              <option>16+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="enquiry">What's the occasion?</label>
+          <textarea id="enquiry" class="form-textarea" placeholder="Birthday dinner, casual lunch, catering enquiry..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">
+          <i class="fas fa-calendar-check"></i> Reserve My Table
+        </button>
+        <div class="form-success" id="form-success">
+          🎉 Thank you! We'll confirm your reservation on WhatsApp shortly.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Sato's <span>Kitchen</span></div>
+        <p class="footer-brand-desc">Authentic West African cooking in the heart of Brixton. Women-owned, community-rooted, and cooking with love since day one.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/satoskitchenbrixton/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/447756296450" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Make a Reservation</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Visit Us</div>
+        <ul class="footer-links">
+          <li><a href="https://maps.google.com/?q=199+Stockwell+Rd+London+SW9+9SJ" target="_blank">199 Stockwell Rd, SW9 9SJ</a></li>
+          <li><a href="tel:+447756296450">+44 7756 296450</a></li>
+          <li><a href="https://wa.me/447756296450" target="_blank">WhatsApp Us</a></li>
+          <li><a href="#">Mon – Sun: 12pm – 10pm</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Sato's Kitchen Brixton. All rights reserved.</p>
+      <p class="footer-copy">Made by. <a href="abisolaajayi0.vercel.app" target="_blank" class="footer-copy">Ajayi Abisola Enoch</a></p>
+
+      <div class="footer-badges">
+        <span class="footer-badge">Women-Owned</span>
+        <span class="footer-badge">LGBTQ+ Friendly</span>
+        <span class="footer-badge">Family Welcome</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/447756296450" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-label">Chat with us</span>
+</a>
+
+<script>
+// ── NAV SCROLL
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  updateActiveNav();
+});
+
+// ── HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+
+mobileNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+  });
+});
+
+// ── ACTIVE NAV
+function updateActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 120) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}
+
+// ── SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// ── INTERSECTION OBSERVER
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── COUNTER ANIMATION
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target || 0);
+      if (!target || el.dataset.counted) return;
+      el.dataset.counted = '1';
+      const suffix = el.querySelector('.stat-suffix') ? el.querySelector('.stat-suffix').outerHTML : '';
+      let start = 0;
+      const duration = 1600;
+      const startTime = performance.now();
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (target - start) * ease);
+        el.innerHTML = current + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObserver.observe(el));
+
+// ── FAQ ACCORDION
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(open => {
+      open.classList.remove('open');
+      open.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+  });
+});
+
+// ── FORM VALIDATION
+function submitForm() {
+  let valid = true;
+  const name = document.getElementById('name');
+  const phone = document.getElementById('phone');
+  const nameErr = document.getElementById('name-error');
+  const phoneErr = document.getElementById('phone-error');
+  [name, phone].forEach(input => input.classList.remove('error'));
+  [nameErr, phoneErr].forEach(err => err.classList.remove('visible'));
+  if (!name.value.trim()) { name.classList.add('error'); nameErr.classList.add('visible'); valid = false; }
+  if (!phone.value.trim()) { phone.classList.add('error'); phoneErr.classList.add('visible'); valid = false; }
+  if (valid) {
+    document.querySelector('.contact-form .form-submit').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    const date = document.getElementById('date').value;
+    const guests = document.getElementById('guests').value;
+    const enquiry = document.getElementById('enquiry').value;
+    const msg = encodeURIComponent(`Hello Sato's Kitchen! I'd like to make a reservation.\n\nName: ${name.value}\nPhone: ${phone.value}${date ? '\nDate: ' + date : ''}${guests ? '\nGuests: ' + guests : ''}${enquiry ? '\nNotes: ' + enquiry : ''}`);
+    setTimeout(() => { window.open(`https://wa.me/447756296450?text=${msg}`, '_blank'); }, 800);
+  }
+}
+
+// ── REVIEWS CAROUSEL ──────────────────────────────────────────────────────────
+
+const GOOGLE_MAPS_LINK = 'https://maps.app.goo.gl/5u471pD8UPqQVsEx6';
+
+const AVATAR_COLORS = [
+  { bg: '#D4A853', color: '#1A1108' },
+  { bg: '#C4622D', color: '#ffffff' },
+  { bg: '#5C6B4A', color: '#ffffff' },
+  { bg: '#9E4A1E', color: '#ffffff' },
+  { bg: '#D4A853', color: '#1A1108' },
+  { bg: '#2E1A0E', color: '#FAF4EC' },
+];
+
+const SEEDED_REVIEWS = [
+  { name: 'Lucy Wilson',    rating: 5, text: 'I had my 50th birthday party here and it was so worth it. The food was incredible and all of my guests went home with takeaway orders. If you know what a proper home-cooked meal tastes like, you\'ll know what I mean.' },
+  { name: 'Ola Adesanya',   rating: 5, text: 'The fish was authentically delicious and the spices were exactly right. My daughter\'s ogbono with assorted fish and pounded yam, my son\'s egusi soup — they were both clean-plate situations.' },
+  { name: 'Azim Ahmed',     rating: 5, text: 'One of the best Nigerian restaurants in London. Full stop. The flavours, the atmosphere, the service — everything was on point. Already planning when I\'m going back.' },
+  { name: 'Kezia Mensah',   rating: 5, text: 'Brought my whole family here for Sunday lunch and everyone left absolutely full and happy. The pounded yam and egusi was exactly like home. We\'ve already booked again for next month.' },
+  { name: 'Tunde Ogundele', rating: 5, text: 'The peppered snails are something else. I\'ve been to a lot of West African spots in London and this is genuinely up there. Service was warm, prices are fair, and the portions are generous.' },
+  { name: 'Priya Nair',     rating: 5, text: 'My first time trying West African food and the staff were brilliant at explaining everything. I went with the grilled fish and plantain — completely converted. Coming back with friends next week.' },
+  { name: 'Damilola Adeyemi', rating: 5, text: 'Sato\'s feels like eating at your auntie\'s house — you know, the auntie who actually knows how to cook. Everything is seasoned properly and the chicken wings are addictive.' },
+];
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function buildStars(rating) {
+  let html = '<div class="card-stars">';
+  for (let i = 1; i <= 5; i++) html += `<span${i > rating ? ' class="empty"' : ''}></span>`;
+  html += '</div>';
+  return html;
+}
+
+function buildCard(review, isNew = false) {
+  const MAX = 200;
+  const fullText = review.text;
+  const truncated = fullText.length > MAX;
+  const display = truncated ? fullText.slice(0, MAX) + '…' : fullText;
+  const initials = getInitials(review.name);
+  const colorIdx = (initials.charCodeAt(0) + (initials.charCodeAt(1) || 0)) % AVATAR_COLORS.length;
+  const { bg, color } = AVATAR_COLORS[colorIdx];
+
+  return `
+    <div class="testimonial-card">
+      <div class="card-badges">
+        ${isNew ? '<span class="badge-new">Just posted</span>' : ''}
+        <span class="badge-verified">Verified</span>
+      </div>
+      ${buildStars(review.rating)}
+      <p class="testimonial-text" data-full="${fullText.replace(/"/g, '&quot;')}" data-truncated="${truncated}">
+        ${display}
+      </p>
+      ${truncated ? `<button class="read-more-toggle" onclick="toggleReadMore(this)">Read more</button>` : ''}
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:${bg};color:${color}">${initials}</div>
+        <div>
+          <div class="testimonial-name">${review.name}</div>
+          <div class="testimonial-meta">Verified diner${isNew ? ' · Just now' : ''}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleReadMore(btn) {
+  const p = btn.previousElementSibling;
+  const full = p.dataset.full;
+  const isTruncated = p.dataset.truncated === 'true';
+  if (isTruncated) {
+    p.innerHTML = full;
+    p.dataset.truncated = 'false';
+    btn.textContent = 'Read less';
+  } else {
+    const MAX = 200;
+    p.innerHTML = full.slice(0, MAX) + '…';
+    p.dataset.truncated = 'true';
+    btn.textContent = 'Read more';
+  }
+  // Recalculate card widths (carousel may need reflow)
+  setTimeout(setCardWidths, 50);
+}
+
+// ── Carousel state
+let allReviews = [];
+let currentIdx = 0;
+let autoTimer = null;
+let isPaused = false;
+let touchStartX = 0;
+let cardsVisible = 3;
+
+const track = document.getElementById('carousel-track');
+const viewport = document.getElementById('carousel-viewport');
+const dotsContainer = document.getElementById('carousel-dots');
+
+function loadReviews() {
+  const stored = JSON.parse(localStorage.getItem('satosReviews') || '[]');
+  allReviews = [...stored.map(r => ({ ...r, isNew: false })), ...SEEDED_REVIEWS];
+}
+
+function setCardWidths() {
+  const vw = viewport.offsetWidth;
+  const peek = window.innerWidth <= 768 ? 30 : 40;
+  cardsVisible = window.innerWidth <= 768 ? 1 : 3;
+  const gap = 16;
+  const cardW = (vw - peek - gap * (cardsVisible - 1)) / cardsVisible;
+
+  track.style.gap = gap + 'px';
+  track.querySelectorAll('.testimonial-card').forEach(card => {
+    card.style.width = cardW + 'px';
+    card.style.marginRight = '0';
+  });
+}
+
+function renderCarousel() {
+  track.innerHTML = allReviews.map((r, i) => buildCard(r, i < JSON.parse(localStorage.getItem('satosReviews') || '[]').length)).join('');
+  setCardWidths();
+  renderDots();
+  goTo(0, false);
+}
+
+function renderDots() {
+  const total = allReviews.length;
+  dotsContainer.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === currentIdx ? ' active' : '');
+    dot.setAttribute('aria-label', `Review ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+}
+
+function updateDots() {
+  dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentIdx);
+  });
+}
+
+function goTo(idx, animate = true) {
+  const total = allReviews.length;
+  currentIdx = ((idx % total) + total) % total;
+
+  const vw = viewport.offsetWidth;
+  const peek = window.innerWidth <= 768 ? 30 : 40;
+  const gap = 16;
+  const cardW = (vw - peek - gap * (cardsVisible - 1)) / cardsVisible;
+  const offset = currentIdx * (cardW + gap);
+
+  if (!animate) track.style.transition = 'none';
+  track.style.transform = `translateX(-${offset}px)`;
+  if (!animate) requestAnimationFrame(() => { track.style.transition = ''; });
+
+  updateDots();
+}
+
+function next() { goTo(currentIdx + 1); }
+function prev() { goTo(currentIdx - 1); }
+
+function startAuto() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(() => { if (!isPaused) next(); }, 4000);
+}
+
+document.getElementById('carousel-next').addEventListener('click', () => { next(); startAuto(); });
+document.getElementById('carousel-prev').addEventListener('click', () => { prev(); startAuto(); });
+
+// Pause on hover
+viewport.addEventListener('mouseenter', () => { isPaused = true; });
+viewport.addEventListener('mouseleave', () => { isPaused = false; });
+
+// Swipe support
+viewport.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  isPaused = true;
+}, { passive: true });
+
+viewport.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) { diff > 0 ? next() : prev(); startAuto(); }
+  isPaused = false;
+}, { passive: true });
+
+// Resize
+window.addEventListener('resize', () => { setCardWidths(); goTo(currentIdx, false); });
+
+// ── REVIEW SUBMISSION
+function submitReview() {
+  let valid = true;
+
+  const nameEl   = document.getElementById('rv-name');
+  const textEl   = document.getElementById('rv-text');
+  const nameErr  = document.getElementById('rv-name-error');
+  const textErr  = document.getElementById('rv-text-error');
+  const ratingErr = document.getElementById('rv-rating-error');
+
+  [nameEl, textEl].forEach(el => el.classList.remove('error'));
+  [nameErr, textErr, ratingErr].forEach(el => el.classList.remove('visible'));
+
+  const ratingInput = document.querySelector('input[name="rv-rating"]:checked');
+  const rating = ratingInput ? parseInt(ratingInput.value) : 0;
+
+  if (!nameEl.value.trim()) { nameEl.classList.add('error'); nameErr.classList.add('visible'); valid = false; }
+  if (!rating) { ratingErr.classList.add('visible'); valid = false; }
+  if (textEl.value.trim().length < 20) { textEl.classList.add('error'); textErr.classList.add('visible'); valid = false; }
+
+  if (!valid) return;
+
+  const newReview = { name: nameEl.value.trim(), rating, text: textEl.value.trim() };
+
+  // Persist to localStorage
+  const stored = JSON.parse(localStorage.getItem('satosReviews') || '[]');
+  stored.unshift(newReview);
+  localStorage.setItem('satosReviews', JSON.stringify(stored));
+
+  // Add card to front of carousel
+  allReviews.unshift(newReview);
+  const newCard = document.createElement('div');
+  newCard.innerHTML = buildCard(newReview, true);
+  const cardEl = newCard.firstElementChild;
+  track.prepend(cardEl);
+  setCardWidths();
+  renderDots();
+  goTo(0, false);
+
+  // Clear form
+  nameEl.value = '';
+  textEl.value = '';
+  if (ratingInput) ratingInput.checked = false;
+
+  // Show thank-you
+  document.getElementById('review-thankyou').style.display = 'block';
+  setTimeout(() => { document.getElementById('review-thankyou').style.display = 'none'; }, 8000);
+}
+
+// ── INIT
+loadReviews();
+renderCarousel();
+startAuto();
+updateActiveNav();
+</script>
+</body>
+</html>

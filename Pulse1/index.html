@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse — Write Faster. Think Clearer.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --amber: #E8A23A;
+    --amber-light: #F5C96A;
+    --amber-pale: #FDF3DC;
+    --charcoal: #1A1714;
+    --charcoal-mid: #2E2B27;
+    --charcoal-soft: #4A4641;
+    --ink: #0D0C0A;
+    --paper: #F7F3EC;
+    --paper-warm: #EDE8DE;
+    --white: #FFFFFF;
+    --rule: rgba(26,23,20,0.12);
+    --rule-amber: rgba(232,162,58,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--charcoal);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 12px; height: 12px;
+    background: var(--amber);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--charcoal);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  }
+  body:has(a:hover) .cursor-ring,
+  body:has(button:hover) .cursor-ring {
+    width: 56px; height: 56px;
+    border-color: var(--amber);
+  }
+
+  /* ============ NOISE TEXTURE OVERLAY ============ */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.028;
+    pointer-events: none;
+    z-index: 9990;
+  }
+
+  /* ============ NAVIGATION ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .nav-logo-dot {
+    width: 8px; height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--charcoal-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btn-ghost {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    background: none;
+    border: none;
+    cursor: none;
+    padding: 8px 0;
+    text-decoration: none;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--amber); }
+
+  .btn-primary {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--amber);
+    border: none;
+    padding: 11px 22px;
+    cursor: none;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--amber-light);
+    transform: translateY(-1px);
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding-top: 100px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 80px 48px 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .hero-eyebrow-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--charcoal-soft);
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(56px, 6vw, 80px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.35s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--charcoal-soft);
+    max-width: 420px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.65s forwards;
+  }
+
+  .hero-actions .btn-primary {
+    font-size: 14px;
+    padding: 15px 32px;
+  }
+
+  .hero-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--charcoal-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--charcoal);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-right-header {
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .editor-tabs {
+    display: flex;
+    gap: 4px;
+  }
+
+  .editor-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    padding: 6px 14px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .editor-tab.active {
+    background: rgba(232,162,58,0.15);
+    color: var(--amber);
+  }
+
+  .editor-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    background: #4CAF50;
+    border-radius: 50%;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-editor {
+    flex: 1;
+    padding: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .editor-doc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.8s forwards;
+  }
+
+  .editor-line {
+    height: 14px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .editor-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(232,162,58,0.2), transparent);
+    animation: shimmer 3s ease infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  .editor-line:nth-child(2) { width: 90%; animation-delay: 0.1s; }
+  .editor-line:nth-child(3) { width: 95%; animation-delay: 0.2s; }
+  .editor-line:nth-child(4) { width: 75%; animation-delay: 0.3s; }
+  .editor-line:nth-child(5) { width: 88%; animation-delay: 0.4s; }
+  .editor-line:nth-child(6) { width: 60%; animation-delay: 0.5s; }
+
+  .ai-suggestion {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: rgba(232,162,58,0.08);
+    border-left: 2px solid var(--amber);
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.2s forwards;
+  }
+
+  .ai-suggestion-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .ai-suggestion-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 14px;
+    background: var(--amber);
+    vertical-align: middle;
+    animation: blink 0.9s step-end infinite;
+    margin-left: 2px;
+  }
+
+  .hero-metrics {
+    padding: 28px 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .metric-item {
+    padding: 20px;
+    background: var(--charcoal);
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .metric-item:nth-child(1) { animation-delay: 1s; }
+  .metric-item:nth-child(2) { animation-delay: 1.1s; }
+  .metric-item:nth-child(3) { animation-delay: 1.2s; }
+
+  .metric-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--amber);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* ============ TICKER TAPE ============ */
+  .ticker {
+    background: var(--amber);
+    padding: 10px 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 0 36px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .ticker-item::after {
+    content: '◆';
+    font-size: 7px;
+    opacity: 0.5;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ============ SECTION STYLES ============ */
+  .section-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+  }
+
+  .section-rule {
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+  }
+
+  /* ============ HOW IT WORKS ============ */
+  .how {
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .how-card {
+    background: var(--paper);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+
+  .how-card:hover { background: var(--paper-warm); }
+
+  .how-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--amber);
+    transition: width 0.4s ease;
+  }
+
+  .how-card:hover::before { width: 100%; }
+
+  .how-step {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--rule);
+    line-height: 1;
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    transition: color 0.3s;
+  }
+
+  .how-card:hover .how-step { color: rgba(232,162,58,0.15); }
+
+  .how-icon {
+    width: 44px; height: 44px;
+    background: var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .how-icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--amber);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .how-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+
+  .how-card-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--charcoal-soft);
+  }
+
+  /* ============ FEATURES ============ */
+  .features {
+    padding: 100px 48px;
+    background: var(--charcoal);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .features .section-title { color: var(--paper); }
+  .features .section-rule { background: rgba(255,255,255,0.1); }
+
+  .features-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .feature-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: start;
+    cursor: none;
+    transition: padding-left 0.3s ease;
+  }
+
+  .feature-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .feature-item:hover { padding-left: 8px; }
+
+  .feature-arrow {
+    font-size: 12px;
+    color: var(--amber);
+    margin-top: 3px;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-item:hover .feature-arrow { transform: translateX(4px); }
+
+  .feature-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .feature-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  .features-visual {
+    position: relative;
+  }
+
+  .features-card {
+    background: var(--charcoal-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .features-card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red { background: #FF5F57; }
+  .dot-yellow { background: #FFBD2E; }
+  .dot-green { background: #28C840; }
+
+  .features-card-body { padding: 28px; }
+
+  .doc-block {
+    margin-bottom: 20px;
+  }
+
+  .doc-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .doc-block-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  .doc-block-text strong { color: var(--white); }
+
+  .doc-highlight {
+    display: inline;
+    background: rgba(232,162,58,0.15);
+    padding: 2px 6px;
+    color: var(--amber-light);
+    border-radius: 2px;
+  }
+
+  .ai-toolbar {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ai-chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    cursor: none;
+    transition: all 0.2s;
+  }
+
+  .ai-chip:hover, .ai-chip.active {
+    color: var(--amber);
+    border-color: var(--amber-light);
+    background: rgba(232,162,58,0.08);
+  }
+
+  /* ============ SOCIAL PROOF ============ */
+  .proof {
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .proof-card {
+    background: var(--paper);
+    padding: 40px;
+    transition: background 0.3s;
+  }
+
+  .proof-card:hover { background: var(--paper-warm); }
+
+  .proof-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 28px;
+    quotes: "\201C" "\201D";
+  }
+
+  .proof-quote::before { content: open-quote; color: var(--amber); font-size: 32px; line-height: 0; vertical-align: -10px; margin-right: 4px; }
+
+  .proof-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .proof-avatar {
+    width: 40px; height: 40px;
+    background: var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--amber);
+    flex-shrink: 0;
+  }
+
+  .proof-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .proof-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--charcoal-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ PRICING ============ */
+  .pricing {
+    padding: 100px 48px;
+    background: var(--charcoal);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .pricing .section-title { color: var(--paper); }
+  .pricing .section-rule { background: rgba(255,255,255,0.1); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .plan {
+    background: var(--charcoal);
+    padding: 48px 40px;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .plan:hover { background: var(--charcoal-mid); }
+
+  .plan.featured {
+    background: var(--amber);
+  }
+
+  .plan.featured:hover { background: var(--amber-light); }
+
+  .plan-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--charcoal);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+
+  .plan.featured .plan-badge {
+    background: var(--ink);
+    color: var(--amber);
+  }
+
+  .plan-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--paper);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .plan.featured .plan-name { color: var(--ink); }
+
+  .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--amber);
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan.featured .plan-price { color: var(--ink); }
+
+  .plan-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+
+  .plan.featured .plan-period { color: rgba(26,23,20,0.5); }
+
+  .plan-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 28px;
+  }
+
+  .plan.featured .plan-divider { background: rgba(26,23,20,0.15); }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .plan-features li {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+  }
+
+  .plan.featured .plan-features li { color: rgba(26,23,20,0.7); }
+
+  .plan-features li::before {
+    content: '';
+    width: 16px; height: 16px;
+    background: rgba(232,162,58,0.15);
+    border: 1px solid rgba(232,162,58,0.3);
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4.5' stroke='%23E8A23A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+  }
+
+  .plan.featured .plan-features li::before {
+    background-color: rgba(26,23,20,0.1);
+    border-color: rgba(26,23,20,0.25);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4.5' stroke='%230D0C0A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  .plan .btn-primary {
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    padding: 14px;
+    background: var(--amber);
+    color: var(--ink);
+  }
+
+  .plan.featured .btn-primary {
+    background: var(--ink);
+    color: var(--amber);
+  }
+
+  /* ============ CTA ============ */
+  .cta {
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .cta::before {
+    content: 'PULSE';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 260px;
+    font-weight: 900;
+    color: rgba(232,162,58,0.04);
+    letter-spacing: -8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .cta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 24px;
+  }
+
+  .cta-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .cta-headline em { font-style: italic; color: var(--amber); }
+
+  .cta-sub {
+    font-size: 16px;
+    color: var(--charcoal-soft);
+    margin-bottom: 48px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-form {
+    display: flex;
+    gap: 0;
+    max-width: 460px;
+    margin: 0 auto 16px;
+    border: 1px solid var(--rule);
+  }
+
+  .cta-input {
+    flex: 1;
+    padding: 16px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--white);
+    border: none;
+    outline: none;
+  }
+
+  .cta-input::placeholder { color: rgba(74,70,65,0.4); }
+
+  .cta-form .btn-primary {
+    padding: 16px 28px;
+    font-size: 13px;
+    border-radius: 0;
+  }
+
+  .cta-fine {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--charcoal-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--ink);
+    padding: 60px 48px 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 32px;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    max-width: 300px;
+    line-height: 1.6;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--amber); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============ MOBILE NAV ============ */
+  .mobile-nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 101;
+  }
+
+  .mobile-nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .mobile-nav-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .mobile-nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .mobile-nav-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--charcoal);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    pointer-events: none;
+  }
+
+  .mobile-nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .mobile-nav-overlay a {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -1px;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+
+  .mobile-nav-overlay a:hover { color: var(--amber); }
+
+
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { min-height: 400px; }
+    .how-grid { grid-template-columns: 1fr; }
+    .features-layout { grid-template-columns: 1fr; }
+    .proof-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .btn-ghost { display: none; }
+    .mobile-nav-toggle { display: flex; }
+
+    .hero-left { padding: 60px 24px; }
+    .hero-headline { font-size: 42px; }
+    .how { padding: 60px 24px; }
+    .features { padding: 60px 24px; }
+    .proof { padding: 60px 24px; }
+    .pricing { padding: 60px 24px; }
+    .cta { padding: 80px 24px; }
+    footer { padding: 40px 24px 28px; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .cta-form { flex-direction: column; }
+    .cta-form .btn-primary { width: 100%; }
+
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay" id="mobileNav">
+  <a href="#how">How it works</a>
+  <a href="#features">Features</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#cta" style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);background:var(--amber);padding:15px 36px;margin-top:16px;text-decoration:none;">Start free trial</a>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    Pulse
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#" class="btn-ghost">Sign in</a>
+    <a href="#cta" class="btn-primary">Start free</a>
+  </div>
+  <button class="mobile-nav-toggle" id="mobileToggle">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">AI Writing Intelligence</span>
+    </div>
+    <h1 class="hero-headline">
+      Write what<br>
+      matters. <em>Faster.</em>
+    </h1>
+    <p class="hero-sub">
+      Pulse sits inside your workflow and helps your team produce briefs, reports, and docs in a fraction of the time — without losing the voice that makes your work yours.
+    </p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Start free trial</a>
+      <span class="hero-note">No card needed · 14-day trial</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-header">
+      <div class="editor-tabs">
+        <div class="editor-tab active">Q3 Strategy Brief</div>
+        <div class="editor-tab">Investor Update</div>
+      </div>
+      <div class="editor-status">
+        <div class="status-dot"></div>
+        AI active
+      </div>
+    </div>
+    <div class="hero-editor">
+      <div class="editor-doc-title">Q3 Product Strategy Brief</div>
+      <div class="editor-line" style="width:88%"></div>
+      <div class="editor-line" style="width:95%"></div>
+      <div class="editor-line" style="width:72%"></div>
+      <div class="editor-line" style="width:90%"></div>
+      <div class="editor-line" style="width:83%"></div>
+      <div class="editor-line" style="width:55%"></div>
+      <div class="ai-suggestion">
+        <div class="ai-suggestion-label">✦ Pulse suggestion</div>
+        <div class="ai-suggestion-text">
+          "Consider adding a risk mitigation section before the timeline — executives typically want to see that addressed upfront."<span class="typing-cursor"></span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric-item">
+        <div class="metric-num">4.2×</div>
+        <div class="metric-label">faster drafting</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-num">91%</div>
+        <div class="metric-label">fewer revisions</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-num">12k+</div>
+        <div class="metric-label">teams using Pulse</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Strategy Briefs</span>
+    <span class="ticker-item">Investor Updates</span>
+    <span class="ticker-item">Product Specs</span>
+    <span class="ticker-item">Marketing Copy</span>
+    <span class="ticker-item">Research Reports</span>
+    <span class="ticker-item">Board Decks</span>
+    <span class="ticker-item">Team Memos</span>
+    <span class="ticker-item">Press Releases</span>
+    <span class="ticker-item">Strategy Briefs</span>
+    <span class="ticker-item">Investor Updates</span>
+    <span class="ticker-item">Product Specs</span>
+    <span class="ticker-item">Marketing Copy</span>
+    <span class="ticker-item">Research Reports</span>
+    <span class="ticker-item">Board Decks</span>
+    <span class="ticker-item">Team Memos</span>
+    <span class="ticker-item">Press Releases</span>
+  </div>
+</div>
+
+<!-- How it Works -->
+<section class="how" id="how">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <div class="section-rule"></div>
+    <h2 class="section-title">How Pulse works</h2>
+  </div>
+  <div class="how-grid">
+    <div class="how-card reveal">
+      <div class="how-step">1</div>
+      <div class="how-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"/></svg>
+      </div>
+      <div class="how-card-title">Drop in your context</div>
+      <p class="how-card-body">Paste notes, data, or a rough outline. Pulse reads what you have and understands what you're trying to say — not just what you typed.</p>
+    </div>
+    <div class="how-card reveal">
+      <div class="how-step">2</div>
+      <div class="how-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <div class="how-card-title">Pulse drafts in your voice</div>
+      <p class="how-card-body">It learns your team's tone, structure preferences, and document standards. Every output sounds like you — because it's trained on how you actually write.</p>
+    </div>
+    <div class="how-card reveal">
+      <div class="how-step">3</div>
+      <div class="how-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div class="how-card-title">Review and ship it</div>
+      <p class="how-card-body">You stay in control. Pulse flags weak sections, suggests tighter phrasing, and formats everything to match your template. One click to finalize.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-header reveal">
+    <span class="section-num" style="color:rgba(232,162,58,0.6)">02</span>
+    <div class="section-rule"></div>
+    <h2 class="section-title">Everything your team needs</h2>
+  </div>
+  <div class="features-layout">
+    <div class="features-list">
+      <div class="feature-item reveal">
+        <span class="feature-arrow">→</span>
+        <div>
+          <div class="feature-name">Tone memory</div>
+          <div class="feature-desc">Pulse learns how your team writes and keeps that consistent across every doc — no more "this doesn't sound like us."</div>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <span class="feature-arrow">→</span>
+        <div>
+          <div class="feature-name">Smart structure suggestions</div>
+          <div class="feature-desc">Catches missing sections before your doc goes out. It knows what a good strategy brief looks like, and it tells you when yours isn't there yet.</div>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <span class="feature-arrow">→</span>
+        <div>
+          <div class="feature-name">Live collaboration</div>
+          <div class="feature-desc">Your whole team edits in real time with AI suggestions visible to everyone. No version chaos, no "who changed this?" moments.</div>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <span class="feature-arrow">→</span>
+        <div>
+          <div class="feature-name">Document templates</div>
+          <div class="feature-desc">Start from a library of battle-tested formats — briefs, memos, specs, decks — all adaptable to your specific needs.</div>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <span class="feature-arrow">→</span>
+        <div>
+          <div class="feature-name">Integrations</div>
+          <div class="feature-desc">Connects to Notion, Google Docs, Slack, and your existing tools. Pulse works where your team already does.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-visual reveal">
+      <div class="features-card">
+        <div class="features-card-header">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div class="features-card-body">
+          <div class="doc-block">
+            <div class="doc-block-label">Executive Summary</div>
+            <div class="doc-block-text">
+              <strong>Objective:</strong> Expand into <span class="doc-highlight">three new markets</span> by Q4 with a focus on enterprise adoption. Current pipeline suggests a <span class="doc-highlight">47% revenue increase</span> is achievable with the right resourcing.
+            </div>
+          </div>
+          <div class="doc-block">
+            <div class="doc-block-label">Pulse flagged</div>
+            <div class="doc-block-text" style="color: rgba(232,162,58,0.8); font-size:13px; border-left: 2px solid rgba(232,162,58,0.3); padding-left:12px;">
+              Your risk section is missing. Stakeholders will ask about this — add it before sharing externally.
+            </div>
+          </div>
+          <div class="ai-toolbar">
+            <div class="ai-chip active">Improve clarity</div>
+            <div class="ai-chip">Make it shorter</div>
+            <div class="ai-chip">Add data</div>
+            <div class="ai-chip">Executive tone</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof -->
+<section class="proof">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <div class="section-rule"></div>
+    <h2 class="section-title">Teams that ship faster</h2>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card reveal">
+      <p class="proof-quote">We went from spending two days on a strategy brief to getting a solid first draft in under two hours. The tone matching is what sold the whole team.</p>
+      <div class="proof-author">
+        <div class="proof-avatar">A</div>
+        <div>
+          <div class="proof-name">Adesola Bankole</div>
+          <div class="proof-role">Head of Strategy · Veritas Capital</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card reveal">
+      <p class="proof-quote">I was skeptical about AI writing tools. Pulse is different — it doesn't replace your thinking, it just gets you to a usable draft before you burn an hour staring at a blank page.</p>
+      <div class="proof-author">
+        <div class="proof-avatar">M</div>
+        <div>
+          <div class="proof-name">Marcus Teller</div>
+          <div class="proof-role">Product Lead · Ashford Labs</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card reveal">
+      <p class="proof-quote">Our investor updates used to take four people and three rounds of edits. Now one person runs it through Pulse and it's done. Leadership noticed immediately.</p>
+      <div class="proof-author">
+        <div class="proof-avatar">J</div>
+        <div>
+          <div class="proof-name">Ji-Yeon Park</div>
+          <div class="proof-role">Chief of Staff · Orbis Technologies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <div class="section-header reveal">
+    <span class="section-num" style="color:rgba(232,162,58,0.6)">04</span>
+    <div class="section-rule"></div>
+    <h2 class="section-title">Simple, honest pricing</h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="plan reveal">
+      <div class="plan-badge">Starter</div>
+      <div class="plan-name">Solo</div>
+      <div class="plan-price">$19</div>
+      <div class="plan-period">per month</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>1 user seat</li>
+        <li>50 AI-assisted documents/mo</li>
+        <li>5 custom templates</li>
+        <li>Basic tone memory</li>
+        <li>Google Docs export</li>
+      </ul>
+      <a href="#cta" class="btn-primary">Get started</a>
+    </div>
+    <div class="plan featured reveal">
+      <div class="plan-badge">Most popular</div>
+      <div class="plan-name">Team</div>
+      <div class="plan-price">$49</div>
+      <div class="plan-period">per month · up to 10 seats</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Up to 10 users</li>
+        <li>Unlimited documents</li>
+        <li>Full template library</li>
+        <li>Advanced tone memory</li>
+        <li>Live collaboration</li>
+        <li>Slack + Notion integration</li>
+      </ul>
+      <a href="#cta" class="btn-primary">Start free trial</a>
+    </div>
+    <div class="plan reveal">
+      <div class="plan-badge">Enterprise</div>
+      <div class="plan-name">Scale</div>
+      <div class="plan-price">$99</div>
+      <div class="plan-period">per month · unlimited seats</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Unlimited seats</li>
+        <li>Unlimited documents</li>
+        <li>Custom brand voice training</li>
+        <li>SSO + admin controls</li>
+        <li>Priority support</li>
+        <li>Custom integrations</li>
+      </ul>
+      <a href="#cta" class="btn-primary">Talk to sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-label">Get started today</div>
+  <h2 class="cta-headline">Your team writes this.<br><em>Pulse writes the rest.</em></h2>
+  <p class="cta-sub">14-day free trial. No credit card. Cancel anytime. Set up in under 5 minutes.</p>
+  <div class="cta-form">
+    <input type="email" class="cta-input" placeholder="Enter your work email">
+    <a href="#" class="btn-primary">Start free trial</a>
+  </div>
+  <p class="cta-fine">Trusted by 12,000+ teams worldwide</p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">
+        <span style="color:var(--amber);font-size:12px">◆</span> Pulse
+      </div>
+      <p class="footer-tagline">AI writing intelligence for teams who can't afford to waste time on a blank page.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">Product</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Pulse Technologies, Inc.</span>
+    <span class="footer-copy"><p >Made by <a href="abisolaajayi0.vercel.app" target="_blank" style="color:rgba(250,245,236,0.2);">Ajayi Abisola Enoch</a></p></span>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Mobile nav
+  const toggle = document.getElementById('mobileToggle');
+  const mobileNav = document.getElementById('mobileNav');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.contains('open');
+    if (isOpen) {
+      mobileNav.classList.remove('open');
+      toggle.classList.remove('active');
+      document.body.style.overflow = '';
+    } else {
+      mobileNav.classList.add('open');
+      toggle.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  const closeNav = () => {
+    mobileNav.classList.remove('open');
+    toggle.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+
+  // AI chips interaction
+  document.querySelectorAll('.ai-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

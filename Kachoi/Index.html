@@ -1,0 +1,2882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kachi's Kitchen — A Taste of Home | Lekki, Lagos</title>
+<meta name="description" content="Authentic Nigerian home-cooked meals in the heart of Lekki Phase I. Real food, real flavour. Dine in or order via WhatsApp and Snapchat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --terracotta: #C4613A;
+  --terracotta-dark: #A04B28;
+  --terracotta-light: #E8845E;
+  --cream: #FAF5EC;
+  --cream-dark: #F0E8D5;
+  --green: #2D5016;
+  --green-mid: #3D6B20;
+  --green-light: #5A8C35;
+  --warm-black: #1A1208;
+  --warm-gray: #6B5E4E;
+  --warm-gray-light: #A89880;
+  --white: #FFFFFF;
+  --gold: #C9933A;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 96px;
+  --space-2xl: 128px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 2px 8px rgba(26,18,8,0.08);
+  --shadow-md: 0 4px 20px rgba(26,18,8,0.12);
+  --shadow-lg: 0 8px 40px rgba(26,18,8,0.18);
+
+  --transition: 0.3s ease;
+  --nav-height: 72px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--warm-black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 var(--space-sm); }
+}
+
+/* ============================================================
+   SECTION SPACING & FADE-IN
+   ============================================================ */
+section {
+  padding: var(--space-xl) 0;
+}
+
+@media (max-width: 768px) {
+  section { padding: 64px 0; }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+.fade-in-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   SECTION LABELS & HEADINGS
+   ============================================================ */
+.section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: var(--space-sm);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--warm-black);
+  margin-bottom: var(--space-sm);
+}
+
+.section-heading em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--warm-gray);
+  max-width: 560px;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  transition: background var(--transition), box-shadow var(--transition);
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(250,245,236,0.97);
+  box-shadow: 0 2px 20px rgba(26,18,8,0.1);
+  backdrop-filter: blur(8px);
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--cream);
+  transition: color var(--transition);
+  line-height: 1;
+}
+
+.nav-logo span {
+  color: var(--gold);
+}
+
+nav.scrolled .nav-logo { color: var(--warm-black); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(250,245,236,0.85);
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 2px;
+  background: var(--terracotta-light);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after { transform: scaleX(1); }
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--cream);
+}
+
+nav.scrolled .nav-links a {
+  color: var(--warm-gray);
+}
+
+nav.scrolled .nav-links a:hover,
+nav.scrolled .nav-links a.active {
+  color: var(--warm-black);
+}
+
+.nav-cta {
+  background: var(--terracotta);
+  color: var(--white) !important;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition) !important;
+}
+
+.nav-cta:hover {
+  background: var(--terracotta-dark) !important;
+  transform: translateY(-1px);
+}
+
+.nav-cta::after { display: none; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition), background var(--transition);
+}
+
+nav.scrolled .hamburger span { background: var(--warm-black); }
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--warm-black);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cream);
+  transition: color var(--transition);
+}
+
+.mobile-menu a:hover { color: var(--terracotta-light); }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-menu { display: flex; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+  background: var(--warm-black);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(196,97,58,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(45,80,22,0.4) 0%, transparent 55%),
+    radial-gradient(ellipse at 60% 80%, rgba(201,147,58,0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #1A1208 0%, #2A1A0A 50%, #0F1A08 100%);
+}
+
+/* Decorative food-texture pattern */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(250,245,236,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--cream));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: calc(var(--nav-height) + 60px) 0 80px;
+  width: 100%;
+}
+
+.hero-content .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(196,97,58,0.15);
+  border: 1px solid rgba(196,97,58,0.3);
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta-light);
+  margin-bottom: var(--space-md);
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--terracotta-light);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: var(--space-md);
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: rgba(250,245,236,0.75);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 20px rgba(196,97,58,0.4);
+}
+
+.btn-primary:hover {
+  background: var(--terracotta-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(196,97,58,0.5);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--cream);
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(250,245,236,0.3);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(250,245,236,0.7);
+  background: rgba(250,245,236,0.08);
+  transform: translateY(-2px);
+}
+
+/* Hero visual side */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-bowl {
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(196,97,58,0.6) 0%, rgba(160,75,40,0.8) 45%, rgba(45,80,22,0.6) 100%);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.5),
+    inset 0 -20px 40px rgba(0,0,0,0.3),
+    inset 0 10px 30px rgba(250,245,236,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-bowl::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,147,58,0.4);
+}
+
+.hero-bowl-icon {
+  font-size: 5rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.hero-bowl-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cream);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-align: center;
+  padding: 0 32px;
+}
+
+.hero-badge {
+  position: absolute;
+  top: 20px; right: -10px;
+  background: var(--green);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid rgba(90,140,53,0.4);
+}
+
+.hero-badge strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hero-badge span {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.hero-badge-2 {
+  position: absolute;
+  bottom: 30px; left: -20px;
+  background: var(--gold);
+  color: var(--warm-black);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .hero-content .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--space-lg);
+  }
+  .hero-sub { margin: 0 auto var(--space-lg); }
+  .hero-eyebrow { justify-content: center; margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-bowl { width: 280px; height: 280px; }
+  .hero-bowl-icon { font-size: 3.5rem; }
+  .hero-badge { top: 10px; right: 0; }
+  .hero-badge-2 { bottom: 20px; left: -10px; }
+  .hero-visual { order: -1; }
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about {
+  background: var(--cream);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-card-main {
+  background: var(--warm-black);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.about-card-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(196,97,58,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 70%, rgba(45,80,22,0.5) 0%, transparent 55%),
+    linear-gradient(160deg, #1A1208 0%, #2A1A0A 100%);
+}
+
+.about-card-overlay {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-md);
+  background: linear-gradient(to top, rgba(26,18,8,0.95) 0%, transparent 100%);
+  width: 100%;
+}
+
+.about-card-text {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.4;
+}
+
+.about-card-emoji {
+  font-size: 6rem;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -70%);
+  z-index: 1;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+}
+
+.about-float-tag {
+  position: absolute;
+  top: var(--space-md);
+  right: -var(--space-sm);
+  right: -12px;
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.about-content { }
+
+.about-intro {
+  font-size: 1.1rem;
+  color: var(--warm-gray);
+  line-height: 1.9;
+  margin-bottom: var(--space-md);
+}
+
+.about-intro strong {
+  color: var(--warm-black);
+  font-weight: 600;
+}
+
+.about-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.about-pillar {
+  background: var(--cream-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  border-left: 3px solid var(--terracotta);
+}
+
+.about-pillar strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--warm-black);
+  margin-bottom: 4px;
+}
+
+.about-pillar span {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .about-pillars { grid-template-columns: 1fr; }
+  .about-card-main { aspect-ratio: 3/2; }
+  .about-card-emoji { top: 40%; }
+}
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+#how-it-works {
+  background: var(--warm-black);
+  position: relative;
+  overflow: hidden;
+}
+
+#how-it-works::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(196,97,58,0.15) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 50%, rgba(45,80,22,0.15) 0%, transparent 55%);
+}
+
+#how-it-works .section-heading,
+#how-it-works .section-sub {
+  color: var(--cream);
+}
+
+#how-it-works .section-label { color: var(--gold); }
+
+.how-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.how-header .section-sub {
+  margin: 0 auto;
+  color: rgba(250,245,236,0.7);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+/* connector line */
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: calc(16.66% + var(--space-md));
+  right: calc(16.66% + var(--space-md));
+  height: 1px;
+  background: linear-gradient(to right, var(--terracotta), var(--green-mid));
+  opacity: 0.4;
+}
+
+.step-card {
+  text-align: center;
+  padding: var(--space-md);
+  background: rgba(250,245,236,0.04);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(250,245,236,0.08);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.step-card:hover {
+  background: rgba(250,245,236,0.07);
+  transform: translateY(-4px);
+}
+
+.step-num {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-sm);
+  box-shadow: 0 4px 20px rgba(196,97,58,0.4);
+}
+
+.step-card:nth-child(2) .step-num { background: var(--gold); color: var(--warm-black); }
+.step-card:nth-child(3) .step-num { background: var(--green-mid); }
+
+.step-icon {
+  font-size: 1.8rem;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-size: 0.9rem;
+  color: rgba(250,245,236,0.65);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .steps-grid { grid-template-columns: 1fr; }
+  .steps-grid::before { display: none; }
+}
+
+/* ============================================================
+   MENU / SERVICES
+   ============================================================ */
+#menu {
+  background: var(--cream-dark);
+}
+
+.menu-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+  gap: var(--space-md);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.menu-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.menu-card-visual {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-card:nth-child(1) .menu-card-visual { background: linear-gradient(135deg, #C4613A22, #C4613A44); }
+.menu-card:nth-child(2) .menu-card-visual { background: linear-gradient(135deg, #2D501622, #2D501644); }
+.menu-card:nth-child(3) .menu-card-visual { background: linear-gradient(135deg, #C9933A22, #C9933A44); }
+.menu-card:nth-child(4) .menu-card-visual { background: linear-gradient(135deg, #A04B2822, #A04B2844); }
+.menu-card:nth-child(5) .menu-card-visual { background: linear-gradient(135deg, #3D6B2022, #3D6B2044); }
+.menu-card:nth-child(6) .menu-card-visual { background: linear-gradient(135deg, #C4613A22, #2D501633); }
+
+.menu-card-body {
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+}
+
+.menu-card-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background: rgba(196,97,58,0.1);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.menu-card-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--warm-black);
+  margin-bottom: 6px;
+}
+
+.menu-card-desc {
+  font-size: 0.88rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-header { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .menu-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   WHY CHOOSE US
+   ============================================================ */
+#why-us {
+  background: var(--green);
+  position: relative;
+  overflow: hidden;
+}
+
+#why-us::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(250,245,236,0.04) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+#why-us .section-label { color: var(--gold); }
+#why-us .section-heading,
+#why-us .section-sub { color: var(--cream); }
+#why-us .section-sub { color: rgba(250,245,236,0.75); }
+
+.why-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.why-header .section-sub { margin: 0 auto; }
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.benefit-card {
+  background: rgba(250,245,236,0.07);
+  border: 1px solid rgba(250,245,236,0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.benefit-card:hover {
+  background: rgba(250,245,236,0.12);
+  transform: translateY(-4px);
+}
+
+.benefit-icon {
+  font-size: 2.2rem;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.benefit-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.benefit-desc {
+  font-size: 0.9rem;
+  color: rgba(250,245,236,0.7);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .benefits-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .benefits-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+#stats {
+  background: var(--cream);
+  padding: 60px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.stat-item {
+  padding: var(--space-md);
+  border-right: 1px solid var(--cream-dark);
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 900;
+  color: var(--terracotta);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.88rem;
+  color: var(--warm-gray);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--cream-dark); }
+  .stat-item:last-child { border-bottom: none; }
+}
+
+/* ============================================================
+   ORDERING
+   ============================================================ */
+#order {
+  background: var(--cream-dark);
+  text-align: center;
+}
+
+.order-inner {
+  background: var(--warm-black);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.order-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(196,97,58,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(45,80,22,0.3) 0%, transparent 60%);
+}
+
+.order-inner > * { position: relative; z-index: 1; }
+
+.order-inner .section-label { color: var(--gold); }
+.order-inner .section-heading { color: var(--cream); }
+
+.order-sub {
+  color: rgba(250,245,236,0.75);
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0 auto var(--space-lg);
+  line-height: 1.8;
+}
+
+.order-channels {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 32px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.order-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.order-btn:active { transform: translateY(0); }
+
+.order-btn-wa {
+  background: #25D366;
+  color: var(--white);
+}
+
+.order-btn-snap {
+  background: #FFFC00;
+  color: var(--warm-black);
+}
+
+/* Floating WhatsApp button */
+.float-wa {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  transition: transform var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+}
+
+.float-wa:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.55);
+}
+
+@media (max-width: 480px) {
+  .float-wa { bottom: 20px; right: 20px; width: 52px; height: 52px; font-size: 1.4rem; }
+}
+
+.order-note {
+  font-size: 0.85rem;
+  color: rgba(250,245,236,0.5);
+  margin-top: var(--space-sm);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .order-inner { padding: var(--space-lg) var(--space-md); }
+  .order-btn { padding: 14px 24px; font-size: 0.92rem; }
+}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+#reviews {
+  background: var(--cream);
+}
+
+/* REVIEWS SETUP */
+/* Replace GOOGLE_MAPS_LINK_HERE with the business's Google Maps URL */
+/* This enables the "See us on Google" link and the "Post it on Google too" CTA */
+/* Find the Maps link by searching the business on Google Maps and copying the URL */
+
+.reviews-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.reviews-header .section-sub {
+  margin: 0 auto;
+}
+
+/* Overall rating bar */
+.rating-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.rating-big {
+  text-align: center;
+}
+
+.rating-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--warm-black);
+  line-height: 1;
+}
+
+.rating-stars-big {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin: 6px 0;
+}
+
+.rating-stars-big i {
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+.rating-count {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+}
+
+.rating-divider {
+  width: 1px;
+  height: 60px;
+  background: var(--cream-dark);
+}
+
+.rating-google-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green-mid);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--green-mid);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  transition: background var(--transition), color var(--transition);
+}
+
+.rating-google-link:hover {
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
+
+/* Carousel */
+.carousel-wrapper {
+  position: relative;
+  margin-bottom: var(--space-xl);
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.review-card {
+  flex: 0 0 calc((100% - 40px) / 3.15);
+  min-width: calc((100% - 40px) / 3.15);
+  margin-right: 20px;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--cream-dark);
+  position: relative;
+  transition: box-shadow var(--transition);
+}
+
+.review-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.review-card-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.reviewer-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.reviewer-info { flex: 1; }
+
+.reviewer-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--warm-black);
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+  margin-top: 3px;
+}
+
+.review-stars i {
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+
+.review-stars i.empty { color: var(--cream-dark); }
+
+.verified-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: rgba(45,80,22,0.1);
+  color: var(--green-mid);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(45,80,22,0.2);
+}
+
+.just-posted-badge {
+  background: rgba(196,97,58,0.12);
+  color: var(--terracotta);
+  border-color: rgba(196,97,58,0.25);
+}
+
+.review-text {
+  font-size: 0.9rem;
+  color: var(--warm-gray);
+  line-height: 1.7;
+}
+
+.review-read-more {
+  color: var(--terracotta);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  padding: 0;
+  display: inline;
+  margin-left: 4px;
+}
+
+.review-read-more:hover { text-decoration: underline; }
+
+/* Carousel controls */
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.carousel-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--cream-dark);
+  color: var(--warm-black);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  box-shadow: var(--shadow-sm);
+  min-width: 52px;
+}
+
+.carousel-btn:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--cream-dark);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  border: none;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background: var(--terracotta);
+  transform: scale(1.3);
+}
+
+/* Mobile carousel */
+@media (max-width: 768px) {
+  .review-card {
+    flex: 0 0 calc(100% - 30px);
+    min-width: calc(100% - 30px);
+  }
+}
+
+/* Review form */
+.review-form-section {
+  background: var(--cream-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid rgba(196,97,58,0.15);
+}
+
+.review-form-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--warm-black);
+  margin-bottom: var(--space-sm);
+}
+
+.review-form-sub {
+  font-size: 0.9rem;
+  color: var(--warm-gray);
+  margin-bottom: var(--space-md);
+}
+
+.form-group {
+  margin-bottom: var(--space-sm);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--warm-black);
+  margin-bottom: 6px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--cream-dark);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--warm-black);
+  background: var(--white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(196,97,58,0.12);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: #c0392b;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-error {
+  font-size: 0.78rem;
+  color: #c0392b;
+  margin-top: 5px;
+  display: none;
+}
+
+.form-error.visible { display: block; }
+
+/* Star rating input */
+.star-rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+.star-rating-input input[type="radio"] {
+  display: none;
+}
+
+.star-rating-input label {
+  font-size: 2rem;
+  color: var(--cream-dark);
+  cursor: pointer;
+  transition: color var(--transition), transform var(--transition);
+  line-height: 1;
+}
+
+.star-rating-input label:hover,
+.star-rating-input label:hover ~ label,
+.star-rating-input input[type="radio"]:checked ~ label {
+  color: var(--gold);
+  transform: scale(1.1);
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 15px 32px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(196,97,58,0.35);
+  margin-top: var(--space-sm);
+}
+
+.btn-submit:hover {
+  background: var(--terracotta-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(196,97,58,0.45);
+}
+
+.btn-submit:active { transform: translateY(0); }
+
+.thank-you-msg {
+  display: none;
+  background: rgba(45,80,22,0.1);
+  border: 1px solid rgba(45,80,22,0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--green);
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-top: var(--space-sm);
+}
+
+.thank-you-msg.visible { display: block; }
+
+.thank-you-msg a {
+  color: var(--terracotta);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+#faq {
+  background: var(--cream-dark);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md) var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(196,97,58,0.2);
+  padding-bottom: var(--space-md);
+}
+
+.faq-question {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--warm-black);
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  user-select: none;
+}
+
+.faq-icon {
+  color: var(--terracotta);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+  margin-top: 3px;
+}
+
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+.faq-answer {
+  font-size: 0.92rem;
+  color: var(--warm-gray);
+  line-height: 1.8;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 400px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .faq-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact {
+  background: var(--terracotta);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%);
+}
+
+#contact::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  border: 40px solid rgba(255,255,255,0.06);
+}
+
+.contact-inner { position: relative; z-index: 1; }
+
+#contact .section-label { color: rgba(255,255,255,0.7); }
+#contact .section-heading { color: var(--white); }
+
+.contact-sub {
+  color: rgba(255,255,255,0.85);
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin: 0 auto var(--space-lg);
+  line-height: 1.8;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.95rem;
+}
+
+.contact-detail i {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.contact-cta-group {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  color: var(--terracotta-dark);
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.btn-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.25);
+}
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--white);
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(255,255,255,0.5);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.btn-outline-white:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--warm-black);
+  padding: var(--space-xl) 0 var(--space-md);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--cream);
+  margin-bottom: var(--space-xs);
+}
+
+.footer-brand-name span { color: var(--gold); }
+
+.footer-tagline {
+  color: rgba(250,245,236,0.55);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+  max-width: 280px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social-link {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(250,245,236,0.08);
+  color: rgba(250,245,236,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.footer-social-link:hover {
+  background: var(--terracotta);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.footer-col-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 0.04em;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: rgba(250,245,236,0.55);
+  font-size: 0.88rem;
+  transition: color var(--transition);
+}
+
+.footer-links a:hover { color: var(--terracotta-light); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(250,245,236,0.08);
+  padding-top: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.footer-bottom p {
+  color: rgba(250,245,236,0.35);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.text-center { text-align: center; }
+
+.avatar-colors {
+  --av1: #C4613A;
+  --av2: #2D5016;
+  --av3: #C9933A;
+  --av4: #6B3FA0;
+  --av5: #1A6B6B;
+  --av6: #A04B28;
+  --av7: #3D6B20;
+  --av8: #8B3A3A;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="main-nav">
+  <div class="container">
+    <a href="#hero" class="nav-logo">Kachi's<span>Kitchen</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#order" class="nav-cta">Order Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" class="mobile-link">Our Story</a>
+  <a href="#menu" class="mobile-link">Menu</a>
+  <a href="#why-us" class="mobile-link">Why Us</a>
+  <a href="#reviews" class="mobile-link">Reviews</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#order" class="mobile-link">Order Now</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text fade-in">
+        <div class="hero-eyebrow">Now Open · Lekki Phase I</div>
+        <h1 class="hero-title">
+          Real Food.<br>
+          Real Flavour.<br>
+          <em>Taste of Home.</em>
+        </h1>
+        <p class="hero-sub">
+          Kachi's Kitchen brings the warmth of Nigerian home cooking to the heart of Lekki — jollof that hits different, stews that remind you of mama's kitchen, and portions that actually fill you up.
+        </p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn-primary"><i class="fa-solid fa-bowl-rice"></i> See Our Menu</a>
+          <a href="#order" class="btn-secondary"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
+        </div>
+      </div>
+      <div class="hero-visual fade-in fade-in-delay-2">
+        <div class="hero-bowl">
+          <div class="hero-bowl-icon">🍲</div>
+          <div class="hero-bowl-text">Cooked with love,<br>served with soul</div>
+          <div class="hero-badge">
+            <strong>4.7★</strong>
+            <span>Google Reviews</span>
+          </div>
+          <div class="hero-badge-2">
+            📍 Lekki Phase I
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="stat-num" data-target="500" data-suffix="+">0</div>
+        <div class="stat-label">Happy diners<br>served weekly</div>
+      </div>
+      <div class="stat-item fade-in fade-in-delay-1">
+        <div class="stat-num" data-target="15" data-suffix="+">0</div>
+        <div class="stat-label">Signature dishes<br>on the menu</div>
+      </div>
+      <div class="stat-item fade-in fade-in-delay-2">
+        <div class="stat-num" data-target="3" data-suffix=" yrs">0</div>
+        <div class="stat-label">Years bringing<br>home to Lekki</div>
+      </div>
+      <div class="stat-item fade-in fade-in-delay-3">
+        <div class="stat-num" data-target="100" data-suffix="% Fresh">0</div>
+        <div class="stat-label">Locally sourced<br>every single day</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-in">
+        <div class="about-card-main">
+          <div class="about-card-bg"></div>
+          <div class="about-card-emoji">🥘</div>
+          <div class="about-card-overlay">
+            <p class="about-card-text">"Not fast food — home food, fast."</p>
+          </div>
+        </div>
+        <div class="about-float-tag">
+          Open from 8am<br>
+          <span style="font-size:0.75rem; font-weight:500;">Daily · Lekki Phase I</span>
+        </div>
+      </div>
+      <div class="about-content fade-in fade-in-delay-2">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-heading">A bukka spot built for <em>real hunger</em></h2>
+        <p class="about-intro">
+          Kachi's Kitchen started with one simple idea: <strong>Lagos deserved a bukka spot that actually tasted like home.</strong> Not watered-down stews. Not tiny portions for big prices. Just proper Nigerian food — the kind that has you licking the plate and wondering when you can come back.
+        </p>
+        <p class="about-intro">
+          Tucked inside Twenty Sixth and Park Avenue in Lekki Phase I, we serve dine-in, drive-through, and no-contact delivery — so whether you're rushing back to the office or settling in with the family, we've got you covered.
+        </p>
+        <div class="about-pillars">
+          <div class="about-pillar">
+            <strong>🔥 Cooked Fresh</strong>
+            <span>Every pot is made fresh daily. Nothing sits overnight.</span>
+          </div>
+          <div class="about-pillar">
+            <strong>🌿 Local Ingredients</strong>
+            <span>We source from trusted local suppliers and markets.</span>
+          </div>
+          <div class="about-pillar">
+            <strong>🏠 Home Recipes</strong>
+            <span>Real Nigerian recipes, not hotel adaptations.</span>
+          </div>
+          <div class="about-pillar">
+            <strong>💛 Cozy & Clean</strong>
+            <span>A beautiful, relaxed space to eat and unwind.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="how-header fade-in">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-heading">From cravings to <em>plate</em> in minutes</h2>
+      <p class="section-sub">Three easy ways to enjoy Kachi's Kitchen — whichever suits your day.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <div class="step-num">01</div>
+        <span class="step-icon">👀</span>
+        <div class="step-title">Browse the Menu</div>
+        <p class="step-desc">Check our menu below and pick what's calling your name today — jollof, egusi, pepper soup, and more.</p>
+      </div>
+      <div class="step-card fade-in fade-in-delay-1">
+        <div class="step-num">02</div>
+        <span class="step-icon">📲</span>
+        <div class="step-title">Place Your Order</div>
+        <p class="step-desc">Send us a message on WhatsApp or Snapchat, or just walk in. Dine-in, drive-through, and delivery all available.</p>
+      </div>
+      <div class="step-card fade-in fade-in-delay-2">
+        <div class="step-num">03</div>
+        <span class="step-icon">😋</span>
+        <div class="step-title">Eat & Enjoy</div>
+        <p class="step-desc">Fresh, hot, and made with love — your food arrives exactly the way it should. No corners cut.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MENU
+     ============================================================ -->
+<section id="menu">
+  <div class="container">
+    <div class="menu-header">
+      <div class="fade-in">
+        <span class="section-label">What We Serve</span>
+        <h2 class="section-heading">Straight from the <em>pot</em></h2>
+        <p class="section-sub">Every dish is cooked fresh daily with proper Nigerian ingredients. This isn't a menu — it's a mood.</p>
+      </div>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card fade-in">
+        <div class="menu-card-visual">🍚</div>
+        <div class="menu-card-body">
+          <span class="menu-card-tag">Rice Dishes</span>
+          <div class="menu-card-name">Party Jollof Rice</div>
+          <p class="menu-card-desc">The smoky, smoky kind — cooked low and slow over firewood the way your aunty used to make it at owambes. Served with your choice of protein.</p>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-1">
+        <div class="menu-card-visual">🥣</div>
+        <div class="menu-card-body">
+          <span class="menu-card-tag">Soups & Stews</span>
+          <div class="menu-card-name">Egusi Soup</div>
+          <p class="menu-card-desc">Rich, thick egusi loaded with assorted meat and stockfish. Best eaten with pounded yam that gives you that stretch. Order of satisfaction guaranteed.</p>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-2">
+        <div class="menu-card-visual">🍖</div>
+        <div class="menu-card-body">
+          <span class="menu-card-tag">Grills & Proteins</span>
+          <div class="menu-card-name">Suya & Peri-Peri Chicken</div>
+          <p class="menu-card-desc">Marinated in house-blended spice rubs and grilled to perfection. Pair with our pepper sauce for the full experience.</p>
+        </div>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-visual">🫕</div>
+        <div class="menu-card-body">
+          <span class="menu-card-tag">Classics</span>
+          <div class="menu-card-name">Buka Stew & Swallow</div>
+          <p class="menu-card-desc">The original combo that never fails — our signature buka stew served with eba, semo, or pounded yam. Simple, filling, deeply satisfying.</p>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-1">
+        <div class="menu-card-visual">🍲</div>
+        <div class="menu-card-body">
+          <span class="menu-card-tag">Pepper Soups</span>
+          <div class="menu-card-name">Catfish Pepper Soup</div>
+          <p class="menu-card-desc">A proper pepper soup that clears your sinuses and warms your soul. Made with point-and-kill catfish and a blend of seven Naija spices.</p>
+        </div>
+      </div>
+      <div class="menu-card fade-in fade-in-delay-2">
+        <div class="menu-card-visual">🥤</div>
+        <div class="menu-card-body">
+          <span class="menu-card-tag">Drinks & Sides</span>
+          <div class="menu-card-name">Zobo, Kunu & Cold Drinks</div>
+          <p class="menu-card-desc">House-made zobo with ginger and cloves, creamy kunu aya, and cold drinks to wash it all down. The perfect ending to a proper meal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY US
+     ============================================================ -->
+<section id="why-us">
+  <div class="container">
+    <div class="why-header fade-in">
+      <span class="section-label">Why Kachi's</span>
+      <h2 class="section-heading">We don't cut corners.<br><em>We cut meat.</em></h2>
+      <p class="section-sub">Here's what makes us different from every other spot in Lekki.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card fade-in">
+        <span class="benefit-icon">🥘</span>
+        <div class="benefit-title">Cooked Like Home</div>
+        <p class="benefit-desc">We follow real home recipes — not watered-down versions adapted for restaurants. If your mama made it this way, so do we.</p>
+      </div>
+      <div class="benefit-card fade-in fade-in-delay-1">
+        <span class="benefit-icon">⚖️</span>
+        <div class="benefit-title">Honest Portions</div>
+        <p class="benefit-desc">Your money deserves food that fills you. We don't do tiny servings at big prices — every plate is a proper meal.</p>
+      </div>
+      <div class="benefit-card fade-in fade-in-delay-2">
+        <span class="benefit-icon">🌅</span>
+        <div class="benefit-title">Fresh Every Morning</div>
+        <p class="benefit-desc">We cook fresh every single day. By evening, what's left gets donated — because yesterday's food has no place in our kitchen.</p>
+      </div>
+      <div class="benefit-card fade-in">
+        <span class="benefit-icon">🛵</span>
+        <div class="benefit-title">Dine-In, Drive-Through & Delivery</div>
+        <p class="benefit-desc">Come in and sit, grab-and-go, or order delivery via Glovo — we've made it easy to eat Kachi's your way.</p>
+      </div>
+      <div class="benefit-card fade-in fade-in-delay-1">
+        <span class="benefit-icon">🏡</span>
+        <div class="benefit-title">A Beautiful, Cosy Space</div>
+        <p class="benefit-desc">Come for the food, stay for the vibes. Our space is clean, warm, and welcoming — perfect for a solo lunch or a family outing.</p>
+      </div>
+      <div class="benefit-card fade-in fade-in-delay-2">
+        <span class="benefit-icon">📲</span>
+        <div class="benefit-title">Easy to Order</div>
+        <p class="benefit-desc">DM us on WhatsApp or Snapchat to place your order — no long processes, no hold music. Just chat and eat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ORDER
+     ============================================================ -->
+<section id="order">
+  <div class="container">
+    <div class="order-inner fade-in">
+      <span class="section-label">Place an Order</span>
+      <h2 class="section-heading">Hungry? We've got you.</h2>
+      <p class="order-sub">
+        Send us a message on WhatsApp or Snapchat — we alternate between both channels to stay active and responsive. Either works perfectly.
+      </p>
+      <div class="order-channels">
+        <a href="https://wa.me/+2349126000026" target="_blank" rel="noopener" class="order-btn order-btn-wa">
+          <i class="fa-brands fa-whatsapp"></i> Order on WhatsApp
+        </a>
+        <a href="https://www.snapchat.com/add/kachiskitchen" target="_blank" rel="noopener" class="order-btn order-btn-snap">
+          <i class="fa-brands fa-snapchat"></i> Order on Snapchat
+        </a>
+      </div>
+      <p class="order-note">We alternate between WhatsApp and Snapchat (@kachiskitchen) — both are active and responsive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     REVIEWS
+     ============================================================ -->
+<section id="reviews">
+  <div class="container">
+    <div class="reviews-header fade-in">
+      <span class="section-label">Reviews</span>
+      <h2 class="section-heading">What people are <em>saying</em></h2>
+      <p class="section-sub">Real reviews from real diners. No filter, no spin — just honest feedback from people who've eaten with us.</p>
+    </div>
+
+    <!-- Overall rating bar -->
+    <div class="rating-bar fade-in">
+      <div class="rating-big">
+        <div class="rating-number">4.7</div>
+        <div class="rating-stars-big">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <div class="rating-count">Based on client reviews</div>
+      </div>
+      <div class="rating-divider"></div>
+      <a href="https://maps.app.goo.gl/ovc5KoFy7WDchQtSA" target="_blank" rel="noopener" class="rating-google-link">
+        <i class="fa-brands fa-google"></i> See us on Google →
+      </a>
+    </div>
+
+    <!-- Carousel -->
+    <div class="carousel-wrapper fade-in">
+      <div class="carousel-viewport" id="carousel-viewport">
+        <div class="carousel-track" id="carousel-track">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="carousel-prev" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <button class="carousel-btn" id="carousel-next" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Review submission form -->
+    <div class="review-form-section fade-in">
+      <div class="review-form-title">Leave a Review</div>
+      <p class="review-form-sub">Had a meal with us? Tell people about it — your review helps someone discover their new favourite spot.</p>
+      <form id="review-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="reviewer-name">Full Name <span style="color:var(--terracotta)">*</span></label>
+          <input type="text" id="reviewer-name" class="form-input" placeholder="e.g. Chisom Okonkwo">
+          <div class="form-error" id="name-error">Please enter your name.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Rating <span style="color:var(--terracotta)">*</span></label>
+          <div class="star-rating-input" id="star-rating-input">
+            <input type="radio" name="rating" id="star5" value="5">
+            <label for="star5" title="5 stars">★</label>
+            <input type="radio" name="rating" id="star4" value="4">
+            <label for="star4" title="4 stars">★</label>
+            <input type="radio" name="rating" id="star3" value="3">
+            <label for="star3" title="3 stars">★</label>
+            <input type="radio" name="rating" id="star2" value="2">
+            <label for="star2" title="2 stars">★</label>
+            <input type="radio" name="rating" id="star1" value="1">
+            <label for="star1" title="1 star">★</label>
+          </div>
+          <div class="form-error" id="rating-error">Please select a star rating.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="review-text">Your Review <span style="color:var(--terracotta)">*</span></label>
+          <textarea id="review-text" class="form-textarea" placeholder="Tell us about your experience — the food, the vibes, the service..." rows="4"></textarea>
+          <div class="form-error" id="text-error">Please write at least 20 characters.</div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Post My Review</button>
+        <div class="thank-you-msg" id="thank-you-msg">
+          🎉 Thanks for your review! Want more people to see it? <a href="https://maps.app.goo.gl/ovc5KoFy7WDchQtSA" target="_blank" rel="noopener">Post it on Google too →</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section id="faq">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom: var(--space-xs);">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-heading">Questions? <em>We've got answers.</em></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item fade-in">
+        <div class="faq-question">
+          What time do you open?
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-answer">We open daily from 8am. Last orders are typically taken before close — follow us on Instagram (@kachis.kitchen_) for daily updates on when we're set and what's available that day.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-1">
+        <div class="faq-question">
+          How do I place an order for delivery or pickup?
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-answer">You can DM us on WhatsApp or Snapchat (@kachiskitchen) — we alternate between both channels and respond quickly. You can also order via Glovo for delivery, or simply walk in for dine-in or drive-through.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-2">
+        <div class="faq-question">
+          Do you cater for events or large orders?
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-answer">Yes, we do! We handle corporate lunches, family gatherings, owambes, and other events. Reach out via WhatsApp or Snapchat at least 48 hours in advance so we can plan properly and make sure everything is fresh and on point.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question">
+          Where exactly are you located?
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-answer">We're at 1E Babatope Bejide Crescent, Lekki Phase I, Lagos — inside the Twenty Sixth and Park Avenue complex. We're easy to find; just search "Kachi's Kitchen Lekki" on Google Maps for directions.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-1">
+        <div class="faq-question">
+          Is the food halal?
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-answer">We use locally sourced meats and cook with traditional Nigerian methods. For specific dietary or halal questions, please reach out to us directly on WhatsApp or Snapchat before your order and we'll give you a clear answer.</div>
+      </div>
+      <div class="faq-item fade-in fade-in-delay-2">
+        <div class="faq-question">
+          How fresh is the food — do you cook daily?
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-answer">Every single day. We start cooking fresh each morning and whatever hasn't sold by closing time does not get carried over. That's our promise to you — if it's on our counter, it was made today.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner fade-in">
+      <span class="section-label">Find Us</span>
+      <h2 class="section-heading">Come on in — the jollof is hot.</h2>
+      <p class="contact-sub">Walk in, drive through, or slide into our DMs. Whichever way you come, we'll have food waiting for you.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>1E Babatope Bejide Cres, Lekki Phase I, Lagos</span>
+        </div>
+        <div class="contact-detail">
+          <i class="fa-solid fa-phone"></i>
+          <span>0912 600 0026</span>
+        </div>
+        <div class="contact-detail">
+          <i class="fa-solid fa-clock"></i>
+          <span>Open daily from 8am</span>
+        </div>
+      </div>
+      <div class="contact-cta-group">
+        <a href="https://maps.app.goo.gl/ovc5KoFy7WDchQtSA" target="_blank" rel="noopener" class="btn-white">
+          <i class="fa-brands fa-google"></i> Get Directions
+        </a>
+        <a href="#order" class="btn-outline-white">
+          <i class="fa-solid fa-bag-shopping"></i> Order Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Kachi's<span>Kitchen</span></div>
+        <p class="footer-tagline">Real Nigerian food, cooked with love, served from the heart of Lekki Phase I. A taste of home — every single day.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/kachis.kitchen_" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.snapchat.com/add/kachiskitchen" target="_blank" rel="noopener" class="footer-social-link" aria-label="Snapchat">
+            <i class="fa-brands fa-snapchat"></i>
+          </a>
+          <a href="https://www.tiktok.com/@kachiskitchen" target="_blank" rel="noopener" class="footer-social-link" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a href="https://www.facebook.com/share/18bAUaTjnx/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="https://www.youtube.com/@kachiskitchen-m5v" target="_blank" rel="noopener" class="footer-social-link" aria-label="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <a href="https://wa.me/+2349126000026" target="_blank" rel="noopener" class="footer-social-link" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+          <li><a href="#why-us">Why Kachi's</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#order">Order Now</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Visit Us</div>
+        <ul class="footer-links">
+          <li><a href="https://maps.app.goo.gl/ovc5KoFy7WDchQtSA" target="_blank" rel="noopener">Get Directions →</a></li>
+          <li><a href="tel:09126000026">0912 600 0026</a></li>
+          <li><a href="https://wa.me/+2349126000026" target="_blank" rel="noopener">WhatsApp Us</a></li>
+          <li><a href="https://instagram.com/kachis.kitchen_" target="_blank" rel="noopener">@kachis.kitchen_</a></li>
+          <li><a href="https://www.tiktok.com/@kachiskitchen" target="_blank" rel="noopener">@kachiskitchen (TikTok)</a></li>
+          <li><a href="https://www.youtube.com/@kachiskitchen-m5v" target="_blank" rel="noopener">YouTube Channel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Kachi's Kitchen. All rights reserved. · 1E Babatope Bejide Cres, Lekki Phase I, Lagos</p>
+      <p style="color:rgba(250,245,236,0.2);">Made by <a href="abisolaajayi0.vercel.app" target="_blank" style="color:rgba(250,245,236,0.2);">Ajayi Abisola Enoch</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/+2349126000026" target="_blank" rel="noopener" class="float-wa" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ============================================================
+     ============================================================ -->
+<script>
+/* ============================================================
+   REVIEW DATA
+   ============================================================ */
+const GOOGLE_MAPS_LINK = 'https://maps.app.goo.gl/ovc5KoFy7WDchQtSA';
+
+const seededReviews = [
+  {
+    name: 'Uwa Igunbor',
+    rating: 5,
+    text: 'Nice place to eat Nigerian food. The atmosphere is relaxed and the food actually tastes like home — not that watered-down restaurant version. The egusi was particularly good!',
+    color: '#2D5016'
+  },
+  {
+    name: 'Lord Hermis',
+    rating: 4,
+    text: 'A beautiful and cosy place. The space is warm and welcoming, and the food is genuinely good. Their online ordering could be more responsive but the dine-in experience is top notch.',
+    color: '#C9933A'
+  },
+  {
+    name: 'Adaeze Nwosu',
+    rating: 5,
+    text: "Best jollof rice in Lekki, I said what I said. That smoky party jollof hits different every single time. I've been coming here for months and it's never disappointed. My go-to lunch spot.",
+    color: '#C4613A'
+  },
+  {
+    name: 'Emeka Oduya',
+    rating: 5,
+    text: "The pepper soup alone is worth the trip. They use real catfish and the spice blend is something else — it cleared my sinuses and warmed my heart at the same time. Pair with their zobo and you're sorted.",
+    color: '#3D6B20'
+  },
+  {
+    name: 'Fatima Abubakar',
+    rating: 4,
+    text: "I came here on my lunch break on a Friday and the place was buzzing — in the best way. The buka stew with eba was generous and properly seasoned. A little wait time but completely worth it for that kind of quality.",
+    color: '#8B3A3A'
+  },
+  {
+    name: 'Tunde Adeyemi',
+    rating: 5,
+    text: "Kachi's is one of the rare spots in Lekki where you actually get value for money. The portions are decent, the food is fresh, and the staff are friendly. The chicken suya has me coming back every week.",
+    color: '#5A2D82'
+  }
+];
+
+const avatarColors = ['#C4613A','#2D5016','#C9933A','#8B3A3A','#3D6B20','#5A2D82','#1A6B6B','#A04B28'];
+
+function getInitials(name) {
+  return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+}
+
+function renderStars(rating) {
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    html += `<i class="fa-${i <= rating ? 'solid' : 'regular'} fa-star${i > rating ? ' empty' : ''}"></i>`;
+  }
+  return html;
+}
+
+function truncateText(text, max = 200) {
+  if (text.length <= max) return { short: text, full: null };
+  return { short: text.substring(0, max).trim() + '...', full: text };
+}
+
+function createReviewCard(review, isUserReview = false) {
+  const { short, full } = truncateText(review.text);
+  const colorIndex = review.name.charCodeAt(0) % avatarColors.length;
+  const color = review.color || avatarColors[colorIndex];
+  const badgeClass = isUserReview ? 'just-posted-badge' : '';
+  const badgeText = isUserReview ? 'Just posted' : 'Verified';
+
+  const card = document.createElement('div');
+  card.className = 'review-card';
+  card.innerHTML = `
+    <span class="verified-badge ${badgeClass}">${badgeText}</span>
+    <div class="review-card-top">
+      <div class="reviewer-avatar" style="background:${color}">${getInitials(review.name)}</div>
+      <div class="reviewer-info">
+        <div class="reviewer-name">${review.name}</div>
+        <div class="review-stars">${renderStars(review.rating)}</div>
+      </div>
+    </div>
+    <p class="review-text">
+      ${short}
+      ${full ? `<button class="review-read-more" data-full="${encodeURIComponent(full)}" data-short="${encodeURIComponent(short)}">Read more</button>` : ''}
+    </p>
+  `;
+
+  if (full) {
+    const btn = card.querySelector('.review-read-more');
+    const textEl = card.querySelector('.review-text');
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.textContent === 'Read less';
+      if (isExpanded) {
+        textEl.innerHTML = `${decodeURIComponent(btn.dataset.short)}<button class="review-read-more" style="margin-left:4px">Read more</button>`;
+      } else {
+        textEl.innerHTML = `${decodeURIComponent(btn.dataset.full)}<button class="review-read-more" style="margin-left:4px">Read less</button>`;
+      }
+      textEl.querySelector('.review-read-more').addEventListener('click', arguments.callee.bind({ target: { textContent: isExpanded ? 'Read more' : 'Read less' } }));
+    });
+  }
+
+  return card;
+}
+
+/* ============================================================
+   CAROUSEL
+   ============================================================ */
+let allReviews = [];
+let currentIndex = 0;
+let autoTimer = null;
+let isPaused = false;
+let isDragging = false;
+let dragStartX = 0;
+let dragCurrentX = 0;
+
+function getSlidesVisible() {
+  return window.innerWidth <= 768 ? 1 : 3;
+}
+
+function getCardWidth() {
+  const track = document.getElementById('carousel-track');
+  if (!track || !track.children.length) return 0;
+  return track.children[0].offsetWidth + 20; // card width + margin
+}
+
+function buildCarousel() {
+  const track = document.getElementById('carousel-track');
+  const dotsContainer = document.getElementById('carousel-dots');
+  track.innerHTML = '';
+  dotsContainer.innerHTML = '';
+
+  allReviews.forEach((review, i) => {
+    track.appendChild(createReviewCard(review, review._isUser));
+  });
+
+  // Create dots
+  const totalDots = allReviews.length;
+  for (let i = 0; i < totalDots; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Review ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  goTo(0, false);
+}
+
+function goTo(index, animate = true) {
+  const track = document.getElementById('carousel-track');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const total = allReviews.length;
+
+  if (index < 0) index = total - 1;
+  if (index >= total) index = 0;
+  currentIndex = index;
+
+  const cardWidth = getCardWidth();
+  const offset = currentIndex * cardWidth;
+
+  if (!animate) track.style.transition = 'none';
+  else track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+  track.style.transform = `translateX(-${offset}px)`;
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentIndex);
+  });
+
+  if (!animate) {
+    requestAnimationFrame(() => {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+    });
+  }
+}
+
+function startAuto() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(() => {
+    if (!isPaused) goTo(currentIndex + 1);
+  }, 4000);
+}
+
+function initCarousel() {
+  const viewport = document.getElementById('carousel-viewport');
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  prevBtn.addEventListener('click', () => { goTo(currentIndex - 1); resetAuto(); });
+  nextBtn.addEventListener('click', () => { goTo(currentIndex + 1); resetAuto(); });
+
+  // Pause on hover
+  viewport.addEventListener('mouseenter', () => isPaused = true);
+  viewport.addEventListener('mouseleave', () => isPaused = false);
+
+  // Swipe support
+  viewport.addEventListener('touchstart', e => {
+    dragStartX = e.touches[0].clientX;
+    isPaused = true;
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', e => {
+    const diff = dragStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goTo(currentIndex + 1);
+      else goTo(currentIndex - 1);
+      resetAuto();
+    }
+    isPaused = false;
+  });
+
+  window.addEventListener('resize', () => goTo(currentIndex, false));
+
+  buildCarousel();
+  startAuto();
+}
+
+function resetAuto() {
+  clearInterval(autoTimer);
+  startAuto();
+}
+
+/* ============================================================
+   LOCALSTORAGE REVIEWS
+   ============================================================ */
+function loadUserReviews() {
+  try {
+    const stored = localStorage.getItem('kachis_reviews');
+    if (stored) return JSON.parse(stored);
+  } catch (e) {}
+  return [];
+}
+
+function saveUserReview(review) {
+  const reviews = loadUserReviews();
+  reviews.unshift(review);
+  try {
+    localStorage.setItem('kachis_reviews', JSON.stringify(reviews));
+  } catch (e) {}
+}
+
+function initReviews() {
+  const userReviews = loadUserReviews().map(r => ({ ...r, _isUser: true }));
+  allReviews = [...userReviews, ...seededReviews];
+  initCarousel();
+}
+
+/* ============================================================
+   REVIEW FORM
+   ============================================================ */
+function initReviewForm() {
+  const form = document.getElementById('review-form');
+  const nameInput = document.getElementById('reviewer-name');
+  const textInput = document.getElementById('review-text');
+  const thankYou = document.getElementById('thank-you-msg');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    let valid = true;
+
+    // Validate name
+    const name = nameInput.value.trim();
+    const nameErr = document.getElementById('name-error');
+    if (!name) {
+      nameInput.classList.add('error');
+      nameErr.classList.add('visible');
+      valid = false;
+    } else {
+      nameInput.classList.remove('error');
+      nameErr.classList.remove('visible');
+    }
+
+    // Validate rating
+    const ratingInput = form.querySelector('input[name="rating"]:checked');
+    const ratingErr = document.getElementById('rating-error');
+    if (!ratingInput) {
+      ratingErr.classList.add('visible');
+      valid = false;
+    } else {
+      ratingErr.classList.remove('visible');
+    }
+
+    // Validate text
+    const text = textInput.value.trim();
+    const textErr = document.getElementById('text-error');
+    if (text.length < 20) {
+      textInput.classList.add('error');
+      textErr.classList.add('visible');
+      valid = false;
+    } else {
+      textInput.classList.remove('error');
+      textErr.classList.remove('visible');
+    }
+
+    if (!valid) return;
+
+    const review = {
+      name,
+      rating: parseInt(ratingInput.value),
+      text,
+      _isUser: true
+    };
+
+    saveUserReview(review);
+
+    // Prepend card to carousel
+    const track = document.getElementById('carousel-track');
+    const card = createReviewCard(review, true);
+    track.insertBefore(card, track.firstChild);
+    allReviews.unshift({ ...review });
+
+    // Rebuild dots
+    const dotsContainer = document.getElementById('carousel-dots');
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < allReviews.length; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Review ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    goTo(0);
+
+    // Show thank you
+    thankYou.classList.add('visible');
+
+    // Reset form
+    form.reset();
+
+    setTimeout(() => { thankYou.classList.remove('visible'); }, 8000);
+  });
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function initNav() {
+  const nav = document.getElementById('main-nav');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+/* ============================================================
+   ACTIVE NAV HIGHLIGHT
+   ============================================================ */
+function initActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(section => observer.observe(section));
+}
+
+/* ============================================================
+   FADE IN ON SCROLL
+   ============================================================ */
+function initFadeIn() {
+  const elements = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  elements.forEach(el => observer.observe(el));
+}
+
+/* ============================================================
+   ANIMATED COUNTERS
+   ============================================================ */
+function initCounters() {
+  const counters = document.querySelectorAll('.stat-num[data-target]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        let start = 0;
+        const duration = 1800;
+        const step = Math.ceil(target / (duration / 16));
+
+        const timer = setInterval(() => {
+          start += step;
+          if (start >= target) {
+            start = target;
+            clearInterval(timer);
+          }
+          el.textContent = start + suffix;
+        }, 16);
+
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(el => observer.observe(el));
+}
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+function initFAQ() {
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      items.forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+}
+
+/* ============================================================
+   SMOOTH SCROLL
+   ============================================================ */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        const navHeight = document.getElementById('main-nav').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+/* ============================================================
+   INIT ALL
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  initNav();
+  initActiveNav();
+  initFadeIn();
+  initCounters();
+  initFAQ();
+  initSmoothScroll();
+  initReviews();
+  initReviewForm();
+});
+</script>
+
+</body>
+</html>

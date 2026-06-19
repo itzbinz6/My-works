@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seren Studio — Mindful Wellness Coaching</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:      #FAF7F2;
+    --cream-dark: #F2EDE4;
+    --terra:      #C4714A;
+    --terra-light:#D9957A;
+    --terra-pale: #F0DDD3;
+    --sage:       #7A9E7E;
+    --sage-light: #B2CCAA;
+    --sage-pale:  #E8F0E6;
+    --warm-brown: #6B4C3B;
+    --text-dark:  #3A2E28;
+    --text-mid:   #6B5E55;
+    --text-light: #9C8E87;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--terra);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--terra-light);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease;
+    opacity: 0.7;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ───── NAV ───── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 60px;
+    background: transparent;
+    transition: background 0.4s ease, padding 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(250, 247, 242, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 18px 60px;
+    box-shadow: 0 1px 0 rgba(107, 76, 59, 0.08);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--text-dark); text-decoration: none;
+  }
+  .nav-logo span { color: var(--terra); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-mid);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terra); }
+  .nav-cta {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cream);
+    background: var(--terra); border: none;
+    padding: 12px 28px; border-radius: 100px;
+    cursor: none; transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--warm-brown); transform: scale(1.03); }
+
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--text-dark); border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(250, 247, 242, 0.97);
+    backdrop-filter: blur(16px);
+    z-index: 99;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 40px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .mobile-menu.open {
+    opacity: 1; pointer-events: all;
+  }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem; font-weight: 300;
+    color: var(--text-dark); text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--terra); }
+  .mobile-menu .mobile-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cream);
+    background: var(--terra); border: none;
+    padding: 16px 40px; border-radius: 100px;
+    cursor: pointer; margin-top: 10px;
+    transition: background 0.2s;
+  }
+  .mobile-menu .mobile-cta:hover { background: var(--warm-brown); }
+
+  /* ───── HERO ───── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none; opacity: 0.5;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--terra-pale), transparent 70%);
+    top: -100px; right: -100px;
+    animation: float1 8s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, var(--sage-pale), transparent 70%);
+    bottom: 50px; left: 30px;
+    animation: float2 10s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, #F5E6D8, transparent 70%);
+    top: 40%; left: 40%;
+    animation: float1 12s ease-in-out infinite reverse;
+  }
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    33% { transform: translateY(-20px) translateX(15px); }
+    66% { transform: translateY(10px) translateX(-10px); }
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--terra);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-tag::before {
+    content: ''; width: 28px; height: 1px; background: var(--terra);
+  }
+
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+    font-weight: 300; line-height: 1.12;
+    color: var(--text-dark); margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-h1 em { font-style: italic; color: var(--terra); }
+
+  .hero-sub {
+    font-size: 1rem; font-weight: 300; line-height: 1.8;
+    color: var(--text-mid); max-width: 440px;
+    margin-bottom: 48px;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex; align-items: center; gap: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cream);
+    background: var(--terra); border: none;
+    padding: 16px 40px; border-radius: 100px;
+    cursor: none; text-decoration: none;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 32px rgba(196, 113, 74, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--warm-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(196, 113, 74, 0.4);
+  }
+  .btn-ghost {
+    font-size: 0.8rem; font-weight: 400; letter-spacing: 0.08em;
+    color: var(--text-mid); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--terra); }
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px;
+    padding-top: 40px; border-top: 1px solid rgba(107, 76, 59, 0.12);
+    opacity: 0; animation: fadeUp 0.8s 1s forwards;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem; font-weight: 400; color: var(--terra);
+    display: block; line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-light);
+    margin-top: 6px; display: block;
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; animation: fadeIn 1.2s 0.5s forwards;
+  }
+  .hero-card-wrap {
+    position: relative; width: 420px; height: 520px;
+  }
+  .hero-card {
+    width: 340px; height: 440px;
+    background: linear-gradient(145deg, var(--terra-pale), #E8C9B8);
+    border-radius: 220px 220px 180px 200px / 220px 200px 240px 200px;
+    position: absolute; top: 40px; left: 40px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(196, 113, 74, 0.2);
+  }
+  .hero-card-inner {
+    width: 100%; height: 100%;
+    background: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&q=80') center/cover no-repeat;
+    mix-blend-mode: multiply; opacity: 0.85;
+  }
+  .hero-badge {
+    position: absolute; bottom: 20px; left: -20px;
+    background: white; border-radius: 20px;
+    padding: 16px 22px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    display: flex; align-items: center; gap: 12px;
+    animation: float2 6s ease-in-out infinite;
+  }
+  .badge-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--sage-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .badge-text { font-size: 0.75rem; line-height: 1.4; }
+  .badge-text strong { display: block; color: var(--text-dark); font-weight: 500; }
+  .badge-text span { color: var(--text-light); font-weight: 300; }
+
+  .hero-pill {
+    position: absolute; top: 30px; right: -10px;
+    background: var(--sage);
+    color: white; border-radius: 100px;
+    padding: 10px 20px; font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: float1 7s ease-in-out infinite;
+  }
+
+  /* ───── WAVE DIVIDER ───── */
+  .wave { line-height: 0; position: relative; }
+  .wave svg { display: block; width: 100%; }
+
+  /* ───── ABOUT ───── */
+  .about {
+    background: var(--cream-dark);
+    padding: 100px 60px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    position: relative;
+  }
+  .section-tag {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--terra);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--terra); }
+  .section-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+    font-weight: 300; line-height: 1.2;
+    margin-bottom: 24px; color: var(--text-dark);
+  }
+  .section-h2 em { font-style: italic; color: var(--terra); }
+  .section-body {
+    font-size: 0.95rem; font-weight: 300; line-height: 1.9;
+    color: var(--text-mid); margin-bottom: 20px;
+  }
+
+  .about-img-wrap {
+    position: relative; height: 520px;
+  }
+  .about-img-bg {
+    width: 300px; height: 420px;
+    background: var(--sage-pale);
+    border-radius: 160px;
+    position: absolute; top: 40px; left: 60px;
+  }
+  .about-img {
+    width: 280px; height: 400px;
+    border-radius: 150px;
+    object-fit: cover;
+    position: absolute; top: 20px; left: 40px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+  }
+  .about-quote {
+    position: absolute; bottom: 30px; right: 0;
+    background: white; border-radius: 20px;
+    padding: 24px 28px; max-width: 220px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.09);
+  }
+  .about-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-style: italic;
+    color: var(--text-dark); line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .about-quote cite {
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-light);
+  }
+
+  /* ───── SERVICES ───── */
+  .services {
+    padding: 110px 60px;
+    background: var(--cream);
+  }
+  .services-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; margin-bottom: 64px;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: white;
+    border-radius: 28px;
+    padding: 40px 36px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(107, 76, 59, 0.06);
+  }
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+  }
+  .service-card.featured {
+    background: var(--terra);
+    color: white;
+  }
+  .service-card.featured .service-num,
+  .service-card.featured .service-title,
+  .service-card.featured .service-desc { color: rgba(255,255,255,0.9); }
+  .service-card.featured .service-tag { background: rgba(255,255,255,0.2); color: white; }
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 16px;
+    background: var(--terra-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 28px;
+  }
+  .service-card.featured .service-icon { background: rgba(255,255,255,0.2); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem; color: var(--text-light);
+    letter-spacing: 0.1em; margin-bottom: 12px; display: block;
+  }
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 500;
+    color: var(--text-dark); margin-bottom: 14px;
+  }
+  .service-desc {
+    font-size: 0.88rem; font-weight: 300; line-height: 1.8;
+    color: var(--text-mid); margin-bottom: 28px;
+  }
+  .service-tag {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--terra-pale); color: var(--terra);
+    padding: 6px 14px; border-radius: 100px;
+  }
+  .service-price {
+    position: absolute; top: 36px; right: 36px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 400; color: var(--terra);
+  }
+  .service-card.featured .service-price { color: rgba(255,255,255,0.8); }
+
+  /* ───── PROCESS ───── */
+  .process {
+    background: var(--sage-pale);
+    padding: 110px 60px;
+  }
+  .process-header { text-align: center; margin-bottom: 72px; }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 36px; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--sage-light), transparent);
+  }
+  .process-step { text-align: center; padding: 0 20px; position: relative; }
+  .step-num {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: white; border: 2px solid var(--sage-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; color: var(--sage);
+    position: relative; z-index: 1;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .process-step:hover .step-num {
+    background: var(--sage); border-color: var(--sage); color: white;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 500;
+    color: var(--text-dark); margin-bottom: 10px;
+  }
+  .step-desc {
+    font-size: 0.83rem; font-weight: 300; line-height: 1.8; color: var(--text-mid);
+  }
+
+  /* ───── TESTIMONIALS ───── */
+  .testimonials { padding: 110px 60px; background: var(--cream-dark); }
+  .testi-header { margin-bottom: 60px; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .testi-card {
+    background: white; border-radius: 24px;
+    padding: 36px 32px;
+    border: 1px solid rgba(107, 76, 59, 0.07);
+    transition: transform 0.3s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-stars { color: var(--terra); font-size: 0.85rem; margin-bottom: 20px; letter-spacing: 2px; }
+  .testi-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-style: italic;
+    line-height: 1.7; color: var(--text-dark); margin-bottom: 24px;
+  }
+  .testi-person { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--terra-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .testi-name { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); display: block; }
+  .testi-role { font-size: 0.72rem; color: var(--text-light); font-weight: 300; }
+
+  /* ───── CTA ───── */
+  .cta-section {
+    padding: 120px 60px;
+    background: var(--terra);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08), transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(0,0,0,0.1), transparent 60%);
+  }
+  .cta-section > * { position: relative; z-index: 1; }
+  .cta-tag {
+    font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 20px; display: block;
+  }
+  .cta-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 300; color: white; line-height: 1.15;
+    margin-bottom: 24px; max-width: 700px; margin-left: auto; margin-right: auto;
+  }
+  .cta-h2 em { font-style: italic; opacity: 0.8; }
+  .cta-sub {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.75);
+    max-width: 480px; margin: 0 auto 48px; line-height: 1.8;
+  }
+  .btn-white {
+    display: inline-block;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--terra);
+    background: white; border: none;
+    padding: 18px 48px; border-radius: 100px;
+    cursor: none; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+
+  /* ───── FOOTER ───── */
+  footer {
+    background: var(--text-dark);
+    padding: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; color: white;
+  }
+  .footer-logo span { color: var(--terra-light); }
+  .footer-links { display: flex; gap: 32px; list-style: none; }
+  .footer-links a {
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--terra-light); }
+  .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.25); font-weight: 300; }
+
+  /* ───── ANIMATIONS ───── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 900px) {
+    nav { padding: 24px 30px; }
+    nav.scrolled { padding: 16px 30px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; z-index: 101; position: relative; }
+    .hero { grid-template-columns: 1fr; padding: 120px 30px 60px; gap: 60px; }
+    .hero-visual { order: -1; }
+    .hero-card-wrap { width: 300px; height: 380px; }
+    .hero-card { width: 240px; height: 320px; }
+    .about { grid-template-columns: 1fr; padding: 80px 30px; gap: 50px; }
+    .about-img-wrap { height: 360px; }
+    .services { padding: 80px 30px; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process { padding: 80px 30px; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .process-steps::before { display: none; }
+    .testimonials { padding: 80px 30px; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 90px 30px; }
+    footer { padding: 40px 30px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">Seren<span>.</span>Studio</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+  </ul>
+  <button class="nav-cta">Book a Call</button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"        class="menu-link">About</a>
+  <a href="#services"     class="menu-link">Services</a>
+  <a href="#process"      class="menu-link">Process</a>
+  <a href="#testimonials" class="menu-link">Stories</a>
+  <button class="mobile-cta">Book a Call</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-text">
+    <div class="hero-tag">Mindful Wellness Coaching</div>
+    <h1 class="hero-h1">
+      Find your<br><em>stillness</em><br>within the noise.
+    </h1>
+    <p class="hero-sub">
+      A gentle, personalised approach to yoga, breathwork, and holistic wellness — designed to help you return to yourself, one breath at a time.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Programs</a>
+      <a href="#about" class="btn-ghost">
+        Meet Amara
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">240+</span>
+        <span class="stat-label">Lives Transformed</span>
+      </div>
+      <div>
+        <span class="stat-num">6yr</span>
+        <span class="stat-label">Coaching Experience</span>
+      </div>
+      <div>
+        <span class="stat-num">4.9★</span>
+        <span class="stat-label">Client Rating</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-wrap">
+      <div class="hero-card">
+        <div class="hero-card-inner"></div>
+      </div>
+      <div class="hero-badge">
+        <div class="badge-icon">🌿</div>
+        <div class="badge-text">
+          <strong>Next Session</strong>
+          <span>Sunday, 7:00 AM</span>
+        </div>
+      </div>
+      <div class="hero-pill">✦ Holistic Approach</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:var(--cream)">
+  <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" style="height:60px">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#F2EDE4"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img-wrap reveal">
+    <div class="about-img-bg"></div>
+    <img
+      class="about-img"
+      src="https://images.unsplash.com/photo-1593164842264-854604db2260?w=500&q=80"
+      alt="Amara, wellness coach"
+    />
+    <div class="about-quote">
+      <p>"Wellness isn't a destination — it's how you travel."</p>
+      <cite>— Amara Osei</cite>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-tag reveal">About Amara</div>
+    <h2 class="section-h2 reveal reveal-delay-1">
+      Rooted in <em>presence</em>, guided by wisdom.
+    </h2>
+    <p class="section-body reveal reveal-delay-2">
+      I'm Amara — a certified yoga teacher, breathwork facilitator, and holistic wellness coach with over six years of experience helping women reconnect with their bodies and quiet their minds.
+    </p>
+    <p class="section-body reveal reveal-delay-3">
+      My approach weaves together ancient movement practices, modern nervous system science, and a deep reverence for your individual story. No two journeys look alike here.
+    </p>
+    <a href="#services" class="btn-primary reveal reveal-delay-4" style="display:inline-block;margin-top:16px;">See What's Possible</a>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:var(--cream-dark)">
+  <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" style="height:60px">
+    <path d="M0,0 C360,60 1080,0 1440,50 L1440,60 L0,60 Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-tag reveal">What I Offer</div>
+      <h2 class="section-h2 reveal reveal-delay-1" style="margin-bottom:0">Programs designed<br>for <em>real life.</em></h2>
+    </div>
+    <a href="#" class="btn-ghost reveal" style="white-space:nowrap">
+      View all programs
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🧘</div>
+      <span class="service-num">01</span>
+      <div class="service-title">1:1 Yoga Sessions</div>
+      <p class="service-desc">Personalised yoga practice tailored to your body, goals, and current season of life. Online or in-person.</p>
+      <span class="service-tag">60 min · Weekly</span>
+      <div class="service-price">$85</div>
+    </div>
+
+    <div class="service-card featured reveal reveal-delay-1">
+      <div class="service-icon">🌬️</div>
+      <span class="service-num">02</span>
+      <div class="service-title">Breathwork & Nervous System Reset</div>
+      <p class="service-desc">A deep, transformative session using somatic breathwork to release stress stored in the body and restore calm.</p>
+      <span class="service-tag">Most Popular</span>
+      <div class="service-price">$120</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">🌱</div>
+      <span class="service-num">03</span>
+      <div class="service-title">12-Week Wellness Journey</div>
+      <p class="service-desc">A complete holistic transformation program: movement, mindset, nutrition rituals, and accountability coaching.</p>
+      <span class="service-tag">Signature Program</span>
+      <div class="service-price">$960</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-header">
+    <div class="section-tag reveal" style="justify-content:center">How It Works</div>
+    <h2 class="section-h2 reveal reveal-delay-1" style="text-align:center;max-width:500px;margin:0 auto">
+      Your path to <em>wholeness</em>, step by step.
+    </h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery Call</div>
+      <p class="step-desc">A free 20-minute conversation to understand where you are and where you want to be.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <div class="step-title">Your Wellness Map</div>
+      <p class="step-desc">Together we design a personalised roadmap aligned with your body, rhythms, and goals.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <div class="step-title">Weekly Practice</div>
+      <p class="step-desc">Guided sessions, tools, and resources that fit into your real life — not an impossible ideal.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">04</div>
+      <div class="step-title">Ongoing Support</div>
+      <p class="step-desc">Voice message check-ins, a private community, and lifetime access to session recordings.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:var(--sage-pale)">
+  <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" style="height:60px">
+    <path d="M0,40 C480,0 960,60 1440,20 L1440,60 L0,60 Z" fill="var(--cream-dark)"/>
+  </svg>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testi-header">
+    <div class="section-tag reveal">Client Stories</div>
+    <h2 class="section-h2 reveal reveal-delay-1">Words from the<br><em>women I've walked with.</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Working with Amara gave me back something I didn't realise I'd lost — a quiet relationship with my own body. Truly life-changing."</p>
+      <div class="testi-person">
+        <div class="testi-avatar">🌸</div>
+        <div>
+          <span class="testi-name">Chidinma O.</span>
+          <span class="testi-role">Marketing Executive, Lagos</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I came burned out, anxious, and convinced wellness was just for other people. Three months later, I sleep deeply and move with intention every single day."</p>
+      <div class="testi-person">
+        <div class="testi-avatar">🌺</div>
+        <div>
+          <span class="testi-name">Sarah M.</span>
+          <span class="testi-role">Teacher, London</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The breathwork sessions alone were worth ten times the investment. Amara holds space in a way I've never experienced — gentle and deeply powerful."</p>
+      <div class="testi-person">
+        <div class="testi-avatar">🍃</div>
+        <div>
+          <span class="testi-name">Priya K.</span>
+          <span class="testi-role">Software Engineer, Toronto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <span class="cta-tag">Begin Today</span>
+  <h2 class="cta-h2 reveal">
+    You deserve to feel<br><em>at home in yourself.</em>
+  </h2>
+  <p class="cta-sub reveal reveal-delay-1">
+    Book a free 20-minute discovery call. No pressure, no scripts — just an honest conversation about what's possible for you.
+  </p>
+  <a href="#" class="btn-white reveal reveal-delay-2">Book Your Free Call</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Seren<span>.</span>Studio</div>
+  <ul class="footer-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Process</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <span class="footer-copy">© 2025 Seren Studio. Crafted with care.</span>
+  <div class="footer-copy">Made by.<a href="abisolaajayi0.vercel.app" target="_blank" class="footer-copy">Ajayi Abisola Enoch</a></div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 60);
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    mobileMenu.style.display = isOpen ? 'flex' : 'none';
+    // tiny rAF so display:flex is painted before opacity transitions
+    if (isOpen) requestAnimationFrame(() => mobileMenu.style.opacity = '1');
+  });
+  document.querySelectorAll('.menu-link, .mobile-cta').forEach(el => {
+    el.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      mobileMenu.style.opacity = '0';
+      setTimeout(() => { mobileMenu.style.display = 'none'; }, 350);
+    });
+  });
+
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
