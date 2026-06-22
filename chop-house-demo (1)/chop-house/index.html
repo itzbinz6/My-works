@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About &mdash; Rubels &amp; Angels</title>
-<meta name="description" content="The story behind Rubels and Angels and the team serving authentic Nigerian cuisine across Lagos.">
+<title>Chop House &mdash; We Do Food Right</title>
+<meta name="description" content="Authentic Nigerian cuisine with a modern twist. Four locations across Lagos. Reserve a table or order online.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -360,7 +360,21 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 .loc-feature-grid .loc-card.featured .status-open .d{background:#9BD17A;}
 .loc-feature-grid .loc-card.featured .loc-icon{background:rgba(200,150,46,0.15);border-color:rgba(200,150,46,0.4);color:var(--gold-soft);}
 .loc-feature-grid .loc-side{display:flex;flex-direction:column;gap:20px;}
-@media (max-width:860px){.loc-feature-grid{grid-template-columns:1fr;}}
+@media (max-width:860px){
+  .loc-feature-grid{grid-template-columns:1fr;}
+  .loc-feature-grid .loc-card{
+    background:linear-gradient(155deg,#1E1813,#15110D);border-color:rgba(200,150,46,0.3);color:#F3EAD9;padding:26px;
+  }
+  .loc-feature-grid .loc-card .loc-name{color:#F3EAD9;font-size:18px;}
+  .loc-feature-grid .loc-card .loc-name-lg{font-size:18px;}
+  .loc-feature-grid .loc-card .loc-tag{color:var(--gold-soft);}
+  .loc-feature-grid .loc-card .loc-row{color:#D8CCB8;}
+  .loc-feature-grid .loc-card .loc-row svg{color:var(--gold-soft);}
+  .loc-feature-grid .loc-card .status-open{color:#9BD17A;}
+  .loc-feature-grid .loc-card .status-open .d{background:#9BD17A;}
+  .loc-feature-grid .loc-card .loc-icon{background:rgba(200,150,46,0.15);border-color:rgba(200,150,46,0.4);color:var(--gold-soft);}
+  .loc-feature-grid .loc-card .loc-rating-pill{background:rgba(200,150,46,0.14);border-color:rgba(200,150,46,0.3);color:var(--gold-soft);}
+}
 .loc-card{
   background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;
   display:flex;flex-direction:column;gap:12px;
@@ -373,6 +387,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 .loc-icon svg{width:18px;height:18px;}
 .loc-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin:0 0 2px;}
 .loc-name{font-family:var(--font-display);font-size:18px;color:var(--text-primary);margin:0;}
+.loc-name-lg{font-size:24px;}
 .loc-rating-pill{margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--gold);background:var(--bg-secondary);border:1px solid var(--border);border-radius:20px;padding:5px 10px;white-space:nowrap;}
 .loc-row{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:var(--text-secondary);}
 .loc-row svg{width:15px;height:15px;color:var(--text-tertiary);flex-shrink:0;margin-top:2px;}
@@ -428,11 +443,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 .people-card:hover .people-portrait span{transform:scale(1.08);}
 .people-portrait span{transition:transform .35s cubic-bezier(.2,.8,.2,1);}
 .people-portrait{height:220px;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#1E1813,#15110D);position:relative;}
-.people-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.people-portrait span{font-family:var(--font-display);font-size:32px;color:var(--gold-soft);}
+.people-portrait span{font-family:var(--font-display);font-size:46px;color:var(--gold-soft);}
 .people-portrait::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(115deg, rgba(200,150,46,0.06) 0px, rgba(200,150,46,0.06) 1px, transparent 1px, transparent 30px);}
 .people-info{padding:20px 22px 24px;}
-.people-info h3{font-size:15px;margin-bottom:4px;}
+.people-info h3{font-size:17px;margin-bottom:4px;}
 .people-info p{font-size:12.5px;color:var(--accent);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.06em;margin:0;}
 
 /* ---------- quote block ---------- */
@@ -466,11 +480,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 </style>
 </head>
 <body>
-
+<div id="intro"><div class="panel l"><span>CHOP</span></div><div class="panel r"><span>HOUSE</span></div><div class="intro-foot"><div class="intro-dots"><span></span><span></span><span></span></div><p class="intro-hint">Tap anywhere to enter</p></div></div>
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="logo">RUBELS<em>&amp;</em>ANGELS</a>
-    <ul class="nav-links"><a href="index.html" class="">Home</a><a href="about.html" class="active">About</a><a href="menu.html" class="">Menu</a><a href="locations.html" class="">Locations</a></ul>
+    <a href="index.html" class="logo">CHOP HOUSE</a>
+    <ul class="nav-links"><a href="index.html" class="active">Home</a><a href="about.html" class="">About</a><a href="menu.html" class="">Menu</a><a href="locations.html" class="">Locations</a></ul>
     <div class="nav-actions">
       <button class="theme-toggle" aria-label="Toggle dark mode">
         <span class="icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg></span>
@@ -489,23 +503,181 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 </header>
 
 <main>
-<section class="page-hero">
-  <div class="container">
-    <p class="eyebrow"><span class="dot"></span> Our culinary journey</p>
-    <h1 class="h-display">A dream to share Nigerian food with the community.</h1>
-    <p class="lead">Four locations, one kitchen philosophy: cook it right, every time.</p>
+<section class="home-hero">
+  <div class="container" style="position:relative;">
+    <div class="stamp-badge" style="top:8px;right:8px;" aria-hidden="true">
+  <svg viewBox="0 0 120 120">
+    <defs><path id="stampCircle" d="M60,60 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs>
+    <text font-size="8.6" letter-spacing="2.5" fill="var(--gold-soft)">
+      <textPath href="#stampCircle">CHOP HOUSE &#9670; EST. NIGERIA &#9670; CHOP HOUSE &#9670; EST. NIGERIA &#9670; </textPath>
+    </text>
+  </svg>
+  <div class="stamp-center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a2 2 0 0 0 4 0V3M9 10v11M17 3c-1.5 1-2 2.5-2 4.5S16 11 17 11s2-1 2-3.5S18.5 4 17 3zM17 11v10"/></svg></div>
+</div>
+    <p class="eyebrow"><span class="dot"></span> Surulere &middot; Akoka &middot; Festac &middot; Isolo</p>
+    <h1>We do <em>food</em> right.</h1>
+    <p class="lead">Authentic Nigerian cuisine with a modern twist &mdash; jollof, grills, shawarma and freak shakes, served across four Lagos locations.</p>
+    <div class="hero-ctas">
+      <a href="reserve.html" class="btn btn-primary">Reserve a table</a>
+      <a href="menu.html" class="btn btn-ghost-dark">View the menu</a>
+    </div>
+    <div class="hero-meta">
+      <div><p data-count="4" data-decimals="0">0</p><p>Lagos locations</p></div>
+      <div><p data-count="4.0" data-decimals="1" id="hero-rating">0</p><p>Average rating</p></div>
+      <div><p data-count="834" data-decimals="0" data-suffix="+" id="hero-reviews">0</p><p>Google reviews</p></div>
+      <div><p id="hero-hours">8am&ndash;11pm</p><p>Open daily</p></div>
+    </div>
   </div>
 </section>
 <div class="marquee-wrap"><div class="marquee-track"><span>Asun jollof pasta</span><span>Smokilicious jollof rice</span><span>Incredible burger</span><span>Crazy milkshake</span><span>Solo chops platter</span><span>Chicken &amp; waffles</span><span>Signature shawarma</span><span>Asun jollof pasta</span><span>Smokilicious jollof rice</span><span>Incredible burger</span><span>Crazy milkshake</span><span>Solo chops platter</span><span>Chicken &amp; waffles</span><span>Signature shawarma</span></div></div>
 
-<section>
-  <div class="container grid-2">
-    <div class="fade-in">
-      <p class="eyebrow"><span class="dot"></span> How we started</p>
-      <h2 class="h-section">Our story</h2>
-      <p class="lead" style="margin-top:16px;">Our story began with a love for Nigerian food and a dream to share it with the community. The welcoming atmosphere at our place makes us the perfect spot for any occasion.</p>
-      <p class="lead">At Rubels &amp; Angels, we're passionate about serving authentic Nigerian cuisine with a modern twist &mdash; from smoky jollof to loaded freak shakes &mdash; without losing the warmth of a proper Lagos kitchen.</p>
+<section style="position:relative;overflow:hidden;">
+  <div class="container grid-2" style="position:relative;z-index:1;">
+    <div class="fade-in" style="position:relative;">
+      <span class="ghost-num" style="top:-1.6em;right:auto;left:-0.05em;">01</span>
+      <p class="eyebrow" style="position:relative;"><span class="dot"></span> Our culinary journey</p>
+      <h2 class="h-section">A love for Nigerian food, shared with the community.</h2>
+      <p class="lead drop-cap" style="margin-top:18px;">Our story began with a love for Nigerian food and a dream to share it with the community. The welcoming atmosphere at our place makes us the perfect spot for any occasion &mdash; from a quiet breakfast to a full table of friends.</p>
+      <p class="lead">At Chop House, we're passionate about serving great food with a modern twist, across multiple locations.</p>
+      <a href="about.html" class="btn btn-outline" style="margin-top:8px;">Our story &amp; team</a>
     </div>
+    <div class="card-dark fade-in">
+      <p class="eyebrow" style="color:var(--gold-soft);"><span class="dot" style="background:var(--gold-soft);box-shadow:none;"></span> Today's table</p>
+      <div class="dish" style="border-color:rgba(243,234,217,0.16);"><div class="dish-info"><h3 style="color:#F3EAD9;">Asun jollof pasta</h3><p style="color:#A8997F;">Smoky jollof-spiced pasta, asun pepper sauce</p></div><span class="dish-price" style="color:var(--gold-soft);">&#8358;10,000</span></div>
+      <div class="dish" style="border-color:rgba(243,234,217,0.16);"><div class="dish-info"><h3 style="color:#F3EAD9;">Smokilicious jollof rice</h3><p style="color:#A8997F;">Smoked jollof, grilled chicken, side salad</p></div><span class="dish-price" style="color:var(--gold-soft);">&#8358;4,600</span></div>
+      <div class="dish" style="border:none;"><div class="dish-info"><h3 style="color:#F3EAD9;">Crazy milkshake</h3><p style="color:#A8997F;">Our signature loaded freak shake</p></div><span class="dish-price" style="color:var(--gold-soft);">&#8358;8,500</span></div>
+      <a href="menu.html" class="btn btn-ghost-dark btn-block" style="margin-top:10px;">See the full menu</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats-band">
+  <div class="container grid-4">
+    <div class="fade-in"><p class="stat-num" data-count="4" data-decimals="0">0</p><p class="stat-label">Lagos locations</p></div>
+    <div class="fade-in"><p class="stat-num" data-count="834" data-decimals="0" data-suffix="+" id="band-reviews">0</p><p class="stat-label">Google reviews</p></div>
+    <div class="fade-in"><p class="stat-num" data-count="4.0" data-decimals="1" id="band-rating">0</p><p class="stat-label">Average rating</p></div>
+    <div class="fade-in"><p class="stat-num" style="font-size:clamp(2rem,4vw,2.8rem);">8&ndash;11</p><p class="stat-label" id="band-hours-label">Open daily, 8am&ndash;11pm</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="eyebrow"><span class="dot"></span> Find us</p>
+    <h2 class="h-section" style="margin-bottom:36px;">Four locations across the mainland.</h2>
+    <div class="loc-feature-grid">
+      <a href="locations.html" class="loc-card featured fade-in" style="text-decoration:none;">
+      <div>
+        <div class="loc-card-head">
+          <div class="loc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+          <div><p class="loc-tag">Flagship</p><p class="loc-name loc-name-lg">Surulere</p></div>
+        </div>
+        <div class="loc-row" style="margin-top:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg><span>52 Ogunlana Drive</span></div>
+      </div>
+      <div>
+        <span class="loc-rating-pill" style="background:rgba(200,150,46,0.14);border-color:rgba(200,150,46,0.3);">&#9733; 4.0 &middot; 834 reviews</span>
+        <span class="status-open" style="display:block;margin-top:10px;"><span class="d"></span>Opens 8am daily</span>
+      </div>
+    </a>
+      <div class="loc-side">
+        <a href="locations.html" class="loc-card fade-in" style="text-decoration:none;">
+      <div class="loc-card-head">
+        <div class="loc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+        <div><p class="loc-tag">Branch</p><p class="loc-name">Akoka</p></div>
+        <span class="loc-rating-pill">&#9733; 4.0</span>
+      </div>
+      <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg><span>11 University Road</span></div>
+      <span class="status-open"><span class="d"></span>Opens 8am &middot; 190 reviews</span>
+    </a><a href="locations.html" class="loc-card fade-in" style="text-decoration:none;">
+      <div class="loc-card-head">
+        <div class="loc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+        <div><p class="loc-tag">Branch</p><p class="loc-name">Festac</p></div>
+        <span class="loc-rating-pill">&#9733; 4.0</span>
+      </div>
+      <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg><span>Plot 24 Festac Access Rd</span></div>
+      <span class="status-open"><span class="d"></span>Opens 8am &middot; 65 reviews</span>
+    </a><a href="locations.html" class="loc-card fade-in" style="text-decoration:none;">
+      <div class="loc-card-head">
+        <div class="loc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+        <div><p class="loc-tag">Branch</p><p class="loc-name">Isolo</p></div>
+        <span class="loc-rating-pill">&#9733; 4.3</span>
+      </div>
+      <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.3A7 7 0 0 1 19 9.7C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg><span>42 Osolo Way</span></div>
+      <span class="status-open"><span class="d"></span>Opens 8am &middot; 9 reviews</span>
+    </a>
+      </div>
+    </div>
+    <a href="locations.html" class="btn btn-outline" style="margin-top:30px;">View all locations &amp; hours</a>
+  </div>
+</section>
+
+<!-- REVIEWS SETUP -->
+<!-- Replace GOOGLE_MAPS_LINK_HERE with the business's Google Maps URL, then add a "See us on Google" link near the rating, and a "Post it on Google too" link inside the success state of the review form below. -->
+<section style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="rating-hero fade-in">
+      <span class="rating-big" id="rating-hero-big">4.0</span>
+      <div>
+        <div class="stars" id="rating-hero-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p style="margin:4px 0 0;font-size:13.5px;color:var(--text-tertiary);" id="rating-hero-sub">Based on 834 Google reviews &middot; Surulere flagship</p>
+      </div>
+    </div>
+    <p class="eyebrow"><span class="dot"></span> What people are saying</p>
+    <h2 class="h-section" style="margin-bottom:30px;">Real reviews from real guests.</h2>
+
+    <div class="rc">
+      <div class="rc-viewport">
+        <div class="rc-track"></div>
+      </div>
+      <div class="rc-controls">
+        <div class="rc-dots"></div>
+        <div class="rc-arrows">
+          <button class="rc-arrow rc-prev" aria-label="Previous reviews">&#8592;</button>
+          <button class="rc-arrow rc-next" aria-label="Next reviews">&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-form-wrap fade-in" id="review-form-wrap">
+      <p class="eyebrow"><span class="dot"></span> Leave a review</p>
+      <h3 style="font-size:22px;margin-bottom:18px;">Tell us how it went.</h3>
+      <form id="review-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="rev-name">Your name *</label>
+            <input type="text" id="rev-name" required placeholder="Your name">
+            <p class="field-error">Please enter your name.</p>
+          </div>
+          <div class="field">
+            <label>Your rating</label>
+            <div class="star-rating">
+              <input type="radio" name="rev-rating" id="rs5" value="5" checked><label for="rs5">&#9733;</label>
+              <input type="radio" name="rev-rating" id="rs4" value="4"><label for="rs4">&#9733;</label>
+              <input type="radio" name="rev-rating" id="rs3" value="3"><label for="rs3">&#9733;</label>
+              <input type="radio" name="rev-rating" id="rs2" value="2"><label for="rs2">&#9733;</label>
+              <input type="radio" name="rev-rating" id="rs1" value="1"><label for="rs1">&#9733;</label>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="rev-text">Your review *</label>
+          <textarea id="rev-text" required placeholder="Tell other guests what you enjoyed (min. 20 characters)"></textarea>
+          <p class="field-error">Please write at least 20 characters.</p>
+        </div>
+        <div class="field">
+          <label for="rev-photo">Add a photo (optional)</label>
+          <input type="file" id="rev-photo" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit review</button>
+        <div class="form-success" id="review-success">
+          <p style="color:var(--text-primary);font-weight:700;margin:0;">Thanks &mdash; your review has been submitted! It'll appear above once approved.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
     <div class="quote-block fade-in">
       <blockquote>&ldquo;Cooking is a language through which all the following properties may be expressed: harmony, creativity, happiness, beauty, poetry, simplicity, magic, humor, provocation and culture.&rdquo;</blockquote>
       <cite>&mdash; Managing Director</cite>
@@ -513,41 +685,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
   </div>
 </section>
 
-<section style="background:var(--bg-secondary);">
-  <div class="container grid-3">
-    <div class="fade-in">
-      <p class="eyebrow"><span class="dot"></span> 01</p>
-      <h3 style="font-size:19px;margin-bottom:10px;">Pick your spot</h3>
-      <p style="font-size:14.5px;">Walk into any of our four branches, or book ahead online.</p>
-    </div>
-    <div class="fade-in">
-      <p class="eyebrow"><span class="dot"></span> 02</p>
-      <h3 style="font-size:19px;margin-bottom:10px;">Order your way</h3>
-      <p style="font-size:14.5px;">Dine in, take away, or get it delivered through Glovo.</p>
-    </div>
-    <div class="fade-in">
-      <p class="eyebrow"><span class="dot"></span> 03</p>
-      <h3 style="font-size:19px;margin-bottom:10px;">Eat well, come back</h3>
-      <p style="font-size:14.5px;">Real Nigerian flavour, made fresh, every single time.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <p class="eyebrow"><span class="dot"></span> Our people</p>
-    <h2 class="h-section" style="margin-bottom:36px;">The team behind the kitchen.</h2>
-    <div class="grid-4" id="team-grid"><p class="empty-note">Loading team&hellip;</p></div>
-  </div>
-</section>
-
 <section style="padding-top:0;">
   <div class="container">
     <div class="card-dark fade-in" style="text-align:center;padding:64px 32px;">
-      <h2 class="h-section" style="color:#F3EAD9;max-width:520px;margin:0 auto 16px;">Come taste it for yourself.</h2>
+      <h2 class="h-section" style="color:#F3EAD9;max-width:560px;margin:0 auto 16px;">Hungry already? Book a table or chat with us now.</h2>
+      <p style="color:#A8997F;max-width:440px;margin:0 auto 30px;">Walk-ins welcome at every branch &mdash; or reserve ahead so your table's ready when you arrive.</p>
       <div class="hero-ctas" style="justify-content:center;">
         <a href="reserve.html" class="btn btn-primary">Reserve a table</a>
-        <a href="locations.html" class="btn btn-ghost-dark">Find a branch</a>
+        <a href="https://wa.me/2349011938616" target="_blank" rel="noopener" class="btn btn-ghost-dark">Chat on WhatsApp</a>
       </div>
     </div>
   </div>
@@ -558,11 +703,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo" style="color:#F3EAD9;">RUBELS<em>&amp;</em>ANGELS</a>
+        <a href="index.html" class="logo" style="color:#F3EAD9;">CHOP HOUSE</a>
         <p>Authentic Nigerian cuisine with a modern twist, served daily across four Lagos locations.</p>
         <div class="footer-social">
-          <a href="https://www.instagram.com/rubelsandangels/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
-          <a href="https://www.facebook.com/rubelsandangels/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.7h2.6l.4-3h-3v-1.9c0-.9.2-1.5 1.5-1.5h1.6V4.2C16.3 4.1 15.2 4 14 4c-2.5 0-4.2 1.5-4.2 4.3v2H7.2v3h2.6V21h3.7z"/></svg></a>
+          <a href="https://www.instagram.com/chophouse/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
+          <a href="https://www.facebook.com/chophouse/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.7h2.6l.4-3h-3v-1.9c0-.9.2-1.5 1.5-1.5h1.6V4.2C16.3 4.1 15.2 4 14 4c-2.5 0-4.2 1.5-4.2 4.3v2H7.2v3h2.6V21h3.7z"/></svg></a>
         </div>
       </div>
       <div>
@@ -589,19 +734,31 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
         <ul>
           <li><a href="tel:+2349011938616">0901 193 8616</a></li>
           <li><a href="https://wa.me/2349011938616" target="_blank" rel="noopener">WhatsApp us</a></li>
-          <li><a href="mailto:info@rubelsandangels.com.ng">info@rubelsandangels.com.ng</a></li>
+          <li><a href="mailto:info@chophouse.com.ng">info@chophouse.com.ng</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-credit">Made by <a href="https://abisolaajayi0.vercel.app" target="_blank">Ajayi Abisola Enoch</a></p>
-      <p class="footer-credit">&copy; Rubels &amp; Angels. All rights reserved.</p>
+      <p class="footer-credit">&copy; Chop House. All rights reserved.</p>
       <a href="admin.html" class="footer-credit" style="opacity:.45;">Admin</a>
     </div>
   </div>
 </footer>
 <a class="wa-float" href="https://wa.me/2349011938616" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c-5.4 0-9.8 4.4-9.8 9.8 0 1.7.5 3.4 1.3 4.8L2 21.8l5.1-1.3a9.8 9.8 0 0 0 4.9 1.3c5.4 0 9.8-4.4 9.8-9.8s-4.4-9.8-9.8-9.8zm0 17.8c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8 8 0 1 1 7 3.8zm4.4-5.9c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 4 3.5.6.2 1 .4 1.3.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg></a>
-
+<script>
+window.RA_REVIEWS = [
+  {name:"Daniel \"Briggz\" Adisa", meta:"Local Guide \u00b7 13 reviews", rating:5, text:"It was easy to find. The service was amazing and the atmosphere was comfortable. The food tasted good and preparation time wasn't too long."},
+  {name:"Alonge Abimbola Esposa", meta:"Local Guide \u00b7 55 reviews", rating:5, text:"We went with the family and had an amazing time. The lady who attended to us was calm and kind, constantly checking in on us. Great value for money."},
+  {name:"Omowunmi Ekun", meta:"Local Guide \u00b7 80 reviews", rating:5, text:"The atmosphere was very captivating \u2014 I loved the music and the art, and the chairs were really comfortable. A lovely place overall."},
+  {name:"Esther Adeola Amusan", meta:"Local Guide \u00b7 69 reviews", rating:4, text:"Visited the newly opened branch on University Road, Unilag \u2014 pretty chilled, attentive staff. The food was affordable and the drinks weren't bad either."},
+  {name:"Babatomiwa Seriki", meta:"Local Guide \u00b7 63 reviews", rating:5, text:"A cozy breakfast spot \u2014 indulged in the English breakfast with pancakes, scrambled eggs, crispy chicken and baked beans. Really enjoyed the whole experience."},
+  {name:"Sanusi Zainab", meta:"Local Guide \u00b7 9 reviews", rating:5, text:"We had the chicken shawarma \u2014 creamy and delicious, with thick chunks of properly seasoned, grilled chicken and veggies. Generous with the chicken too."},
+  {name:"Verity Nkor", meta:"Local Guide \u00b7 29 reviews", rating:5, text:"Amazing place to chill with friends \u2014 calm atmosphere, very tasty food. It was packed when I went so the wait was a little longer than usual, but worth it."},
+  {name:"Uchechukwu Nduka", meta:"Local Guide \u00b7 100 reviews", rating:5, text:"Easy to locate, clearly marked, well staffed and the service was quick. The food looked great and tasted really good \u2014 loved the chicken wrap."},
+  {name:"Kehinde Adeoti", meta:"Local Guide \u00b7 61 reviews", rating:4, text:"Ambience is great. Ordered the asun chicken and the portion was generous \u2014 some guests might not mind that at all."}
+];
+</script>
 <script>
 (function(){
   var root=document.documentElement;
@@ -714,8 +871,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
     setTimeout(function(){
       skippable=true;
       intro.classList.add('skippable');
-    },6000);
-    setTimeout(closeIntro,9000);
+    },3000);
+    setTimeout(closeIntro,5000);
     intro.addEventListener('click',function(){
       if(skippable)closeIntro();
     });
@@ -766,11 +923,16 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
     });
   }
 
-  })();
+  /* Reviews carousel + submission now live in a separate <script type="module">
+     block below — see the end of this file. Firestore needs ES module imports,
+     which don't work inside this older-style script tag. */
+})();
 </script>
 
 <script type="module">
-import { fetchApprovedReviews, submitReview } from './public-shared.js';
+import { db } from './firebase-init.js';
+import { collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { uploadImage } from './cloudinary-upload.js';
 
 (function(){
   var rcRoot=document.querySelector('.rc');
@@ -794,7 +956,9 @@ import { fetchApprovedReviews, submitReview } from './public-shared.js';
     var s='';for(var i=0;i<5;i++){s+= i<n?'\u2605':'\u2606';}return s;
   }
   function cardHTML(r,justPosted){
+    var photo=r.photoUrl?'<img src="'+r.photoUrl+'" alt="" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:12px;">':'';
     return '<div class="rc-card-outer"><div class="review-card'+(justPosted?' just-posted':'')+'">'+
+      photo+
       '<div class="reviewer"><div class="avatar">'+initials(r.name)+'</div><div><p class="reviewer-name">'+r.name+'</p><p class="reviewer-meta">'+(r.meta||'Guest')+'</p></div></div>'+
       '<p class="review-text">'+r.text+'</p>'+
       '<div class="stars" style="font-size:13px;">'+starString(r.rating||5)+'</div>'+
@@ -886,14 +1050,30 @@ import { fetchApprovedReviews, submitReview } from './public-shared.js';
     startAuto();
   });
 
-  // Pull real, approved reviews from Firestore (newest first) and place them
-  // ahead of the seed reviews. This is the same shared collection the
-  // homepage and admin Reviews tab use, so a review submitted here shows up
-  // everywhere else too, once approved.
-  fetchApprovedReviews().then(function(liveReviews){
-    data=liveReviews.concat(baseReviews);
-    build();
-  });
+  // Pull approved reviews from Firestore and put them ahead of the seed
+  // reviews, newest first. Sorted here in JS rather than via Firestore's
+  // orderBy() because status+createdAt would need a composite index set up
+  // in the Firebase console — this works with zero extra setup.
+  async function loadApprovedReviews(){
+    try{
+      var q=query(collection(db,'reviews'), where('status','==','approved'));
+      var snap=await getDocs(q);
+      var liveReviews=snap.docs.map(function(d){
+        var r=d.data();
+        return {name:r.name, meta:'Verified guest', text:r.text, rating:r.rating, photoUrl:r.photoUrl||null, createdAt:r.createdAt};
+      });
+      liveReviews.sort(function(a,b){
+        var at=(a.createdAt&&a.createdAt.toMillis)?a.createdAt.toMillis():0;
+        var bt=(b.createdAt&&b.createdAt.toMillis)?b.createdAt.toMillis():0;
+        return bt-at;
+      });
+      data=liveReviews.concat(baseReviews);
+      build();
+    }catch(e){
+      console.error('Could not load reviews:',e);
+    }
+  }
+  loadApprovedReviews();
 
   var reviewForm=document.getElementById('review-form');
   if(reviewForm){
@@ -903,6 +1083,7 @@ import { fetchApprovedReviews, submitReview } from './public-shared.js';
       var valid=true;
       var nameEl=reviewForm.querySelector('#rev-name');
       var textEl=reviewForm.querySelector('#rev-text');
+      var photoEl=reviewForm.querySelector('#rev-photo');
       var ratingEl=reviewForm.querySelector('input[name="rev-rating"]:checked');
       [nameEl].forEach(function(f){
         var wrap=f.closest('.field');
@@ -911,56 +1092,68 @@ import { fetchApprovedReviews, submitReview } from './public-shared.js';
       var textWrap=textEl.closest('.field');
       if(!textEl.value||textEl.value.length<20){textWrap.classList.add('invalid');valid=false;}else{textWrap.classList.remove('invalid');}
       if(!valid)return;
+
       var rating=ratingEl?parseInt(ratingEl.value):5;
+      var photoFile=(photoEl&&photoEl.files&&photoEl.files[0])?photoEl.files[0]:null;
 
-      if(submitBtn){submitBtn.disabled=true;submitBtn.textContent='Submitting\u2026';}
+      submitBtn.disabled=true;
+      submitBtn.textContent='Submitting...';
 
-      submitReview({name:nameEl.value, text:textEl.value, rating:rating, photoUrl:null}).then(function(){
-        reviewForm.reset();
-        document.getElementById('review-success').classList.add('show');
-      }).catch(function(e){
-        console.error('Could not submit review:',e);
-        alert('Sorry, something went wrong submitting your review. Please try again.');
-      }).finally(function(){
-        if(submitBtn){submitBtn.disabled=false;submitBtn.textContent='Submit review';}
-      });
+      (async function(){
+        try{
+          var photoUrl=photoFile?await uploadImage(photoFile):null;
+          await addDoc(collection(db,'reviews'),{
+            name:nameEl.value,
+            text:textEl.value,
+            rating:rating,
+            photoUrl:photoUrl,
+            status:'pending',
+            createdAt:serverTimestamp()
+          });
+          reviewForm.reset();
+          document.getElementById('review-success').classList.add('show');
+        }catch(e){
+          console.error('Could not submit review:',e);
+          alert('Sorry, something went wrong submitting your review. Please try again.');
+        }finally{
+          submitBtn.disabled=false;
+          submitBtn.textContent='Submit review';
+        }
+      })();
     });
   }
 })();
 </script>
 
 <script type="module">
-import { fetchTeam, fetchSettings, applyGlobalChrome, escapeHTML } from './public-shared.js';
+import { fetchSettings, applyGlobalChrome, starString } from './public-shared.js';
 
-function initialsFromRole(role){
-  const words = String(role||'').trim().split(/\s+/).filter(Boolean);
-  const letters = words.map(function(w){ return w==='&' ? '&' : w[0].toUpperCase(); });
-  return letters.join('').slice(0,3) || '?';
-}
-
-function teamCardHTML(t){
-  const portrait = t.photoUrl
-    ? '<img src="'+t.photoUrl+'" alt="'+escapeHTML(t.name||t.role)+'">'
-    : '<span>'+initialsFromRole(t.role)+'</span>';
-  const subtitle = t.name ? escapeHTML(t.name) : 'Rubels &amp; Angels';
-  return '<div class="people-card fade-in visible">'+
-    '<div class="people-portrait">'+portrait+'</div>'+
-    '<div class="people-info"><h3>'+escapeHTML(t.role)+'</h3><p>'+subtitle+'</p></div>'+
-  '</div>';
-}
-
-async function renderTeam(){
-  const grid = document.getElementById('team-grid');
-  const [team, settings] = await Promise.all([fetchTeam(), fetchSettings()]);
+async function applySettingsToHomepage(){
+  const settings = await fetchSettings();
   applyGlobalChrome(settings);
-  if(!team.length){
-    grid.innerHTML = '<p class="loc-meta">Team details coming soon.</p>';
-    return;
+
+  const rating = settings.rating!=null ? Number(settings.rating) : null;
+  const reviewCount = settings.reviewCount!=null ? Number(settings.reviewCount) : null;
+  const hoursText = settings.hoursText || null;
+
+  if(rating!=null){
+    document.getElementById('hero-rating').setAttribute('data-count', rating);
+    document.getElementById('band-rating').setAttribute('data-count', rating);
+    document.getElementById('rating-hero-big').textContent = rating.toFixed(1);
+    document.getElementById('rating-hero-stars').textContent = starString(rating);
   }
-  grid.innerHTML = team.map(teamCardHTML).join('');
+  if(reviewCount!=null){
+    document.getElementById('hero-reviews').setAttribute('data-count', reviewCount);
+    document.getElementById('band-reviews').setAttribute('data-count', reviewCount);
+    document.getElementById('rating-hero-sub').textContent = 'Based on '+reviewCount.toLocaleString('en-NG')+' Google reviews \u00b7 Surulere flagship';
+  }
+  if(hoursText){
+    document.getElementById('hero-hours').textContent = hoursText;
+    document.getElementById('band-hours-label').textContent = 'Open daily, '+hoursText;
+  }
 }
 
-renderTeam();
+applySettingsToHomepage();
 </script>
 </body>
 </html>

@@ -303,7 +303,7 @@ footer a:hover{color:var(--gold-soft);}
 
 /* ---------- whatsapp float ---------- */
 .wa-float{
-  position:fixed;bottom:22px;right:22px;width:56px;height:56px;border-radius:50%;
+  position:fixed;bottom:100px;right:22px;width:56px;height:56px;border-radius:50%;
   background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;
   z-index:50;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,0.25);
   transition:transform .2s ease;
@@ -523,9 +523,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
     </div>
     <div class="hero-meta">
       <div><p data-count="4" data-decimals="0">0</p><p>Lagos locations</p></div>
-      <div><p data-count="4.0" data-decimals="1">0</p><p>Average rating</p></div>
-      <div><p data-count="834" data-decimals="0" data-suffix="+">0</p><p>Google reviews</p></div>
-      <div><p>8am&ndash;11pm</p><p>Open daily</p></div>
+      <div><p data-count="4.0" data-decimals="1" id="hero-rating">0</p><p>Average rating</p></div>
+      <div><p data-count="834" data-decimals="0" data-suffix="+" id="hero-reviews">0</p><p>Google reviews</p></div>
+      <div><p id="hero-hours">8am&ndash;11pm</p><p>Open daily</p></div>
     </div>
   </div>
 </section>
@@ -554,9 +554,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 <section class="stats-band">
   <div class="container grid-4">
     <div class="fade-in"><p class="stat-num" data-count="4" data-decimals="0">0</p><p class="stat-label">Lagos locations</p></div>
-    <div class="fade-in"><p class="stat-num" data-count="834" data-decimals="0" data-suffix="+">0</p><p class="stat-label">Google reviews</p></div>
-    <div class="fade-in"><p class="stat-num" data-count="4.0" data-decimals="1">0</p><p class="stat-label">Average rating</p></div>
-    <div class="fade-in"><p class="stat-num" style="font-size:clamp(2rem,4vw,2.8rem);">8&ndash;11</p><p class="stat-label">Open daily, 8am&ndash;11pm</p></div>
+    <div class="fade-in"><p class="stat-num" data-count="834" data-decimals="0" data-suffix="+" id="band-reviews">0</p><p class="stat-label">Google reviews</p></div>
+    <div class="fade-in"><p class="stat-num" data-count="4.0" data-decimals="1" id="band-rating">0</p><p class="stat-label">Average rating</p></div>
+    <div class="fade-in"><p class="stat-num" style="font-size:clamp(2rem,4vw,2.8rem);">8&ndash;11</p><p class="stat-label" id="band-hours-label">Open daily, 8am&ndash;11pm</p></div>
   </div>
 </section>
 
@@ -615,10 +615,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
 <section style="background:var(--bg-secondary);">
   <div class="container">
     <div class="rating-hero fade-in">
-      <span class="rating-big">4.0</span>
+      <span class="rating-big" id="rating-hero-big">4.0</span>
       <div>
-        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-        <p style="margin:4px 0 0;font-size:13.5px;color:var(--text-tertiary);">Based on 834 Google reviews &middot; Surulere flagship</p>
+        <div class="stars" id="rating-hero-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p style="margin:4px 0 0;font-size:13.5px;color:var(--text-tertiary);" id="rating-hero-sub">Based on 834 Google reviews &middot; Surulere flagship</p>
       </div>
     </div>
     <p class="eyebrow"><span class="dot"></span> What people are saying</p>
@@ -663,9 +663,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
           <textarea id="rev-text" required placeholder="Tell other guests what you enjoyed (min. 20 characters)"></textarea>
           <p class="field-error">Please write at least 20 characters.</p>
         </div>
+        <div class="field">
+          <label for="rev-photo">Add a photo (optional)</label>
+          <input type="file" id="rev-photo" accept="image/*">
+        </div>
         <button type="submit" class="btn btn-primary">Submit review</button>
         <div class="form-success" id="review-success">
-          <p style="color:var(--text-primary);font-weight:700;margin:0;">Thanks &mdash; your review is live above!</p>
+          <p style="color:var(--text-primary);font-weight:700;margin:0;">Thanks &mdash; your review has been submitted! It'll appear above once approved.</p>
         </div>
       </form>
     </div>
@@ -737,6 +741,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-
     <div class="footer-bottom">
       <p class="footer-credit">Made by <a href="https://abisolaajayi0.vercel.app" target="_blank">Ajayi Abisola Enoch</a></p>
       <p class="footer-credit">&copy; Rubels &amp; Angels. All rights reserved.</p>
+      <a href="admin.html" class="footer-credit" style="opacity:.45;">Admin</a>
     </div>
   </div>
 </footer>
@@ -918,149 +923,237 @@ window.RA_REVIEWS = [
     });
   }
 
-  /* ---------------- reviews carousel + submission ---------------- */
+  /* Reviews carousel + submission now live in a separate <script type="module">
+     block below — see the end of this file. Firestore needs ES module imports,
+     which don't work inside this older-style script tag. */
+})();
+</script>
+
+<script type="module">
+import { db } from './firebase-init.js';
+import { collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { uploadImage } from './cloudinary-upload.js';
+
+(function(){
   var rcRoot=document.querySelector('.rc');
-  if(rcRoot){
-    var baseReviews=window.RA_REVIEWS||[];
-    var saved=[];
-    try{saved=JSON.parse(localStorage.getItem('ra-reviews')||'[]');}catch(e){saved=[];}
-    var data=saved.concat(baseReviews);
+  if(!rcRoot) return;
 
-    var viewport=rcRoot.querySelector('.rc-viewport');
-    var track=rcRoot.querySelector('.rc-track');
-    var dotsWrap=rcRoot.querySelector('.rc-dots');
-    var prevBtn=rcRoot.querySelector('.rc-prev');
-    var nextBtn=rcRoot.querySelector('.rc-next');
-    var index=0, perView=2, real=0, timer=null;
+  var baseReviews=window.RA_REVIEWS||[];
+  var data=baseReviews.slice();
 
-    function initials(name){
-      var parts=name.trim().split(/\s+/);
-      return ((parts[0]||'')[0]||'')+((parts[1]||'')[0]||'');
-    }
-    function starString(n){
-      var s='';for(var i=0;i<5;i++){s+= i<n?'\u2605':'\u2606';}return s;
-    }
-    function cardHTML(r,justPosted){
-      return '<div class="rc-card-outer"><div class="review-card'+(justPosted?' just-posted':'')+'">'+
-        '<div class="reviewer"><div class="avatar">'+initials(r.name)+'</div><div><p class="reviewer-name">'+r.name+'</p><p class="reviewer-meta">'+(r.meta||'Guest')+'</p></div></div>'+
-        '<p class="review-text">'+r.text+'</p>'+
-        '<div class="stars" style="font-size:13px;">'+starString(r.rating||5)+'</div>'+
-        '</div></div>';
-    }
-    function getPerView(){
-      return window.innerWidth<=860?1:2;
-    }
-    function build(){
-      real=data.length;
-      perView=getPerView();
-      var html='';
-      var clonesEnd=data.slice(0,2).map(function(r){return cardHTML(r,r.justPosted);}).join('');
-      var clonesStart=data.slice(-2).map(function(r){return cardHTML(r,r.justPosted);}).join('');
-      var mid=data.map(function(r){return cardHTML(r,r.justPosted);}).join('');
-      track.innerHTML=clonesStart+mid+clonesEnd;
-      index=2;
-      track.classList.add('notransition');
-      setPosition();
-      void track.offsetWidth;
-      track.classList.remove('notransition');
-      dotsWrap.innerHTML='';
-      for(var i=0;i<real;i++){
-        var d=document.createElement('button');
-        d.className='rc-dot'+(i===0?' active':'');
-        d.addEventListener('click',function(){});
-        dotsWrap.appendChild(d);
-      }
-      updateDots();
-    }
-    function cardWidth(){
-      var card=track.querySelector('.rc-card-outer');
-      if(!card)return 0;
-      var gap=parseFloat(getComputedStyle(track).gap||22);
-      return card.getBoundingClientRect().width+gap;
-    }
-    function setPosition(){
-      var w=cardWidth();
-      track.style.transform='translateX(-'+(index*w)+'px)';
-    }
-    function updateDots(){
-      var realIndex=((index-2)%real+real)%real;
-      dotsWrap.querySelectorAll('.rc-dot').forEach(function(d,i){
-        d.classList.toggle('active',i===realIndex);
-      });
-    }
-    function go(dir){
-      index+=dir;
-      setPosition();
-      updateDots();
-      if(index>=real+2){
-        setTimeout(function(){
-          track.classList.add('notransition');
-          index=2;
-          setPosition();
-          void track.offsetWidth;
-          track.classList.remove('notransition');
-        },520);
-      }else if(index<2){
-        setTimeout(function(){
-          track.classList.add('notransition');
-          index=real+1;
-          setPosition();
-          void track.offsetWidth;
-          track.classList.remove('notransition');
-        },520);
-      }
-    }
-    function startAuto(){
-      stopAuto();
-      timer=setInterval(function(){go(1);},4000);
-    }
-    function stopAuto(){if(timer)clearInterval(timer);}
+  var viewport=rcRoot.querySelector('.rc-viewport');
+  var track=rcRoot.querySelector('.rc-track');
+  var dotsWrap=rcRoot.querySelector('.rc-dots');
+  var prevBtn=rcRoot.querySelector('.rc-prev');
+  var nextBtn=rcRoot.querySelector('.rc-next');
+  var index=0, perView=2, real=0, timer=null;
 
-    build();
-    startAuto();
-    window.addEventListener('resize',function(){build();});
-    if(nextBtn)nextBtn.addEventListener('click',function(){go(1);stopAuto();startAuto();});
-    if(prevBtn)prevBtn.addEventListener('click',function(){go(-1);stopAuto();startAuto();});
-    viewport.addEventListener('mouseenter',stopAuto);
-    viewport.addEventListener('mouseleave',startAuto);
-
-    var touchStartX=0,touchDeltaX=0;
-    viewport.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;stopAuto();},{passive:true});
-    viewport.addEventListener('touchmove',function(e){touchDeltaX=e.touches[0].clientX-touchStartX;},{passive:true});
-    viewport.addEventListener('touchend',function(){
-      if(touchDeltaX<-40)go(1);
-      else if(touchDeltaX>40)go(-1);
-      touchDeltaX=0;
-      startAuto();
+  function initials(name){
+    var parts=name.trim().split(/\s+/);
+    return ((parts[0]||'')[0]||'')+((parts[1]||'')[0]||'');
+  }
+  function starString(n){
+    var s='';for(var i=0;i<5;i++){s+= i<n?'\u2605':'\u2606';}return s;
+  }
+  function cardHTML(r,justPosted){
+    var photo=r.photoUrl?'<img src="'+r.photoUrl+'" alt="" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:12px;">':'';
+    return '<div class="rc-card-outer"><div class="review-card'+(justPosted?' just-posted':'')+'">'+
+      photo+
+      '<div class="reviewer"><div class="avatar">'+initials(r.name)+'</div><div><p class="reviewer-name">'+r.name+'</p><p class="reviewer-meta">'+(r.meta||'Guest')+'</p></div></div>'+
+      '<p class="review-text">'+r.text+'</p>'+
+      '<div class="stars" style="font-size:13px;">'+starString(r.rating||5)+'</div>'+
+      '</div></div>';
+  }
+  function getPerView(){
+    return window.innerWidth<=860?1:2;
+  }
+  function build(){
+    real=data.length;
+    perView=getPerView();
+    var clonesEnd=data.slice(0,2).map(function(r){return cardHTML(r,r.justPosted);}).join('');
+    var clonesStart=data.slice(-2).map(function(r){return cardHTML(r,r.justPosted);}).join('');
+    var mid=data.map(function(r){return cardHTML(r,r.justPosted);}).join('');
+    track.innerHTML=clonesStart+mid+clonesEnd;
+    index=2;
+    track.classList.add('notransition');
+    setPosition();
+    void track.offsetWidth;
+    track.classList.remove('notransition');
+    dotsWrap.innerHTML='';
+    for(var i=0;i<real;i++){
+      var d=document.createElement('button');
+      d.className='rc-dot'+(i===0?' active':'');
+      d.addEventListener('click',function(){});
+      dotsWrap.appendChild(d);
+    }
+    updateDots();
+  }
+  function cardWidth(){
+    var card=track.querySelector('.rc-card-outer');
+    if(!card)return 0;
+    var gap=parseFloat(getComputedStyle(track).gap||22);
+    return card.getBoundingClientRect().width+gap;
+  }
+  function setPosition(){
+    var w=cardWidth();
+    track.style.transform='translateX(-'+(index*w)+'px)';
+  }
+  function updateDots(){
+    var realIndex=((index-2)%real+real)%real;
+    dotsWrap.querySelectorAll('.rc-dot').forEach(function(d,i){
+      d.classList.toggle('active',i===realIndex);
     });
-
-    var reviewForm=document.getElementById('review-form');
-    if(reviewForm){
-      reviewForm.addEventListener('submit',function(ev){
-        ev.preventDefault();
-        var valid=true;
-        var nameEl=reviewForm.querySelector('#rev-name');
-        var textEl=reviewForm.querySelector('#rev-text');
-        var ratingEl=reviewForm.querySelector('input[name="rev-rating"]:checked');
-        [nameEl].forEach(function(f){
-          var wrap=f.closest('.field');
-          if(!f.value){wrap.classList.add('invalid');valid=false;}else{wrap.classList.remove('invalid');}
-        });
-        var textWrap=textEl.closest('.field');
-        if(!textEl.value||textEl.value.length<20){textWrap.classList.add('invalid');valid=false;}else{textWrap.classList.remove('invalid');}
-        if(!valid)return;
-        var rating=ratingEl?parseInt(ratingEl.value):5;
-        var newReview={name:nameEl.value,meta:'New guest',text:textEl.value,rating:rating,justPosted:true};
-        saved.unshift(newReview);
-        localStorage.setItem('ra-reviews',JSON.stringify(saved));
-        data=saved.concat(baseReviews);
-        build();
-        reviewForm.reset();
-        document.getElementById('review-success').classList.add('show');
-      });
+  }
+  function go(dir){
+    index+=dir;
+    setPosition();
+    updateDots();
+    if(index>=real+2){
+      setTimeout(function(){
+        track.classList.add('notransition');
+        index=2;
+        setPosition();
+        void track.offsetWidth;
+        track.classList.remove('notransition');
+      },520);
+    }else if(index<2){
+      setTimeout(function(){
+        track.classList.add('notransition');
+        index=real+1;
+        setPosition();
+        void track.offsetWidth;
+        track.classList.remove('notransition');
+      },520);
     }
   }
+  function startAuto(){
+    stopAuto();
+    timer=setInterval(function(){go(1);},4000);
+  }
+  function stopAuto(){if(timer)clearInterval(timer);}
+
+  build();
+  startAuto();
+  window.addEventListener('resize',function(){build();});
+  if(nextBtn)nextBtn.addEventListener('click',function(){go(1);stopAuto();startAuto();});
+  if(prevBtn)prevBtn.addEventListener('click',function(){go(-1);stopAuto();startAuto();});
+  viewport.addEventListener('mouseenter',stopAuto);
+  viewport.addEventListener('mouseleave',startAuto);
+
+  var touchStartX=0,touchDeltaX=0;
+  viewport.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;stopAuto();},{passive:true});
+  viewport.addEventListener('touchmove',function(e){touchDeltaX=e.touches[0].clientX-touchStartX;},{passive:true});
+  viewport.addEventListener('touchend',function(){
+    if(touchDeltaX<-40)go(1);
+    else if(touchDeltaX>40)go(-1);
+    touchDeltaX=0;
+    startAuto();
+  });
+
+  // Pull approved reviews from Firestore and put them ahead of the seed
+  // reviews, newest first. Sorted here in JS rather than via Firestore's
+  // orderBy() because status+createdAt would need a composite index set up
+  // in the Firebase console — this works with zero extra setup.
+  async function loadApprovedReviews(){
+    try{
+      var q=query(collection(db,'reviews'), where('status','==','approved'));
+      var snap=await getDocs(q);
+      var liveReviews=snap.docs.map(function(d){
+        var r=d.data();
+        return {name:r.name, meta:'Verified guest', text:r.text, rating:r.rating, photoUrl:r.photoUrl||null, createdAt:r.createdAt};
+      });
+      liveReviews.sort(function(a,b){
+        var at=(a.createdAt&&a.createdAt.toMillis)?a.createdAt.toMillis():0;
+        var bt=(b.createdAt&&b.createdAt.toMillis)?b.createdAt.toMillis():0;
+        return bt-at;
+      });
+      data=liveReviews.concat(baseReviews);
+      build();
+    }catch(e){
+      console.error('Could not load reviews:',e);
+    }
+  }
+  loadApprovedReviews();
+
+  var reviewForm=document.getElementById('review-form');
+  if(reviewForm){
+    var submitBtn=reviewForm.querySelector('button[type="submit"]');
+    reviewForm.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var valid=true;
+      var nameEl=reviewForm.querySelector('#rev-name');
+      var textEl=reviewForm.querySelector('#rev-text');
+      var photoEl=reviewForm.querySelector('#rev-photo');
+      var ratingEl=reviewForm.querySelector('input[name="rev-rating"]:checked');
+      [nameEl].forEach(function(f){
+        var wrap=f.closest('.field');
+        if(!f.value){wrap.classList.add('invalid');valid=false;}else{wrap.classList.remove('invalid');}
+      });
+      var textWrap=textEl.closest('.field');
+      if(!textEl.value||textEl.value.length<20){textWrap.classList.add('invalid');valid=false;}else{textWrap.classList.remove('invalid');}
+      if(!valid)return;
+
+      var rating=ratingEl?parseInt(ratingEl.value):5;
+      var photoFile=(photoEl&&photoEl.files&&photoEl.files[0])?photoEl.files[0]:null;
+
+      submitBtn.disabled=true;
+      submitBtn.textContent='Submitting...';
+
+      (async function(){
+        try{
+          var photoUrl=photoFile?await uploadImage(photoFile):null;
+          await addDoc(collection(db,'reviews'),{
+            name:nameEl.value,
+            text:textEl.value,
+            rating:rating,
+            photoUrl:photoUrl,
+            status:'pending',
+            createdAt:serverTimestamp()
+          });
+          reviewForm.reset();
+          document.getElementById('review-success').classList.add('show');
+        }catch(e){
+          console.error('Could not submit review:',e);
+          alert('Sorry, something went wrong submitting your review. Please try again.');
+        }finally{
+          submitBtn.disabled=false;
+          submitBtn.textContent='Submit review';
+        }
+      })();
+    });
+  }
 })();
+</script>
+
+<script type="module">
+import { fetchSettings, applyGlobalChrome, starString } from './public-shared.js';
+
+async function applySettingsToHomepage(){
+  const settings = await fetchSettings();
+  applyGlobalChrome(settings);
+
+  const rating = settings.rating!=null ? Number(settings.rating) : null;
+  const reviewCount = settings.reviewCount!=null ? Number(settings.reviewCount) : null;
+  const hoursText = settings.hoursText || null;
+
+  if(rating!=null){
+    document.getElementById('hero-rating').setAttribute('data-count', rating);
+    document.getElementById('band-rating').setAttribute('data-count', rating);
+    document.getElementById('rating-hero-big').textContent = rating.toFixed(1);
+    document.getElementById('rating-hero-stars').textContent = starString(rating);
+  }
+  if(reviewCount!=null){
+    document.getElementById('hero-reviews').setAttribute('data-count', reviewCount);
+    document.getElementById('band-reviews').setAttribute('data-count', reviewCount);
+    document.getElementById('rating-hero-sub').textContent = 'Based on '+reviewCount.toLocaleString('en-NG')+' Google reviews \u00b7 Surulere flagship';
+  }
+  if(hoursText){
+    document.getElementById('hero-hours').textContent = hoursText;
+    document.getElementById('band-hours-label').textContent = 'Open daily, '+hoursText;
+  }
+}
+
+applySettingsToHomepage();
 </script>
 </body>
 </html>
